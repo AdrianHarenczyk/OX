@@ -1,14 +1,16 @@
+package xogame.app;
+
 import java.util.Scanner;
 
-class Setup {
+public class Setup {
     private Player player;
     private Board board;
     private GameState currentState;
     private UserInput userInput;
 
-    void initializeAGame() {
+    public void initializeAGame() {
         player = new Player("user", Player.Symbol.X);
-        currentState = new InitialState();
+        currentState = new InitialState(player);
         userInput = new UserInput(new Scanner(System.in)::nextLine);
         applicationLoop();
     }

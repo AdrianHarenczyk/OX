@@ -1,4 +1,6 @@
-class Player {
+package xogame.app;
+
+public class Player {
     private String name;
     private Symbol symbol;
 
@@ -7,7 +9,7 @@ class Player {
         this.symbol = symbol;
     }
 
-    enum Symbol {
+    public enum Symbol {
         X,
         O;
     }
