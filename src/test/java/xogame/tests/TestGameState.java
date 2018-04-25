@@ -1,20 +1,24 @@
 package xogame.tests;
 import org.testng.annotations.Test;
-import xogame.app.*;
-import static org.testng.Assert.assertEquals;
+import xogame.app.CurrentState;
+import xogame.app.GameState;
+import xogame.app.InitialState;
+import xogame.app.Player;
+
+import static org.testng.Assert.assertNotEquals;
 
 /**
  * this test class is about testing xogame.app.GameState flow.
  */
-class TestGameState {
+public class TestGameState {
 
     @Test
-    public void initialStateChangesAfterUserInput() {
+    public static void initialStateChangesAfterUserInput() {
         // Given
         GameState gameState = new InitialState(new Player("user",Player.Symbol.X));
         // When
         gameState.nextState("Text");
         // Then
-        assertEquals(gameState.getClass(),InitialState.class);
+        assertNotEquals(gameState.getClass(),CurrentState.class);
     }
 }
