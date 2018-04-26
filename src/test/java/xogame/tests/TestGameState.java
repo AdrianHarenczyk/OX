@@ -2,6 +2,7 @@ package xogame.tests;
 import org.testng.annotations.Test;
 import xogame.app.*;
 
+import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotEquals;
 
 /**
@@ -14,9 +15,9 @@ public class TestGameState {
         // Given
         GameState gameState = new InitialState(new Player("user", Symbol.X));
         // When
-        gameState.nextState("Text");
+        gameState = gameState.nextState("Text");
         // Then
-        assertNotEquals(gameState.getClass(),GameInProgress.class);
+        assertEquals(gameState.getClass(),GameInProgress.class);
     }
 
 
