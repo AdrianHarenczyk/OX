@@ -13,7 +13,7 @@ public class Player {
     }
 
     public static Player playerCreator(Supplier<String> input, Consumer<String> output) {
-        output.accept("Please provide first player name.");
+        output.accept("Please provide player name.");
         String playerName = input.get();
         output.accept("Now please choose symbol for " + playerName);
         Symbol chosenSymbol = Symbol.valueOf(input.get());
