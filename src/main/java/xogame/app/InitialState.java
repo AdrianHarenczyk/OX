@@ -21,6 +21,13 @@ public class InitialState implements GameState {
         output.accept(playerList.get(0).toString());
     }
     public GameState nextState(String input) {
+        // todo something with input
+
         return new GameInProgress(playerList, output);
+    }
+
+    @Override
+    public Player showPlayer() {
+        return playerList.get(1);
     }
 }

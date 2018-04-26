@@ -21,7 +21,12 @@ public class GameInProgress implements GameState {
 
     @Override
     public GameState nextState(String input) {
-        
+
         return this;
+    }
+
+    @Override
+    public Player showPlayer() {
+        return playerList.get(0);
     }
 }
