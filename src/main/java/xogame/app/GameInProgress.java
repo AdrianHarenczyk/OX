@@ -1,19 +1,27 @@
 package xogame.app;
 
+import java.util.List;
+import java.util.function.Consumer;
+
 public class GameInProgress implements GameState {
 
-    private Player player;
-    public GameInProgress(Player player) {
-        this.player = player;
+    private final List<Player> playerList;
+    private final Consumer<String> output;
+
+    public GameInProgress(List<Player> player, Consumer<String> output) {
+        this.playerList = player;
+        this.output = output;
     }
+
 
     @Override
     public void showState() {
-        System.out.println(player);
+        output.accept(playerList.get(0).toString());
     }
 
     @Override
     public GameState nextState(String input) {
+        
         return this;
     }
 }

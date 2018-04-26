@@ -1,17 +1,27 @@
 package xogame.app;
-
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 public class Setup {
-    private Player player;
+    private List<Player> playerList;
     private Board board;
     private GameState currentState;
-    private UserInput userInput;
+    private Supplier<String> input;
+    private Consumer<String> output;
+
+    public Setup(Supplier<String> input, Consumer<String> output) {
+        this.input = input;
+        this.output = output;
+        playerList = new ArrayList<>();
+    }
 
     public void initializeAGame() {
-        player = new Player("user", Symbol.X);
-        currentState = new InitialState(player);
-        userInput = new UserInput(new Scanner(System.in)::nextLine);
+        playerList.add(Player.playerCreator(input,output));
+        playerList.add(Player.playerCreator(input,output));
+
+        currentState = new InitialState(playerList,output);
         applicationLoop();
     }
 
@@ -23,7 +33,7 @@ public class Setup {
 
     private void startTurn() {
         this.currentState.showState();
-        this.currentState = currentState.nextState(userInput.getData());
+        this.currentState = currentState.nextState(input.get());
     }
 
 }
