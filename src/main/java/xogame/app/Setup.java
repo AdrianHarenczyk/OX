@@ -9,7 +9,7 @@ public class Setup {
     private UserInput userInput;
 
     public void initializeAGame() {
-        player = new Player("user", Player.Symbol.X);
+        player = new Player("user", Symbol.X);
         currentState = new InitialState(player);
         userInput = new UserInput(new Scanner(System.in)::nextLine);
         applicationLoop();

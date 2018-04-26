@@ -14,6 +14,6 @@ public class InitialState implements GameState {
         System.out.println(player);
     }
     public GameState nextState(String input) {
-        return new CurrentState(player);
+        return new GameInProgress(player);
     }
 }

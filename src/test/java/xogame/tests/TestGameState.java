@@ -1,9 +1,6 @@
 package xogame.tests;
 import org.testng.annotations.Test;
-import xogame.app.CurrentState;
-import xogame.app.GameState;
-import xogame.app.InitialState;
-import xogame.app.Player;
+import xogame.app.*;
 
 import static org.testng.Assert.assertNotEquals;
 
@@ -15,11 +12,11 @@ public class TestGameState {
     @Test
     public static void initialStateChangesAfterUserInput() {
         // Given
-        GameState gameState = new InitialState(new Player("user",Player.Symbol.X));
+        GameState gameState = new InitialState(new Player("user", Symbol.X));
         // When
         gameState.nextState("Text");
         // Then
-        assertNotEquals(gameState.getClass(),CurrentState.class);
+        assertNotEquals(gameState.getClass(),GameInProgress.class);
     }
 
 

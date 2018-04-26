@@ -1,9 +1,9 @@
 package xogame.app;
 
-public class CurrentState implements GameState {
+public class GameInProgress implements GameState {
 
     private Player player;
-    public CurrentState(Player player) {
+    public GameInProgress(Player player) {
         this.player = player;
     }
 

@@ -9,11 +9,6 @@ public class Player {
         this.symbol = symbol;
     }
 
-    public enum Symbol {
-        X,
-        O;
-    }
-
     @Override
     public String toString() {
         return name + " with symbol " + symbol;
