@@ -21,4 +21,6 @@ public class TestGameState {
         // Then
         assertNotEquals(gameState.getClass(),CurrentState.class);
     }
+
+
 }
