@@ -1,22 +1,21 @@
 package xogame.app;
 
-import java.util.List;
 import java.util.function.Consumer;
 
 public class GameInProgress implements GameState {
 
-    private final List<Player> playerList;
+    private final RoundBuffer playerBuffer;
     private final Consumer<String> output;
 
-    public GameInProgress(List<Player> player, Consumer<String> output) {
-        this.playerList = player;
+    public GameInProgress(RoundBuffer playerBuffer, Consumer<String> output) {
+        this.playerBuffer = playerBuffer;
         this.output = output;
     }
 
 
     @Override
     public void showState() {
-        output.accept(playerList.get(0).toString());
+        output.accept(playerBuffer.takePlayer().toString());
     }
 
     @Override
@@ -27,6 +26,6 @@ public class GameInProgress implements GameState {
 
     @Override
     public Player showPlayer() {
-        return playerList.get(0);
+        return playerBuffer.takePlayer();
     }
 }

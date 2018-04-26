@@ -10,24 +10,26 @@ import java.util.function.Consumer;
  */
 public class InitialState implements GameState {
 
-    private List<Player> playerList;
     private final Consumer<String> output;
+    private RoundBuffer playerBuffer;
 
     public InitialState(List<Player> playerList, Consumer<String> output) {
-        this.playerList = playerList;
         this.output = output;
+        this.playerBuffer = new RoundBuffer();
+        this.playerBuffer.addPlayer(playerList.get(0));
+        this.playerBuffer.addPlayer(playerList.get(1));
     }
     public void showState() {
-        output.accept(playerList.get(0).toString());
+        output.accept(playerBuffer.takePlayer().toString());
     }
     public GameState nextState(String input) {
         // todo something with input
 
-        return new GameInProgress(playerList, output);
+        return new GameInProgress(playerBuffer, output);
     }
 
     @Override
     public Player showPlayer() {
-        return playerList.get(1);
+        return playerBuffer.takePlayer();
     }
 }
