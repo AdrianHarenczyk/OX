@@ -1,11 +1,8 @@
 package xogame.app;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class Setup {
-    private List<Player> playerList;
     private Board board;
     private GameState currentState;
     private Supplier<String> input;
@@ -14,14 +11,23 @@ public class Setup {
     public Setup(Supplier<String> input, Consumer<String> output) {
         this.input = input;
         this.output = output;
-        playerList = new ArrayList<>();
     }
 
     public void initializeAGame() {
-        playerList.add(Player.playerCreator(input,output));
-        playerList.add(Player.playerCreator(input,output));
+        Player firstPlayer = null;
+        try {
+            firstPlayer = Player.playerCreator(input,output);
+        } catch (IllegalArgumentException e) {
+            output.accept(e.getMessage()+'\n');
+            initializeAGame();
+        }
+        Player secondPlayer = Player.playerCreator(input,output,firstPlayer);
 
-        currentState = new InitialState(playerList,output);
+        RoundBuffer playerBuffer = new RoundBuffer();
+        playerBuffer.addPlayer(firstPlayer);
+        playerBuffer.addPlayer(secondPlayer);
+
+        currentState = new InitialState(playerBuffer,output);
         applicationLoop();
     }
 
