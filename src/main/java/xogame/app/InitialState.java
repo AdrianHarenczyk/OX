@@ -1,6 +1,5 @@
 package xogame.app;
 
-import java.util.List;
 import java.util.function.Consumer;
 
 /**
@@ -13,11 +12,9 @@ public class InitialState implements GameState {
     private final Consumer<String> output;
     private RoundBuffer playerBuffer;
 
-    public InitialState(List<Player> playerList, Consumer<String> output) {
+    public InitialState(RoundBuffer playerBuffer, Consumer<String> output) {
         this.output = output;
-        this.playerBuffer = new RoundBuffer();
-        this.playerBuffer.addPlayer(playerList.get(0));
-        this.playerBuffer.addPlayer(playerList.get(1));
+        this.playerBuffer = playerBuffer;
     }
     public void showState() {
         output.accept(playerBuffer.takePlayer().toString());

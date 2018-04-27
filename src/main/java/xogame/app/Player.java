@@ -12,13 +12,32 @@ public class Player {
         this.symbol = symbol;
     }
 
-    public static Player playerCreator(Supplier<String> input, Consumer<String> output) {
-        output.accept("Please provide player name.");
-        String playerName = input.get();
-        output.accept("Now please choose symbol for " + playerName);
-        Symbol chosenSymbol = Symbol.valueOf(input.get());
-        return new Player(playerName, chosenSymbol);
+    public static Player playerCreator(Supplier<String> input, Consumer<String> output) throws IllegalArgumentException{
+        String name = getNameFromInput(input,output);
+        Symbol symbol = getSymbolFromInput(input,output);
+        return new Player(name,symbol);
     }
+    public static Player playerCreator(Supplier<String> input, Consumer<String> output, Player player) {
+        String name = getNameFromInput(input,output);
+        Symbol symbol = returnOtherSymbol(player);
+        return new Player(name,symbol);
+    }
+
+
+    private static String getNameFromInput(Supplier<String> input, Consumer<String> output) {
+        output.accept("Please provide player name.");
+        return input.get();
+    }
+
+    private static Symbol getSymbolFromInput(Supplier<String> input, Consumer<String> output) throws IllegalArgumentException{
+        output.accept("Now please choose symbol.");
+        return SymbolValidator.validateSymbol(input);
+    }
+
+    private static Symbol returnOtherSymbol(Player firstPlayer) {
+        return firstPlayer.symbol.otherSymbol();
+    }
+
 
     @Override
     public String toString() {
