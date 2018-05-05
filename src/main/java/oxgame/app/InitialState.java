@@ -1,4 +1,4 @@
-package xogame.app;
+package oxgame.app;
 
 import java.util.function.Consumer;
 

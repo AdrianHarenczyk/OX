@@ -1,4 +1,4 @@
-package xogame.app;
+package oxgame.app;
 
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -6,13 +6,14 @@ import java.util.function.Supplier;
 public class Player {
     private String name;
     private Symbol symbol;
+    private static int playerCounter = 1;
 
     public Player(String name, Symbol symbol) {
         this.name = name;
         this.symbol = symbol;
     }
 
-    public static Player playerCreator(Supplier<String> input, Consumer<String> output) throws IllegalArgumentException{
+    public static Player playerCreator(Supplier<String> input, Consumer<String> output) {
         String name = getNameFromInput(input,output);
         Symbol symbol = getSymbolFromInput(input,output);
         return new Player(name,symbol);
@@ -25,13 +26,23 @@ public class Player {
 
 
     private static String getNameFromInput(Supplier<String> input, Consumer<String> output) {
-        output.accept("Please provide player name.");
+        output.accept("Please provide" + playerCounter + "player name.");
+        playerCounter++;
         return input.get();
     }
 
-    private static Symbol getSymbolFromInput(Supplier<String> input, Consumer<String> output) throws IllegalArgumentException{
+    private static Symbol getSymbolFromInput(Supplier<String> input, Consumer<String> output) {
         output.accept("Now please choose symbol.");
-        return SymbolValidator.validateSymbol(input);
+        while (true) {
+            validateSymbol: {
+                try {
+                    return SymbolValidator.validateSymbol(input);
+                } catch (IllegalArgumentException e) {
+                    output.accept(e.getMessage());
+                    break validateSymbol;
+                }
+            }
+        }
     }
 
     private static Symbol returnOtherSymbol(Player firstPlayer) {

@@ -1,8 +1,8 @@
-package xogame.tests;
+package oxgame.tests;
 
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-import xogame.app.*;
+import oxgame.app.*;
 
 import java.util.function.Consumer;
 
@@ -10,7 +10,7 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotEquals;
 
 /**
- * this test class is about testing xogame.app.GameState flow.
+ * this test class is about testing GameState flow.
  */
 public class TestGameState {
     private static GameState gameState;

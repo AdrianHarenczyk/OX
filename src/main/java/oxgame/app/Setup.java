@@ -1,4 +1,4 @@
-package xogame.app;
+package oxgame.app;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -14,13 +14,7 @@ public class Setup {
     }
 
     public void initializeAGame() {
-        Player firstPlayer = null;
-        try {
-            firstPlayer = Player.playerCreator(input,output);
-        } catch (IllegalArgumentException e) {
-            output.accept(e.getMessage()+'\n');
-            initializeAGame();
-        }
+        Player firstPlayer = Player.playerCreator(input,output);
         Player secondPlayer = Player.playerCreator(input,output,firstPlayer);
 
         RoundBuffer playerBuffer = new RoundBuffer();

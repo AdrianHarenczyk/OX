@@ -1,11 +1,11 @@
-package xogame.tests;
+package oxgame.tests;
 
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-import xogame.app.Player;
-import xogame.app.RoundBuffer;
-import xogame.app.Symbol;
+import oxgame.app.Player;
+import oxgame.app.RoundBuffer;
+import oxgame.app.Symbol;
 
 public class TestRoundBuffer {
     private static RoundBuffer buffer;

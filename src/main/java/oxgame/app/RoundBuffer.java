@@ -1,4 +1,4 @@
-package xogame.app;
+package oxgame.app;
 
 public class RoundBuffer {
     private Player[] players;

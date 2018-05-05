@@ -1,9 +1,13 @@
-package xogame.tests;
+package oxgame.tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import xogame.app.Symbol;
-import xogame.app.SymbolValidator;
+import oxgame.app.Player;
+import oxgame.app.Symbol;
+import oxgame.app.SymbolValidator;
+
+import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 public class TestPlayerCreation {
 
@@ -19,4 +23,6 @@ public class TestPlayerCreation {
         // Then
         Assert.assertEquals(symbol,Symbol.X);
     }
+
+
 }

@@ -1,4 +1,4 @@
-package xogame.app;
+package oxgame.app;
 
 public interface GameState {
     /**
