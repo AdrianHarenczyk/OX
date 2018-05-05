@@ -2,6 +2,7 @@ package oxgame.app;
 
 import java.util.HashMap;
 import java.util.Map;
+import static oxgame.app.ConsoleColor.*;
 
 public class Board {
     private Map<Coordinates,Symbol> coordinatesSymbolMap;
@@ -35,13 +36,21 @@ public class Board {
                 columnCounter = 0;
             }
             Symbol receivedSymbol = coordinatesSymbolMap.get(new Coordinates(i));
-            if (receivedSymbol == null) {
-                System.out.printf("[%1$-"+String.valueOf(size).length()+"s]",i);
-            } else {
-                System.out.printf("[%1$-"+String.valueOf(size).length()+"s]",receivedSymbol);
-            }
+            changePrintMode(receivedSymbol,i);
             columnCounter++;
         }
+    }
 
+    private void changePrintMode(Symbol receivedSymbol, int iterator) {
+        String consoleColor;
+        if (receivedSymbol == null) {
+            System.out.printf(RED+"["+RESET+"%1$-"+String.valueOf(size).length()+"s"+RED+"]"+RESET,iterator);
+            return;
+        } else if (receivedSymbol.equals(Symbol.X)) {
+            consoleColor = BLUE.toString();
+        } else {
+            consoleColor = PURPLE.toString();
+        }
+        System.out.printf(RED+"["+consoleColor+"%1$-"+String.valueOf(size).length()+"s"+RED+"]"+RESET,receivedSymbol);
     }
 }
