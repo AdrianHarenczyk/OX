@@ -26,6 +26,9 @@ public class GameInProgress implements GameState {
 
     @Override
     public GameState nextState(String input) throws IllegalArgumentException{
+        if (ResignCheck.check(input)) {
+            return new EndState(this);
+        }
         int validCoordinates = CoordinatesValidator.validate(input,board.size());
         board.placeSymbol(Coordinates.apply(validCoordinates),player.showSymbol());
         playerBuffer.swapPlayers();
@@ -35,5 +38,9 @@ public class GameInProgress implements GameState {
     @Override
     public Player showPlayer() {
         return playerBuffer.takePlayer();
+    }
+
+    public Board showBoard() {
+        return board;
     }
 }

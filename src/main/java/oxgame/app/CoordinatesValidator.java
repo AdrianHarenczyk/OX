@@ -3,14 +3,14 @@ package oxgame.app;
 public class CoordinatesValidator {
 
     public static int validate(String value, int maxBoardNumber) throws IllegalArgumentException{
-        int numericValue = 0;
+        int numericValue;
         if (value.trim().equals("") || !isNumber(value)) {
-            throw new IllegalArgumentException("Wrong coordinate. Pick the number from the board.");
+            throw new IllegalArgumentException("Wrong coordinate. Pick the number from the board.\n");
         } else {
             numericValue = Integer.parseInt(value);
         }
         if (numericValue > maxBoardNumber || numericValue < 1) {
-            throw new IllegalArgumentException("The number which you piked exceeds the board.");
+            throw new IllegalArgumentException("The number which you picked exceeds the board.\nPick a number from the board.\n");
         } else {
             return numericValue;
         }
@@ -18,7 +18,7 @@ public class CoordinatesValidator {
 
     private static boolean isNumber(String possibleNumber) {
         try {
-            double d = Double.parseDouble(possibleNumber);
+            int i = Integer.parseInt(possibleNumber);
         }
         catch(NumberFormatException e) {
             return false;

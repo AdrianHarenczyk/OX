@@ -15,7 +15,7 @@ public class Board {
     public static Board newBoard(int width, int height) {
         Board board = new Board(width,height);
         for (int i = 1; i <= board.size; i++) {
-            board.coordinatesSymbolMap.put(Coordinates.apply(i),null);
+            board.coordinatesSymbolMap.put(Coordinates.apply(i), null);
         }
         return board;
     }
@@ -58,5 +58,8 @@ public class Board {
     }
     public int size() {
         return size;
+    }
+    public Symbol getSymbol(Coordinates coordinates) {
+        return coordinatesSymbolMap.get(coordinates);
     }
 }

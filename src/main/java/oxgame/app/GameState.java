@@ -15,4 +15,6 @@ public interface GameState {
     GameState nextState(String input);
 
     Player showPlayer();
+
+    Board showBoard();
 }
