@@ -4,8 +4,16 @@ import java.util.Objects;
 
 public class Coordinates {
     private int value;
-    public Coordinates(int value) {
+    private Coordinates(int value) {
         this.value = value;
+    }
+
+    static Coordinates apply(String value) {
+
+        return new Coordinates(Integer.parseInt(value));
+    }
+    static Coordinates apply(int value) {
+        return new Coordinates(value);
     }
 
     @Override

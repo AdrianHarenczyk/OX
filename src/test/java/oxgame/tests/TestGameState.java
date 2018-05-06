@@ -22,7 +22,7 @@ public class TestGameState {
         playerList.addPlayer(new Player("Roman",Symbol.X));
 
         Consumer<String> output = System.out::println;
-        gameState = new InitialState(playerList,output);
+        gameState = new GameInProgress(playerList,output,Board.newBoard(3,3));
     }
     @Test
     public static void initialStateChangesAfterUserInput() {

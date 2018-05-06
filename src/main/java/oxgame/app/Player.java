@@ -24,6 +24,10 @@ public class Player {
         return new Player(name,symbol);
     }
 
+    public Symbol showSymbol() {
+        return this.symbol;
+    }
+
 
     private static String getNameFromInput(Supplier<String> input, Consumer<String> output) {
         output.accept("Please provide" + playerCounter + "player name.");

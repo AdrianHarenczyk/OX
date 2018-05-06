@@ -9,7 +9,7 @@ public enum ConsoleColor {
     BLUE("\u001B[34m"),
     PURPLE("\u001B[35m"),
     CYAN("\u001B[36m"),
-    WHITE("\u001b[37m");
+    GRAY("\u001b[37m");
 
     private String value;
     ConsoleColor(String value) {
