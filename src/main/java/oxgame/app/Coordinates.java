@@ -2,7 +2,7 @@ package oxgame.app;
 
 import java.util.Objects;
 
-public class Coordinates {
+public class Coordinates implements Comparable<Coordinates>{
     private int value;
     private Coordinates(int value) {
         this.value = value;
@@ -23,5 +23,12 @@ public class Coordinates {
     @Override
     public int hashCode() {
         return Objects.hash(value);
+    }
+
+    @Override
+    public int compareTo(Coordinates o) {
+        Integer comparableValue = this.value;
+        Integer valueToCompareTo = o.value;
+        return comparableValue.compareTo(valueToCompareTo);
     }
 }

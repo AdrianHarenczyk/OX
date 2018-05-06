@@ -27,9 +27,6 @@ public class Setup {
 
     private void applicationLoop() {
         while (true) {
-            if(VictoryChecker.check(currentState.showBoard())) {
-                return;
-            }
             startTurn();
         }
     }

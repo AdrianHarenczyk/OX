@@ -19,4 +19,9 @@ public class EndState implements GameState {
     public Player showPlayer() {
         return null;
     }
+
+    @Override
+    public Board showBoard() {
+        return null;
+    }
 }

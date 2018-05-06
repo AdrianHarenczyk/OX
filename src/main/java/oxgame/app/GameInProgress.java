@@ -1,7 +1,6 @@
 package oxgame.app;
 
 import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 public class GameInProgress implements GameState {
 
@@ -30,7 +29,7 @@ public class GameInProgress implements GameState {
             return new EndState(this);
         }
         int validCoordinates = CoordinatesValidator.validate(input,board.size());
-        board.placeSymbol(Coordinates.apply(validCoordinates),player.showSymbol());
+        board.placeSymbol(player.showSymbol(),Coordinates.apply(validCoordinates));
         playerBuffer.swapPlayers();
         return this;
     }
@@ -39,7 +38,7 @@ public class GameInProgress implements GameState {
     public Player showPlayer() {
         return playerBuffer.takePlayer();
     }
-
+    @Override
     public Board showBoard() {
         return board;
     }
