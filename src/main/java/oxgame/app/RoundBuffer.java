@@ -17,10 +17,9 @@ public class RoundBuffer {
 
     public Player takePlayer() {
         Player resultPlayer = players[0];
-        swapPlayers();
         return resultPlayer;
     }
-    private void swapPlayers() {
+    public void swapPlayers() {
         Player firstPlayer = players[0];
         Player secondPlayer = players[1];
 

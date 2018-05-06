@@ -1,6 +1,7 @@
 package oxgame.app;
 
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 public class GameInProgress implements GameState {
 
@@ -24,8 +25,9 @@ public class GameInProgress implements GameState {
     }
 
     @Override
-    public GameState nextState(String input) {
+    public GameState nextState(String input) throws IllegalArgumentException{
         board.placeSymbol(Coordinates.apply(input),player.showSymbol());
+        playerBuffer.swapPlayers();
         return this;
     }
 

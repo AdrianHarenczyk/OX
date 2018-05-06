@@ -1,5 +1,7 @@
 package oxgame.app;
 
+import java.util.function.Supplier;
+
 public interface GameState {
     /**
      * Shows the state of current game run. For example prints

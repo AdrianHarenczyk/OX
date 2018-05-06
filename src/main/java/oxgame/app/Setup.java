@@ -33,7 +33,12 @@ public class Setup {
 
     private void startTurn() {
         this.currentState.showState();
-        this.currentState = currentState.nextState(input.get());
+        try {
+            this.currentState = currentState.nextState(input.get());
+        } catch (IllegalArgumentException e) {
+            output.accept(e.getMessage());
+            startTurn();
+        }
     }
 
 }

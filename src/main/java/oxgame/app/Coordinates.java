@@ -8,9 +8,9 @@ public class Coordinates {
         this.value = value;
     }
 
-    static Coordinates apply(String value) {
-
-        return new Coordinates(Integer.parseInt(value));
+    static Coordinates apply(String value) throws IllegalArgumentException{
+        int possibleNumber = CoordinatesValidator.validate(value);
+        return new Coordinates(possibleNumber);
     }
     static Coordinates apply(int value) {
         return new Coordinates(value);
