@@ -31,4 +31,8 @@ public class Coordinates implements Comparable<Coordinates>{
         Integer valueToCompareTo = o.value;
         return comparableValue.compareTo(valueToCompareTo);
     }
+
+    public int getValue() {
+        return value;
+    }
 }

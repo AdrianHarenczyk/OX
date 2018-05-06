@@ -39,7 +39,7 @@ public class GameInProgress implements GameState {
         return playerBuffer.takePlayer();
     }
     @Override
-    public Board showBoard() {
+    public Board getBoard() {
         return board;
     }
 }

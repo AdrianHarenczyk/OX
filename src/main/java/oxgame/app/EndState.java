@@ -21,7 +21,7 @@ public class EndState implements GameState {
     }
 
     @Override
-    public Board showBoard() {
+    public Board getBoard() {
         return null;
     }
 }

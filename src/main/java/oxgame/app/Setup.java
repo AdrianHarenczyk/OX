@@ -33,6 +33,10 @@ public class Setup {
 
     private void startTurn() {
         this.currentState.showState();
+        Symbol possibleVictory = VictoryChecker.check(currentState.getBoard());
+        if (possibleVictory != null) {
+            System.out.println("The winner is: " + possibleVictory);
+        }
         try {
             this.currentState = currentState.nextState(input.get());
         } catch (IllegalArgumentException e) {

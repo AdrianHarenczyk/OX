@@ -14,5 +14,5 @@ public interface GameState {
 
     Player showPlayer();
 
-    Board showBoard();
+    Board getBoard();
 }

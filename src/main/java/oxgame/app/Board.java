@@ -75,4 +75,8 @@ public class Board {
         }
         return set;
     }
+
+    public int getWidth() {
+        return width;
+    }
 }

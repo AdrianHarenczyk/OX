@@ -9,7 +9,7 @@ public class Main {
         Board board = Board.newBoard(3,3);
         board.placeSymbol(Coordinates.apply("1"),Symbol.X);
         board.placeSymbol(Coordinates.apply("6"),Symbol.O);
-        board.showBoard();
+        board.getBoard();
 */
 
     }
