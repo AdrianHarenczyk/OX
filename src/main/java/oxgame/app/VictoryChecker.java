@@ -1,5 +1,6 @@
 package oxgame.app;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.SortedSet;
@@ -7,13 +8,16 @@ import java.util.SortedSet;
 public class VictoryChecker {
 
     public static Symbol check(Board currentBoard) {
-        SortedSet<Coordinates> setOfX = currentBoard.getCoordinates(Symbol.X);
-        SortedSet<Coordinates> setOfO = currentBoard.getCoordinates(Symbol.O);
+        SortedSet<Coordinates> set;
         int width = currentBoard.getWidth();
-        if (setOfX!=null) {
-            return winnerIsX(checkHorizontal(width,setOfX,3));
-        } else if (setOfO!=null) {
-            return winnerIsO(checkHorizontal(width,setOfO,3));
+        for (Method method:VictoryChecker.class.getDeclaredMethods()) {
+            if (method.getName().startsWith("check")) {
+                set = currentBoard.getCoordinates(Symbol.X);
+                method.invoke(null,)
+            }
+        }
+        if (set!=null) {
+
         }
         return null;
     }
@@ -33,12 +37,12 @@ public class VictoryChecker {
         }
     }
 
-    private static boolean checkHorizontal(int width, SortedSet<Coordinates> set, int winCombination) {
+    private static boolean checkHorizontal(SortedSet<Coordinates> set, int winCombination) {
         List<Integer> list = new ArrayList<>();
         set.forEach(coordinate -> list.add(coordinate.getValue()));
         int counter = 1;
         for (int i = 0; i < list.size() -1; i++) {
-            if ((list.get(i) + 1) == list.get(i+1)) {
+            if ((list.get(i) + 1) == list.get(i + 1)) {
                 counter++;
             }
             if (counter >= winCombination) {
