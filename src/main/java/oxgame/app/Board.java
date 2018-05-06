@@ -56,4 +56,7 @@ public class Board {
         }
         System.out.printf(RED+"["+consoleColor+"%1$-"+String.valueOf(size).length()+"s"+RED+"]"+RESET,receivedSymbol);
     }
+    public int size() {
+        return size;
+    }
 }
