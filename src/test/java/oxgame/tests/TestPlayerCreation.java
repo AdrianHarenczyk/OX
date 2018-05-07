@@ -16,12 +16,20 @@ public class TestPlayerCreation {
         SymbolValidator.validateSymbol(() -> "h");
     }
     @Test
-    public static void symbolValidatorReturnsProperSymbol() {
+    public static void symbolValidatorReturnsXWhenPassedSuchString() {
         // Given
         // When
         Symbol symbol = SymbolValidator.validateSymbol(()-> "x");
         // Then
         Assert.assertEquals(symbol,Symbol.X);
+    }
+    @Test
+    public static void symbolValidatorReturnsOEvenWhenPassedZero() {
+        // Given
+        // When
+        Symbol symbol = SymbolValidator.validateSymbol(()-> "0");
+        // Then
+        Assert.assertEquals(symbol,Symbol.O);
     }
 
 

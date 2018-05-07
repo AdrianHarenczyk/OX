@@ -1,7 +1,9 @@
 package oxgame.tests;
 
+import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+import org.testng.internal.ExpectedExceptionsHolder;
 import oxgame.app.*;
 
 import java.util.function.Consumer;
@@ -36,6 +38,22 @@ public class TestGameState {
         // Then
         assertNotEquals(playerBefore,playerAfter);
     }
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public static void whenWrongInputNextStateThrowsIAException() {
+        // Given
+        // When
+        gameState = gameState.nextState("x");
+    }
+    @Test
+    public static void showPlayerAlwaysReturnsSamePlayerWhenNoSwitch() {
+        // Given
+        // When
+        Player firstPlayer = gameState.showPlayer();
+        Player secondPlayer = gameState.showPlayer();
+        // Then
+        Assert.assertEquals(firstPlayer,secondPlayer);
+    }
+
 
 
 }

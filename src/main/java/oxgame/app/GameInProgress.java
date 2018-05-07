@@ -38,6 +38,7 @@ public class GameInProgress implements GameState {
             return new EndState(player);
         }
         if (currentBoardSize == 0) {
+            board.showBoard();
             return new DrawState();
         }
         playerBuffer.swapPlayers();

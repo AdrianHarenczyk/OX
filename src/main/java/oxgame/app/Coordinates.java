@@ -8,7 +8,7 @@ public class Coordinates implements Comparable<Coordinates>{
         this.value = value;
     }
 
-    static Coordinates apply(int value) {
+    public static Coordinates apply(int value) {
         return new Coordinates(value);
     }
 

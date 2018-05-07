@@ -53,10 +53,10 @@ public class Board {
         }
         System.out.printf(RED+"["+consoleColor+"%1$-"+String.valueOf(size).length()+"s"+RED+"]"+RESET,receivedSymbol);
     }
-    int size() {
+    public int size() {
         return size;
     }
-    Symbol getSymbol(Coordinates coordinates) {
+    public Symbol getSymbol(Coordinates coordinates) {
         return coordinatesSymbolMap.get(coordinates);
     }
     int getWidth() {
