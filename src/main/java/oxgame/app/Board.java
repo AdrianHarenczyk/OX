@@ -8,7 +8,6 @@ import static oxgame.app.ConsoleColor.*;
 public class Board {
     private Map<Coordinates,Symbol> coordinatesSymbolMap;
     private int width;
-    private int height;
     private int size;
 
     public static Board newBoard(int width, int height) {
@@ -21,7 +20,6 @@ public class Board {
     private Board(int width, int height) {
         this.coordinatesSymbolMap = new HashMap<>();
         this.width = width;
-        this.height = height;
         this.size = width * height;
     }
 
