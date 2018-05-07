@@ -30,7 +30,7 @@ public class GameInProgress implements GameState {
         if (ResignCheck.check(input)) {
             return new EndState(player);
         }
-        int validCoordinates = CoordinatesValidator.validate(input,board.size());
+        int validCoordinates = CoordinatesValidator.validate(input,board.size(),board);
         board.placeSymbol(Coordinates.apply(validCoordinates),player.showSymbol());
         currentBoardSize--;
         if (VictoryChecker.check(Coordinates.apply(validCoordinates),board,3)){
