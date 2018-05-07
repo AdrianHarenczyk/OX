@@ -20,7 +20,7 @@ public class Setup {
         RoundBuffer playerBuffer = new RoundBuffer();
         playerBuffer.addPlayer(firstPlayer);
         playerBuffer.addPlayer(secondPlayer);
-        board = Board.newBoard(3,3);
+        board = Board.newBoard(5,5);
         currentState = new GameInProgress(playerBuffer,output,board);
         applicationLoop();
     }
@@ -30,7 +30,7 @@ public class Setup {
             this.currentState.showState();
             Symbol possibleVictory = VictoryChecker.check(currentState.getBoard());
             if (possibleVictory != null) {
-                System.out.println("The winner is: " + possibleVictory);
+                output.accept("The winner is: " + possibleVictory);
                 break;
             }
             startTurn();

@@ -30,7 +30,7 @@ public class Player {
 
 
     private static String getNameFromInput(Supplier<String> input, Consumer<String> output) {
-        output.accept("Please provide" + playerCounter + "player name.");
+        output.accept("Please provide " + playerCounter + " player name.");
         playerCounter++;
         return input.get();
     }
