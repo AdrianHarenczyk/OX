@@ -26,10 +26,13 @@ public class GameInProgress implements GameState {
     @Override
     public GameState nextState(String input) throws IllegalArgumentException{
         if (ResignCheck.check(input)) {
-            return new EndState(this);
+            return new EndState(player);
         }
         int validCoordinates = CoordinatesValidator.validate(input,board.size());
-        board.placeSymbol(player.showSymbol(),Coordinates.apply(validCoordinates));
+        board.placeSymbol(Coordinates.apply(validCoordinates),player.showSymbol());
+        if (VictoryChecker.check(Coordinates.apply(validCoordinates),board,3)){
+            return new EndState(player);
+        }
         playerBuffer.swapPlayers();
         return this;
     }

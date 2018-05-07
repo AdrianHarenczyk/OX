@@ -1,8 +1,8 @@
 package oxgame.app;
 
 public class EndState implements GameState {
-    public EndState(GameState gameState) {
-
+    public EndState(Player player) {
+        System.out.println(player + " wins the game!");
     }
 
     @Override

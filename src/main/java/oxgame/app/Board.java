@@ -1,18 +1,21 @@
 package oxgame.app;
-import java.util.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static oxgame.app.ConsoleColor.*;
 
 public class Board {
-    private Map<Symbol,SortedSet<Coordinates>> coordinatesSymbolMap;
+    private Map<Coordinates,Symbol> coordinatesSymbolMap;
     private int width;
     private int height;
     private int size;
-    private static SortedSet<Coordinates> filledSet;
 
     public static Board newBoard(int width, int height) {
         Board board = new Board(width,height);
-        filledSet = createFilledSet(board.size);;
+        for (int i = 1; i <= board.size; i++) {
+            board.coordinatesSymbolMap.put(Coordinates.apply(i), null);
+        }
         return board;
     }
     private Board(int width, int height) {
@@ -22,28 +25,19 @@ public class Board {
         this.size = width * height;
     }
 
-    public void placeSymbol(Symbol symbol, Coordinates coordinates) {
-        SortedSet<Coordinates> listOfCoordinates = new TreeSet<>();
-        SortedSet<Coordinates> applicableList = coordinatesSymbolMap.getOrDefault(symbol,listOfCoordinates);
-        applicableList.add(coordinates);
-        coordinatesSymbolMap.put(symbol,applicableList);
+    void placeSymbol(Coordinates coordinates, Symbol symbol) {
+        coordinatesSymbolMap.put(coordinates,symbol);
     }
 
-    public void showBoard() {
-        SortedSet<Coordinates> coordinatesSet;
+    void showBoard() {
         int columnCounter = 0;
         for (int i = 1; i <= size; i++) {
             if (columnCounter == width) {
                 System.out.println();
                 columnCounter = 0;
             }
-            if ((coordinatesSet = getCoordinates(Symbol.X)) != null && coordinatesSet.contains(Coordinates.apply(i)) ) {
-                changePrintMode(Symbol.X,i);
-            } else if ((coordinatesSet = getCoordinates(Symbol.O)) != null && coordinatesSet.contains(Coordinates.apply(i)) ) {
-                changePrintMode(Symbol.O,i);
-            } else {
-                changePrintMode(null,i);
-            }
+            Symbol receivedSymbol = coordinatesSymbolMap.get(Coordinates.apply(i));
+            changePrintMode(receivedSymbol,i);
             columnCounter++;
         }
         System.out.println();
@@ -61,22 +55,13 @@ public class Board {
         }
         System.out.printf(RED+"["+consoleColor+"%1$-"+String.valueOf(size).length()+"s"+RED+"]"+RESET,receivedSymbol);
     }
-    public int size() {
+    int size() {
         return size;
     }
-    public SortedSet<Coordinates> getCoordinates(Symbol symbol) {
-        return coordinatesSymbolMap.get(symbol);
+    Symbol getSymbol(Coordinates coordinates) {
+        return coordinatesSymbolMap.get(coordinates);
     }
-
-    private static SortedSet<Coordinates> createFilledSet(int boardSize) {
-        SortedSet<Coordinates> set = new TreeSet<>();
-        for (int i = 1; i <= boardSize; i++) {
-            set.add(Coordinates.apply(i));
-        }
-        return set;
-    }
-
-    public int getWidth() {
+    int getWidth() {
         return width;
     }
 }

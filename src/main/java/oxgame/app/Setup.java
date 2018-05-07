@@ -28,11 +28,6 @@ public class Setup {
     private void applicationLoop() {
         while (true) {
             this.currentState.showState();
-            Symbol possibleVictory = VictoryChecker.check(currentState.getBoard());
-            if (possibleVictory != null) {
-                output.accept("The winner is: " + possibleVictory);
-                break;
-            }
             startTurn();
         }
     }
