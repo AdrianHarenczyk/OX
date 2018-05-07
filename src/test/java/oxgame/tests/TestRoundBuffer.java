@@ -18,9 +18,10 @@ public class TestRoundBuffer {
     }
 
     @Test
-    public static void checkIfTakeChangesPlayers() {
+    public static void checkIfSwapChangesPlayers() {
         // When
         Player adam = buffer.takePlayer();
+        buffer.swapPlayers();
         Player supposedToBeNotAdam = buffer.takePlayer();
         // Then
         Assert.assertNotEquals(adam,supposedToBeNotAdam);

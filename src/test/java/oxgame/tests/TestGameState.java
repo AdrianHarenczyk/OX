@@ -23,22 +23,15 @@ public class TestGameState {
 
         Consumer<String> output = System.out::println;
         gameState = new GameInProgress(playerList,output,Board.newBoard(3,3));
-    }
-    @Test
-    public static void initialStateChangesAfterUserInput() {
-        // Given
-        // When
-        gameState = gameState.nextState("Text");
-        // Then
-        assertEquals(gameState.getClass(),GameInProgress.class);
+        gameState.showState();
     }
     @Test
     public static void nextGameStateContainsPlayerWithOtherSymbol() {
         // Given
         // When
-        gameState = gameState.nextState("Something");
+        gameState = gameState.nextState("1");
         Player playerBefore = gameState.showPlayer();
-        gameState = gameState.nextState("Other thing");
+        gameState = gameState.nextState("2");
         Player playerAfter = gameState.showPlayer();
         // Then
         assertNotEquals(playerBefore,playerAfter);
