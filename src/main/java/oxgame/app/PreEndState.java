@@ -28,6 +28,7 @@ public class PreEndState implements GameState {
         scoreBoard.addPoint(playerBuffer.takePlayer(),POINTS_FOR_LOST);
         roundCounter++;
         if (roundCounter != NUMBER_OF_ROUNDS) {
+            scoreBoard.showScoreBoard();
             output.accept(winningPlayer + " wins the round!\n" +
                     "Press enter to start round " + (roundCounter+1));
         }
