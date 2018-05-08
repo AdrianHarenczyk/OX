@@ -9,6 +9,7 @@ public class Board {
     private Map<Coordinates,Symbol> coordinatesSymbolMap;
     private int width;
     private int size;
+    private int height;
 
     public static Board newBoard(int width, int height) {
         Board board = new Board(width,height);
@@ -20,6 +21,7 @@ public class Board {
     private Board(int width, int height) {
         this.coordinatesSymbolMap = new HashMap<>();
         this.width = width;
+        this.height = height;
         this.size = width * height;
     }
 
@@ -68,5 +70,12 @@ public class Board {
     }
     int getWidth() {
         return width;
+    }
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
     }
 }

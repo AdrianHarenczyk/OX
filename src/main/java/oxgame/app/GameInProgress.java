@@ -29,14 +29,14 @@ public class GameInProgress implements GameState {
     public GameState nextState(String input) throws IllegalArgumentException{
         if (ResignCheck.check(input)) {
             playerBuffer.swapPlayers();
-            return new PreEndState(playerBuffer.takePlayer(),playerBuffer);
+            return new PreEndState(playerBuffer.takePlayer(),playerBuffer,output,board);
         }
         int validCoordinates = CoordinatesValidator.validate(input,board.size(),board);
         board.placeSymbol(Coordinates.apply(validCoordinates),player.showSymbol());
         currentBoardSize--;
         if (VictoryChecker.check(Coordinates.apply(validCoordinates),board,3)){
             board.showBoard();
-            return new PreEndState(player,playerBuffer);
+            return new PreEndState(player,playerBuffer,output,board);
         }
         if (currentBoardSize == 0) {
             board.showBoard();
