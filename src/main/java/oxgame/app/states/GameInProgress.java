@@ -1,4 +1,13 @@
-package oxgame.app;
+package oxgame.app.states;
+
+import oxgame.app.exceptions.WrongArgumentException;
+import oxgame.app.game.Board;
+import oxgame.app.game.Coordinates;
+import oxgame.app.game.Player;
+import oxgame.app.utility.ResignCheck;
+import oxgame.app.utility.RoundBuffer;
+import oxgame.app.utility.VictoryChecker;
+import oxgame.app.validators.CoordinatesValidator;
 
 import java.util.function.Consumer;
 
@@ -26,7 +35,7 @@ public class GameInProgress implements GameState {
     }
 
     @Override
-    public GameState nextState(String input) throws IllegalArgumentException{
+    public GameState nextState(String input) throws WrongArgumentException {
         if (ResignCheck.check(input)) {
             playerBuffer.swapPlayers();
             return new PreEndState(playerBuffer.takePlayer(),playerBuffer,output,board);
@@ -54,4 +63,5 @@ public class GameInProgress implements GameState {
     public Board getBoard() {
         return board;
     }
+
 }

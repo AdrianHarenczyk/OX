@@ -2,21 +2,18 @@ package oxgame.tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import oxgame.app.Player;
-import oxgame.app.Symbol;
-import oxgame.app.SymbolValidator;
-
-import java.util.function.Supplier;
-import java.util.stream.Stream;
+import oxgame.app.game.Symbol;
+import oxgame.app.validators.SymbolValidator;
+import oxgame.app.exceptions.WrongArgumentException;
 
 public class TestPlayerCreation {
 
-    @Test(expectedExceptions = IllegalArgumentException.class)
-    public static void whenPassingOtherCharThanCorrespondingToSymbolMethodThrowsIAException() throws IllegalArgumentException {
+    @Test(expectedExceptions = WrongArgumentException.class)
+    public static void whenPassingOtherCharThanCorrespondingToSymbolMethodThrowsIAException() throws WrongArgumentException {
         SymbolValidator.validateSymbol(() -> "h");
     }
     @Test
-    public static void symbolValidatorReturnsXWhenPassedSuchString() {
+    public static void symbolValidatorReturnsXWhenPassedSuchString() throws WrongArgumentException {
         // Given
         // When
         Symbol symbol = SymbolValidator.validateSymbol(()-> "x");
@@ -24,7 +21,7 @@ public class TestPlayerCreation {
         Assert.assertEquals(symbol,Symbol.X);
     }
     @Test
-    public static void symbolValidatorReturnsOEvenWhenPassedZero() {
+    public static void symbolValidatorReturnsOEvenWhenPassedZero() throws WrongArgumentException {
         // Given
         // When
         Symbol symbol = SymbolValidator.validateSymbol(()-> "0");

@@ -1,9 +1,9 @@
-package oxgame.app;
+package oxgame.app.game;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static oxgame.app.ConsoleColor.*;
+import static oxgame.app.utility.ConsoleColor.*;
 
 public class Board {
     private Map<Coordinates,Symbol> coordinatesSymbolMap;
@@ -25,7 +25,7 @@ public class Board {
         this.size = width * height;
     }
 
-    void placeSymbol(Coordinates coordinates, Symbol symbol) {
+    public void placeSymbol(Coordinates coordinates, Symbol symbol) {
         coordinatesSymbolMap.put(coordinates,symbol);
     }
 
@@ -68,7 +68,7 @@ public class Board {
     public Symbol getSymbol(int number) {
         return getSymbol(Coordinates.apply(number));
     }
-    int getWidth() {
+    public int getWidth() {
         return width;
     }
     public int getHeight() {

@@ -1,4 +1,4 @@
-package oxgame.app;
+package oxgame.app.game;
 
 import java.util.Objects;
 

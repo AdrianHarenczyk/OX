@@ -1,4 +1,7 @@
-package oxgame.app;
+package oxgame.app.states;
+
+import oxgame.app.game.Board;
+import oxgame.app.game.Player;
 
 public class DrawState implements GameState {
     @Override

@@ -3,8 +3,13 @@ package oxgame.tests;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-import org.testng.internal.ExpectedExceptionsHolder;
-import oxgame.app.*;
+import oxgame.app.exceptions.WrongArgumentException;
+import oxgame.app.game.Board;
+import oxgame.app.game.Player;
+import oxgame.app.game.Symbol;
+import oxgame.app.states.GameInProgress;
+import oxgame.app.states.GameState;
+import oxgame.app.utility.RoundBuffer;
 
 import java.util.function.Consumer;
 
@@ -18,7 +23,7 @@ public class TestGameState {
     private static GameState gameState;
 
     @BeforeTest
-    private static void initializeTests() {
+    private static void initializeTests() throws WrongArgumentException{
         RoundBuffer playerList = new RoundBuffer();
         playerList.addPlayer(new Player("Adam",Symbol.O));
         playerList.addPlayer(new Player("Roman",Symbol.X));
@@ -28,7 +33,7 @@ public class TestGameState {
         gameState.showState();
     }
     @Test
-    public static void nextGameStateContainsPlayerWithOtherSymbol() {
+    public static void nextGameStateContainsPlayerWithOtherSymbol() throws WrongArgumentException {
         // Given
         // When
         gameState = gameState.nextState("1");
@@ -38,14 +43,14 @@ public class TestGameState {
         // Then
         assertNotEquals(playerBefore,playerAfter);
     }
-    @Test(expectedExceptions = IllegalArgumentException.class)
-    public static void whenWrongInputNextStateThrowsIAException() {
+    @Test(expectedExceptions = WrongArgumentException.class)
+    public static void whenWrongInputNextStateThrowsIAException() throws WrongArgumentException {
         // Given
         // When
         gameState = gameState.nextState("x");
     }
     @Test
-    public static void showPlayerAlwaysReturnsSamePlayerWhenNoSwitch() {
+    public static void showPlayerAlwaysReturnsSamePlayerWhenNoSwitch(){
         // Given
         // When
         Player firstPlayer = gameState.showPlayer();

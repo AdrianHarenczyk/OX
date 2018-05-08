@@ -1,4 +1,8 @@
-package oxgame.app;
+package oxgame.app.game;
+
+import oxgame.app.exceptions.WrongArgumentException;
+import oxgame.app.utility.ConsoleColor;
+import oxgame.app.validators.SymbolValidator;
 
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -41,7 +45,7 @@ public class Player {
             validateSymbol: {
                 try {
                     return SymbolValidator.validateSymbol(input);
-                } catch (IllegalArgumentException e) {
+                } catch (WrongArgumentException e) {
                     output.accept(e.getMessage());
                     break validateSymbol;
                 }

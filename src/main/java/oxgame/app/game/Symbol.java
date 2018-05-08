@@ -1,4 +1,4 @@
-package oxgame.app;
+package oxgame.app.game;
 
 public enum Symbol {
         X {

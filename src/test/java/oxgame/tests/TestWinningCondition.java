@@ -4,10 +4,10 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import oxgame.app.Board;
-import oxgame.app.Coordinates;
-import oxgame.app.Symbol;
-import oxgame.app.VictoryChecker;
+import oxgame.app.game.Board;
+import oxgame.app.game.Coordinates;
+import oxgame.app.game.Symbol;
+import oxgame.app.utility.VictoryChecker;
 
 public class TestWinningCondition {
     private static Board board;

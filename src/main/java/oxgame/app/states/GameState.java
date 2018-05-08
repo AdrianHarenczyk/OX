@@ -1,4 +1,8 @@
-package oxgame.app;
+package oxgame.app.states;
+
+import oxgame.app.game.Board;
+import oxgame.app.game.Player;
+import oxgame.app.exceptions.WrongArgumentException;
 
 public interface GameState {
     /**
@@ -10,7 +14,7 @@ public interface GameState {
      * @return next state of the game, for example
      * could return new turn, for opposite player.
      */
-    GameState nextState(String input);
+    GameState nextState(String input) throws WrongArgumentException;
 
     Player showPlayer();
 

@@ -1,4 +1,4 @@
-package oxgame.app;
+package oxgame.app.utility;
 
 public class ResignCheck {
 
@@ -9,5 +9,7 @@ public class ResignCheck {
             default:
                 return false;
         }
+    }
+    private ResignCheck() {
     }
 }

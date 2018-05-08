@@ -3,16 +3,16 @@ package oxgame.tests;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-import org.testng.internal.ExpectedExceptionsHolder;
-import oxgame.app.Player;
-import oxgame.app.RoundBuffer;
-import oxgame.app.Symbol;
+import oxgame.app.exceptions.WrongArgumentException;
+import oxgame.app.game.Player;
+import oxgame.app.utility.RoundBuffer;
+import oxgame.app.game.Symbol;
 
 public class TestRoundBuffer {
     private static RoundBuffer buffer;
 
     @BeforeTest
-    private static void initialize() {
+    private static void initialize() throws WrongArgumentException {
         buffer = new RoundBuffer();
         buffer.addPlayer(new Player("Adam",Symbol.X));
         buffer.addPlayer(new Player("Eve",Symbol.O));

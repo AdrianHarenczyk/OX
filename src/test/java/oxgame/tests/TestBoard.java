@@ -3,8 +3,8 @@ package oxgame.tests;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-import oxgame.app.Board;
-import oxgame.app.Coordinates;
+import oxgame.app.game.Board;
+import oxgame.app.game.Coordinates;
 
 public class TestBoard {
     private static Board board;

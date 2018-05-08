@@ -1,4 +1,4 @@
-package oxgame.app;
+package oxgame.app.utility;
 
 public enum ConsoleColor {
     RESET("\u001B[0m"),

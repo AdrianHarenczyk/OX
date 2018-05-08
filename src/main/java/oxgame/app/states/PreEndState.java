@@ -1,4 +1,9 @@
-package oxgame.app;
+package oxgame.app.states;
+
+import oxgame.app.game.Board;
+import oxgame.app.game.Player;
+import oxgame.app.utility.RoundBuffer;
+import oxgame.app.game.ScoreBoard;
 
 import java.util.function.Consumer;
 
