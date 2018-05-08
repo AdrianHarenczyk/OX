@@ -22,6 +22,7 @@ public class Setup {
         playerBuffer.addPlayer(secondPlayer);
         board = Board.newBoard(10,10);
         currentState = new GameInProgress(playerBuffer,output,board);
+        instructions();
         applicationLoop();
     }
 
@@ -39,6 +40,10 @@ public class Setup {
             output.accept(e.getMessage());
             startTurn();
         }
+    }
+
+    private void instructions() {
+        output.accept("Game has started. To resign pass resign as a command.\n");
     }
 
 }

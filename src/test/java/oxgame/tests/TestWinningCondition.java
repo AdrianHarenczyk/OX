@@ -80,6 +80,23 @@ public class TestWinningCondition {
         };
     }
 
+    @DataProvider(name = "otherPatterns")
+    Object[][] otherPatterns() {
+        return new Object[][] {
+                {1,7,3,9,5},
+                {6,2,8,4,10},
+                {1,7,11,17,21},
+                {4,10,14,20,24},
+                {2,6,12,16,22},
+                {22,16,12,6,2},
+                {21,3,7,13,9},
+                {25,7,8,12,13},
+                {19,20,11,12,10},
+                {16,17,1,7,25},
+                {2,3,11,14,15}
+        };
+    }
+
 
 
 
@@ -118,13 +135,24 @@ public class TestWinningCondition {
         Assert.assertTrue(result);
     }
     @Test(dataProvider = "horizontalWrong")
-    public static void whenHorizontalWithoutWinningStrokeVCReturnsFalse(Integer first, Integer second,Integer third) {
+    public static void whenHorizontalWithoutWinningStrokeVCReturnsFalse(Integer first, Integer second, Integer third) {
         // Given
         // When
         placeMultipleSymbols(Symbol.X,first,second);
         board.placeSymbol(third,Symbol.X);
         board.showBoard();
         boolean result = VictoryChecker.check(Coordinates.apply(third),board,3);
+        // Then
+        Assert.assertFalse(result);
+    }
+    @Test(dataProvider = "otherPatterns")
+    public static void withPatternsWhichDoNotMatchWinningStreakVCReturnsFalse(Integer first, Integer second, Integer third, Integer fourth, Integer fifth) {
+        // Given
+        // When
+        placeMultipleSymbols(Symbol.X,first,second,third,fourth);
+        board.placeSymbol(fifth,Symbol.X);
+        board.showBoard();
+        boolean result = VictoryChecker.check(Coordinates.apply(fifth),board,3);
         // Then
         Assert.assertFalse(result);
     }
