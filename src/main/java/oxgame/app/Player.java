@@ -56,7 +56,7 @@ public class Player {
 
     @Override
     public String toString() {
-        return name + " with symbol " + symbol;
+        return ConsoleColor.GREEN + name + " with symbol " + symbol + ConsoleColor.RESET;
     }
 
 }

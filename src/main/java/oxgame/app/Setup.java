@@ -20,7 +20,7 @@ public class Setup {
         RoundBuffer playerBuffer = new RoundBuffer();
         playerBuffer.addPlayer(firstPlayer);
         playerBuffer.addPlayer(secondPlayer);
-        board = Board.newBoard(10,10);
+        board = Board.newBoard(5,5);
         currentState = new GameInProgress(playerBuffer,output,board);
         instructions();
         applicationLoop();

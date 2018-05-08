@@ -17,6 +17,8 @@ public class ScoreBoard {
         playerPointsMap.put(player,points);
     }
     public void showScoreBoard() {
+        System.out.println();
         playerPointsMap.forEach((player,points) -> System.out.println(player + " points: " + points));
+        System.out.println();
     }
 }
