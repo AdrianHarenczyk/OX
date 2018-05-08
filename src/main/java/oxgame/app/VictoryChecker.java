@@ -9,8 +9,8 @@ class VictoryChecker {
                 verifyVertical(coordinates,board,winningStroke,-board.getWidth()) ||
                 verifySlash(coordinates,board,winningStroke,board.getWidth()+1) ||
                 verifySlash(coordinates,board,winningStroke,board.getWidth()-1) ||
-                verifySlashBack(coordinates,board,winningStroke,-board.getWidth()+1) ||
-                verifySlashBack(coordinates,board,winningStroke,-board.getWidth()-1);
+                verifySlash(coordinates,board,winningStroke,-board.getWidth()+1) ||
+                verifySlash(coordinates,board,winningStroke,-board.getWidth()-1);
     }
     private static boolean verifyHorizontal(Coordinates coordinates, Board board, int winningStroke, int condition){
         Symbol currentSymbol = board.getSymbol(coordinates);
