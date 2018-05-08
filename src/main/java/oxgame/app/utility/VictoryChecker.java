@@ -14,117 +14,24 @@ public class VictoryChecker {
                 verifyVertical(coordinates,board,winningStroke) ||
                 verifySlash(coordinates,board,winningStroke);
     }
-    /**
-     * Verify if there is a win on HORIZONTAL.
-     * */
-    private static boolean verifyHorizontal(Coordinates coordinates, Board board, int winningStroke){
-        Symbol currentSymbol = board.getSymbol(coordinates);
-        int counter = 1;
-        counter = horizontalRight(coordinates, board, currentSymbol, counter);
-        counter = horizontalLeft(coordinates, board, currentSymbol, counter);
-        return counter>=winningStroke;
+    private static int checkForMatches(Coordinates coordinates, Board board, Symbol currentSymbol, int counter, int condition, int moduloValue) {
+        int coordinatesValue = coordinates.getValue();
+        while (checkCondition(currentSymbol,board,coordinatesValue, condition,moduloValue)) {
+            coordinatesValue+= condition;
+            counter++;
+        }
+        return counter;
     }
 
-    private static int horizontalRight(Coordinates coordinates, Board board, Symbol currentSymbol, int counter) {
-        int condition = 1;
+    private static int checkForMatches(Coordinates coordinates, Board board, Symbol currentSymbol, int counter, int condition) {
         int coordinatesValue = coordinates.getValue();
-        while (checkCondition(currentSymbol,board,coordinatesValue,condition,0)) {
-            coordinatesValue+=condition;
+        while (checkCondition(currentSymbol,board,coordinatesValue, condition)) {
+            coordinatesValue+= condition;
             counter++;
         }
         return counter;
-    }
-    private static int horizontalLeft(Coordinates coordinates, Board board, Symbol currentSymbol, int counter) {
-        int condition = -1;
-        int coordinatesValue = coordinates.getValue();
-        while (checkCondition(currentSymbol,board,coordinatesValue,condition,1)) {
-            coordinatesValue+=condition;
-            counter++;
-        }
-        return counter;
-    }
-    /**
-     * Verify if there is a win on VERTICAL.
-     * */
-    private static boolean verifyVertical(Coordinates coordinates, Board board, int winningStroke){
-        Symbol currentSymbol = board.getSymbol(coordinates);
-        int counter = 1;
-        counter = verticalUp(coordinates, board, currentSymbol, counter);
-        counter = verticalDown(coordinates, board, currentSymbol, counter);
-        return  counter>=winningStroke;
     }
 
-    private static int verticalUp(Coordinates coordinates, Board board, Symbol currentSymbol, int counter) {
-        int condition = -board.getWidth();
-        int coordinatesValue = coordinates.getValue();
-        while (checkCondition(currentSymbol,board,coordinatesValue,condition)) {
-            coordinatesValue+=condition;
-            counter++;
-        }
-        return counter;
-    }
-    private static int verticalDown(Coordinates coordinates, Board board, Symbol currentSymbol, int counter) {
-        int condition = board.getWidth();
-        int coordinatesValue = coordinates.getValue();
-        while (checkCondition(currentSymbol,board,coordinatesValue,condition)) {
-            coordinatesValue+=condition;
-            counter++;
-        }
-        return counter;
-    }
-    /**
-     * Verify if there is a win on DIAGONAL.
-     * */
-    private static boolean verifySlash(Coordinates coordinates, Board board, int winningStroke){
-        Symbol currentSymbol = board.getSymbol(coordinates);
-        int counter = 1;
-        counter = slashUpRight(coordinates, board, currentSymbol, counter);
-        counter = slashDownLeft(coordinates, board, currentSymbol, counter);
-        if (counter>=winningStroke) {
-            return true;
-        }
-        counter = 1;
-        counter = slashUpLeft(coordinates, board, currentSymbol, counter);
-        counter = slashDownRight(coordinates, board, currentSymbol, counter);
-        return counter>=winningStroke;
-    }
-
-    private static int slashUpRight(Coordinates coordinates, Board board, Symbol currentSymbol, int counter) {
-        int condition = -board.getWidth() + 1;
-        int coordinatesValue = coordinates.getValue();
-        while (checkCondition(currentSymbol,board,coordinatesValue,condition,0)) {
-            coordinatesValue+=condition;
-            counter++;
-        }
-        return counter;
-    }
-    private static int slashDownLeft(Coordinates coordinates, Board board, Symbol currentSymbol, int counter) {
-        int condition = board.getWidth() - 1;
-        int coordinatesValue = coordinates.getValue();
-        while (checkCondition(currentSymbol,board,coordinatesValue,condition,1)) {
-            coordinatesValue+=condition;
-            counter++;
-        }
-        return counter;
-    }
-    private static int slashUpLeft(Coordinates coordinates, Board board, Symbol currentSymbol, int counter) {
-        int condition = -board.getWidth() - 1;
-        int coordinatesValue = coordinates.getValue();
-        while (checkCondition(currentSymbol,board,coordinatesValue,condition,1)) {
-            coordinatesValue+=condition;
-            counter++;
-        }
-        return counter;
-    }
-    private static int slashDownRight(Coordinates coordinates, Board board, Symbol currentSymbol, int counter) {
-        int condition = board.getWidth() + 1;
-        int coordinatesValue = coordinates.getValue();
-        while (checkCondition(currentSymbol,board,coordinatesValue,condition,0)) {
-            coordinatesValue+=condition;
-            counter++;
-        }
-        return counter;
-    }
     private static boolean checkCondition(Symbol currentSymbol,Board board, int coordinatesValue, int condition, int moduloValue) {
         return (currentSymbol.equals(board.getSymbol(coordinatesValue + condition)))
                 &&
@@ -134,7 +41,33 @@ public class VictoryChecker {
         return (currentSymbol.equals(board.getSymbol(coordinatesValue + condition)));
     }
 
+    private static boolean verifyHorizontal(Coordinates coordinates, Board board, int winningStroke){
+        Symbol currentSymbol = board.getSymbol(coordinates);
+        int counter = 1;
+        counter = checkForMatches(coordinates, board, currentSymbol, counter,1,0);
+        counter = checkForMatches(coordinates, board, currentSymbol, counter,-1,1);
+        return counter>=winningStroke;
+    }
 
+    private static boolean verifyVertical(Coordinates coordinates, Board board, int winningStroke){
+        Symbol currentSymbol = board.getSymbol(coordinates);
+        int counter = 1;
+        counter = checkForMatches(coordinates, board, currentSymbol, counter,-board.getWidth());
+        counter = checkForMatches(coordinates, board, currentSymbol, counter,board.getWidth());
+        return  counter>=winningStroke;
+    }
 
-
+    private static boolean verifySlash(Coordinates coordinates, Board board, int winningStroke){
+        Symbol currentSymbol = board.getSymbol(coordinates);
+        int counter = 1;
+        counter = checkForMatches(coordinates, board, currentSymbol, counter,-board.getWidth() + 1,0);
+        counter = checkForMatches(coordinates, board, currentSymbol, counter,board.getWidth() - 1,1);
+        if (counter>=winningStroke) {
+            return true;
+        }
+        counter = 1;
+        counter = checkForMatches(coordinates, board, currentSymbol, counter,-board.getWidth() - 1,1);
+        counter = checkForMatches(coordinates, board, currentSymbol, counter,board.getWidth() + 1,0);
+        return counter>=winningStroke;
+    }
 }
