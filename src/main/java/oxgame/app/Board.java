@@ -27,7 +27,11 @@ public class Board {
         coordinatesSymbolMap.put(coordinates,symbol);
     }
 
-    void showBoard() {
+    public void placeSymbol(int coordinates, Symbol symbol) {
+        placeSymbol(Coordinates.apply(coordinates),symbol);
+    }
+
+    public void showBoard() {
         int columnCounter = 0;
         for (int i = 1; i <= size; i++) {
             if (columnCounter == width) {
@@ -58,6 +62,9 @@ public class Board {
     }
     public Symbol getSymbol(Coordinates coordinates) {
         return coordinatesSymbolMap.get(coordinates);
+    }
+    public Symbol getSymbol(int number) {
+        return getSymbol(Coordinates.apply(number));
     }
     int getWidth() {
         return width;

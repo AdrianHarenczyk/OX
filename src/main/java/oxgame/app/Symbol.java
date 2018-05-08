@@ -15,5 +15,6 @@ public enum Symbol {
         };
 
         public abstract Symbol otherSymbol();
+
 }
 

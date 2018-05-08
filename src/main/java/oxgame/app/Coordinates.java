@@ -35,4 +35,8 @@ public class Coordinates implements Comparable<Coordinates>{
     public int getValue() {
         return value;
     }
+    @Override
+    public String toString() {
+        return "Coordinates: " + value;
+    }
 }
