@@ -40,7 +40,7 @@ public class Player {
     }
 
     private static Symbol getSymbolFromInput(Supplier<String> input, Consumer<String> output) {
-        output.accept("Now please choose symbol.");
+        output.accept("Now please choose symbol: X or O.");
         while (true) {
             validateSymbol: {
                 try {
