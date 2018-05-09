@@ -1,4 +1,4 @@
-package xogame.app;
+package oxgame.app.game;
 
 public enum Symbol {
         X {
@@ -15,5 +15,7 @@ public enum Symbol {
         };
 
         public abstract Symbol otherSymbol();
+
+
 }
 

@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
 
-    <groupId>xo-game-group</groupId>
-    <artifactId>xo-game-project</artifactId>
+    <groupId>ox-game-group</groupId>
+    <artifactId>ox-game-project</artifactId>
     <version>1.0</version>
 
 
@@ -36,7 +36,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>xogame.app.Main</mainClass>
+                            <mainClass>oxgame.app.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
