@@ -9,8 +9,8 @@ import java.util.function.Supplier;
 
 public class Setup {
     private GameState currentState;
-    private Supplier<String> input;
-    private Consumer<String> output;
+    private final Supplier<String> input;
+    private final Consumer<String> output;
 
     public Setup(Supplier<String> input, Consumer<String> output) {
         this.input = input;
@@ -21,10 +21,10 @@ public class Setup {
         Player firstPlayer = Player.playerCreator(input,output);
         Player secondPlayer = Player.playerCreator(input,output,firstPlayer);
 
-        RoundBuffer playerBuffer = new RoundBuffer();
-        playerBuffer.addPlayer(firstPlayer);
-        playerBuffer.addPlayer(secondPlayer);
+        final RoundBuffer playerBuffer = new RoundBuffer();
+        playerBuffer.addPlayers(firstPlayer,secondPlayer);
         Board board = Board.newBoard(5,5);
+
         currentState = new GameInProgress(playerBuffer,output,board);
         instructions();
         applicationLoop();

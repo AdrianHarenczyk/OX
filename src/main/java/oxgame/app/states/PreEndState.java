@@ -19,7 +19,7 @@ public class PreEndState implements GameState {
     private static final int NUMBER_OF_ROUNDS = 3;
     private static int roundCounter = 0;
 
-    public PreEndState(Player winningPlayer, RoundBuffer playerBuffer, Consumer<String> output,Board board) {
+    PreEndState(Player winningPlayer, RoundBuffer playerBuffer, Consumer<String> output,Board board) {
         this.playerBuffer = playerBuffer;
         this.winningPlayer = winningPlayer;
         this.output = output;
@@ -42,7 +42,7 @@ public class PreEndState implements GameState {
     @Override
     public GameState nextState(String input) {
         if (roundCounter == NUMBER_OF_ROUNDS) {
-            return new EndState();
+            return new EndState(scoreBoard,playerBuffer);
         }
         else {
             int height = board.getHeight();
@@ -52,15 +52,5 @@ public class PreEndState implements GameState {
 
             return new GameInProgress(playerBuffer,output,board);
         }
-    }
-
-    @Override
-    public Player showPlayer() {
-        return null;
-    }
-
-    @Override
-    public Board getBoard() {
-        return null;
     }
 }

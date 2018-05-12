@@ -17,6 +17,10 @@ public class RoundBuffer {
             players[1] = player;
         } else throw new WrongArgumentException("You cannot add more than two players.");
     }
+    public void addPlayers(Player first, Player second) throws WrongArgumentException {
+        addPlayer(first);
+        addPlayer(second);
+    }
 
     public Player takePlayer() {
         return players[0];

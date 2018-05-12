@@ -15,8 +15,4 @@ public interface GameState {
      * could return new turn, for opposite player.
      */
     GameState nextState(String input) throws WrongArgumentException;
-
-    Player showPlayer();
-
-    Board getBoard();
 }

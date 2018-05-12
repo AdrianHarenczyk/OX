@@ -54,14 +54,4 @@ public class GameInProgress implements GameState {
         playerBuffer.swapPlayers();
         return this;
     }
-
-    @Override
-    public Player showPlayer() {
-        return playerBuffer.takePlayer();
-    }
-    @Override
-    public Board getBoard() {
-        return board;
-    }
-
 }
