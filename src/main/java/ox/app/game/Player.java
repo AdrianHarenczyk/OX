@@ -1,15 +1,14 @@
-package oxgame.app.game;
+package ox.app.game;
 
-import oxgame.app.exceptions.WrongArgumentException;
-import oxgame.app.utility.ConsoleColor;
-import oxgame.app.validators.SymbolValidator;
+import ox.app.exceptions.WrongArgumentException;
+import ox.app.validators.SymbolValidator;
 
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class Player {
-    private String name;
-    private Symbol symbol;
+    private final String name;
+    private final Symbol symbol;
     private static int playerCounter = 1;
 
     public Player(String name, Symbol symbol) {

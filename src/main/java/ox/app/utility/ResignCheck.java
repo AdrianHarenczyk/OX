@@ -1,4 +1,4 @@
-package oxgame.app.utility;
+package ox.app.utility;
 
 public class ResignCheck {
 

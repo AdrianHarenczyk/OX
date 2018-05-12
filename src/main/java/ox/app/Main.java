@@ -1,10 +1,10 @@
-package oxgame.app;
-import oxgame.app.exceptions.WrongArgumentException;
-import oxgame.app.states.Setup;
+package ox.app;
+import ox.app.exceptions.WrongArgumentException;
+import ox.app.states.Setup;
 
 import java.util.Scanner;
 
-public class Main {
+class Main {
     public static void main(String[] args) {
         try {
             new Setup(new Scanner(System.in)::nextLine, System.out::println).initializeAGame();

@@ -1,9 +1,9 @@
-package oxgame.app.game;
+package ox.app.game;
 
 import java.util.Objects;
 
 public class Coordinates implements Comparable<Coordinates>{
-    private int value;
+    private final int value;
     private Coordinates(int value) {
         this.value = value;
     }

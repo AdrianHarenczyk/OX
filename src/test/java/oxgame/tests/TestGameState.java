@@ -2,19 +2,14 @@ package oxgame.tests;
 
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-import oxgame.app.exceptions.WrongArgumentException;
-import oxgame.app.game.Board;
-import oxgame.app.game.Player;
-import oxgame.app.game.Symbol;
-import oxgame.app.states.RunState;
-import oxgame.app.states.GameState;
-import oxgame.app.utility.RoundBuffer;
-
-import java.io.IOException;
+import ox.app.exceptions.WrongArgumentException;
+import ox.app.game.Board;
+import ox.app.game.Player;
+import ox.app.game.Symbol;
+import ox.app.states.GameState;
+import ox.app.states.RunState;
+import ox.app.utility.RoundBuffer;
 import java.util.function.Consumer;
-
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNotEquals;
 
 /**
  * this test class is about testing GameState flow.

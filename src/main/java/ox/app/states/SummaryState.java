@@ -1,8 +1,8 @@
-package oxgame.app.states;
+package ox.app.states;
 
-import oxgame.app.game.Player;
-import oxgame.app.game.ScoreBoard;
-import oxgame.app.utility.RoundBuffer;
+import ox.app.game.Player;
+import ox.app.game.ScoreBoard;
+import ox.app.utility.RoundBuffer;
 
 public class SummaryState implements GameState {
     private final ScoreBoard scoreBoard;

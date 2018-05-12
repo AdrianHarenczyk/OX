@@ -1,10 +1,7 @@
-package oxgame.app.states;
+package ox.app.states;
 
-import oxgame.app.game.Board;
-import oxgame.app.game.Player;
-import oxgame.app.exceptions.WrongArgumentException;
 
-import java.io.IOException;
+import ox.app.exceptions.WrongArgumentException;
 
 public interface GameState {
     /**

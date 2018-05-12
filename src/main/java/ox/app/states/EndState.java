@@ -1,4 +1,4 @@
-package oxgame.app.states;
+package ox.app.states;
 
 public class EndState implements GameState {
 

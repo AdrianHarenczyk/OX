@@ -1,8 +1,8 @@
-package oxgame.app.utility;
+package ox.app.utility;
 
-import oxgame.app.game.Board;
-import oxgame.app.game.Coordinates;
-import oxgame.app.game.Symbol;
+import ox.app.game.Coordinates;
+import ox.app.game.Symbol;
+import ox.app.game.Board;
 
 public class VictoryChecker {
 

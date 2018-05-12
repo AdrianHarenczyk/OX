@@ -1,11 +1,10 @@
-package oxgame.app.game;
+package ox.app.game;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Stream;
 
 public class ScoreBoard {
-    private Map<Player,Integer> playerPointsMap;
+    private final Map<Player,Integer> playerPointsMap;
 
     public ScoreBoard() {
         this.playerPointsMap = new HashMap<>();

@@ -1,9 +1,9 @@
-package oxgame.app.states;
+package ox.app.states;
 
-import oxgame.app.game.Board;
-import oxgame.app.game.Player;
-import oxgame.app.utility.RoundBuffer;
-import oxgame.app.game.ScoreBoard;
+import ox.app.game.ScoreBoard;
+import ox.app.game.Board;
+import ox.app.game.Player;
+import ox.app.utility.RoundBuffer;
 
 import java.util.function.Consumer;
 
@@ -11,9 +11,9 @@ public class PreEndState implements GameState {
 
     private Board board;
     private final RoundBuffer playerBuffer;
-    private Player winningPlayer;
+    private final Player winningPlayer;
     private final Consumer<String> output;
-    private static ScoreBoard scoreBoard = new ScoreBoard();
+    private static final ScoreBoard scoreBoard = new ScoreBoard();
     private static final Integer POINTS_FOR_WIN = 3;
     private static final Integer POINTS_FOR_LOST = 0;
     private static final int NUMBER_OF_ROUNDS = 3;

@@ -1,9 +1,9 @@
-package oxgame.app.game;
+package ox.app.game;
+
+import ox.app.utility.ConsoleColor;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import static oxgame.app.utility.ConsoleColor.*;
 
 public class Board {
     private Map<Coordinates,Symbol> coordinatesSymbolMap;
@@ -62,14 +62,14 @@ public class Board {
     private void linuxPrintMode(Symbol receivedSymbol, int iterator) {
         String consoleColor;
         if (receivedSymbol == null) {
-            System.out.printf(RED+"["+ GRAY +"%1$-"+String.valueOf(size).length()+"s"+RED+"]"+RESET,iterator);
-            consoleColor = GRAY.toString();
+            System.out.printf(ConsoleColor.RED+"["+ ConsoleColor.GRAY +"%1$-"+String.valueOf(size).length()+"s"+ ConsoleColor.RED+"]"+ ConsoleColor.RESET,iterator);
+            consoleColor = ConsoleColor.GRAY.toString();
         } else if (receivedSymbol.equals(Symbol.X)) {
-            consoleColor = BLUE.toString();
+            consoleColor = ConsoleColor.BLUE.toString();
         } else {
-            consoleColor = PURPLE.toString();
+            consoleColor = ConsoleColor.PURPLE.toString();
         }
-        System.out.printf(RED+"["+consoleColor+"%1$-"+String.valueOf(size).length()+"s"+RED+"]"+RESET,receivedSymbol);
+        System.out.printf(ConsoleColor.RED+"["+consoleColor+"%1$-"+String.valueOf(size).length()+"s"+ ConsoleColor.RED+"]"+ ConsoleColor.RESET,receivedSymbol);
     }
     private void windowsPrintMode(Symbol receivedSymbol, int iterator) {
         if (receivedSymbol == null) {

@@ -36,7 +36,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>oxgame.app.Main</mainClass>
+                            <mainClass>ox.app.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

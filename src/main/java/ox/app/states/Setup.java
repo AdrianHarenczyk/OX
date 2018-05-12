@@ -1,8 +1,8 @@
-package oxgame.app.states;
-import oxgame.app.game.Board;
-import oxgame.app.game.Player;
-import oxgame.app.exceptions.WrongArgumentException;
-import oxgame.app.utility.RoundBuffer;
+package ox.app.states;
+import ox.app.exceptions.WrongArgumentException;
+import ox.app.game.Player;
+import ox.app.utility.RoundBuffer;
+import ox.app.game.Board;
 
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -17,7 +17,7 @@ public class Setup {
         this.output = output;
     }
 
-    public void initializeAGame() throws WrongArgumentException{
+    public void initializeAGame() throws WrongArgumentException {
         Player firstPlayer = Player.playerCreator(input,output);
         Player secondPlayer = Player.playerCreator(input,output,firstPlayer);
 

@@ -1,8 +1,8 @@
-package oxgame.app.validators;
+package ox.app.validators;
 
-import oxgame.app.game.Board;
-import oxgame.app.game.Coordinates;
-import oxgame.app.exceptions.WrongArgumentException;
+import ox.app.exceptions.WrongArgumentException;
+import ox.app.game.Coordinates;
+import ox.app.game.Board;
 
 public class CoordinatesValidator {
 

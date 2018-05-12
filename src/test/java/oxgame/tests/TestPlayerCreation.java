@@ -2,9 +2,9 @@ package oxgame.tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import oxgame.app.game.Symbol;
-import oxgame.app.validators.SymbolValidator;
-import oxgame.app.exceptions.WrongArgumentException;
+import ox.app.game.Symbol;
+import ox.app.validators.SymbolValidator;
+import ox.app.exceptions.WrongArgumentException;
 
 public class TestPlayerCreation {
 

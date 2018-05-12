@@ -3,10 +3,10 @@ package oxgame.tests;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-import oxgame.app.exceptions.WrongArgumentException;
-import oxgame.app.game.Player;
-import oxgame.app.utility.RoundBuffer;
-import oxgame.app.game.Symbol;
+import ox.app.exceptions.WrongArgumentException;
+import ox.app.game.Player;
+import ox.app.utility.RoundBuffer;
+import ox.app.game.Symbol;
 
 public class TestRoundBuffer {
     private static RoundBuffer buffer;

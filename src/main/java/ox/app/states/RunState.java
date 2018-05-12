@@ -1,22 +1,21 @@
-package oxgame.app.states;
+package ox.app.states;
 
-import oxgame.app.exceptions.WrongArgumentException;
-import oxgame.app.game.Board;
-import oxgame.app.game.Coordinates;
-import oxgame.app.game.Player;
-import oxgame.app.utility.ResignCheck;
-import oxgame.app.utility.RoundBuffer;
-import oxgame.app.utility.VictoryChecker;
-import oxgame.app.validators.CoordinatesValidator;
+import ox.app.exceptions.WrongArgumentException;
+import ox.app.game.Board;
+import ox.app.game.Coordinates;
+import ox.app.game.Player;
+import ox.app.utility.ResignCheck;
+import ox.app.utility.RoundBuffer;
+import ox.app.utility.VictoryChecker;
+import ox.app.validators.CoordinatesValidator;
 
-import java.io.IOException;
 import java.util.function.Consumer;
 
 public class RunState implements GameState {
 
     private final RoundBuffer playerBuffer;
     private final Consumer<String> output;
-    private Board board;
+    private final Board board;
     private Player player;
     private int currentBoardSize;
 

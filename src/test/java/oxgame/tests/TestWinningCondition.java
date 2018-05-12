@@ -4,10 +4,10 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import oxgame.app.game.Board;
-import oxgame.app.game.Coordinates;
-import oxgame.app.game.Symbol;
-import oxgame.app.utility.VictoryChecker;
+import ox.app.game.Board;
+import ox.app.game.Coordinates;
+import ox.app.game.Symbol;
+import ox.app.utility.VictoryChecker;
 
 public class TestWinningCondition {
     private static Board board;
@@ -16,9 +16,9 @@ public class TestWinningCondition {
     private static void init() {
         board = Board.newBoard(5,5);
     }
-    private static void placeMultipleSymbols(Symbol symbol, int... coordinates) {
+    private static void placeMultipleSymbols(int... coordinates) {
         for (int coordinate:coordinates) {
-            board.placeSymbol(coordinate,symbol);
+            board.placeSymbol(coordinate,Symbol.X);
         }
     }
 
@@ -104,7 +104,7 @@ public class TestWinningCondition {
     public static void whenSlashWithThreeMatchingSymbolsVCReturnsTrue(Integer first, Integer second,Integer third) {
         // Given
         // When
-        placeMultipleSymbols(Symbol.X,first,second);
+        placeMultipleSymbols(first,second);
         board.placeSymbol(third,Symbol.X);
         boolean result = VictoryChecker.check(Coordinates.apply(third),board,3);
 
@@ -115,7 +115,7 @@ public class TestWinningCondition {
     public static void whenSlashWithoutWinningStrokeVCReturnsFalse(Integer first, Integer second,Integer third) {
         // Given
         // When
-        placeMultipleSymbols(Symbol.X,first,second);
+        placeMultipleSymbols(first,second);
         board.placeSymbol(third,Symbol.X);
         board.showBoard();
         boolean result = VictoryChecker.check(Coordinates.apply(third),board,3);
@@ -127,7 +127,7 @@ public class TestWinningCondition {
     public static void whenHorizontalWithThreeMatchingSymbolsVCReturnsTrue(Integer first, Integer second,Integer third) {
         // Given
         // When
-        placeMultipleSymbols(Symbol.X,first,second);
+        placeMultipleSymbols(first,second);
         board.placeSymbol(third,Symbol.X);
         boolean result = VictoryChecker.check(Coordinates.apply(third),board,3);
 
@@ -138,7 +138,7 @@ public class TestWinningCondition {
     public static void whenHorizontalWithoutWinningStrokeVCReturnsFalse(Integer first, Integer second, Integer third) {
         // Given
         // When
-        placeMultipleSymbols(Symbol.X,first,second);
+        placeMultipleSymbols(first,second);
         board.placeSymbol(third,Symbol.X);
         board.showBoard();
         boolean result = VictoryChecker.check(Coordinates.apply(third),board,3);
@@ -149,7 +149,7 @@ public class TestWinningCondition {
     public static void withPatternsWhichDoNotMatchWinningStreakVCReturnsFalse(Integer first, Integer second, Integer third, Integer fourth, Integer fifth) {
         // Given
         // When
-        placeMultipleSymbols(Symbol.X,first,second,third,fourth);
+        placeMultipleSymbols(first,second,third,fourth);
         board.placeSymbol(fifth,Symbol.X);
         board.showBoard();
         boolean result = VictoryChecker.check(Coordinates.apply(fifth),board,3);

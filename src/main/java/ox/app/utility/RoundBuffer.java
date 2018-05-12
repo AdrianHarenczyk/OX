@@ -1,10 +1,10 @@
-package oxgame.app.utility;
+package ox.app.utility;
 
-import oxgame.app.exceptions.WrongArgumentException;
-import oxgame.app.game.Player;
+import ox.app.exceptions.WrongArgumentException;
+import ox.app.game.Player;
 
 public class RoundBuffer {
-    private Player[] players;
+    private final Player[] players;
 
     public RoundBuffer() {
         players = new Player[2];
