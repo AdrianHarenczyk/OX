@@ -22,12 +22,11 @@ public class Setup {
     public void initializeAGame() throws WrongArgumentException {
         Player firstPlayer = Player.playerCreator(input,output);
         Player secondPlayer = Player.playerCreator(input,output,firstPlayer);
-
         final RoundBuffer playerBuffer = new RoundBuffer();
         playerBuffer.addPlayers(firstPlayer,secondPlayer);
         Board board = Board.newBoard(3,3);
         ScoreBoard scoreBoard = new ScoreBoard(playerBuffer,output);
-        currentState = new RunState(playerBuffer,output,board,scoreBoard);
+        currentState = new RunState(playerBuffer,output,board,scoreBoard,0);
         instructions();
         applicationLoop();
     }

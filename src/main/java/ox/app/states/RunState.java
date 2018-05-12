@@ -20,13 +20,15 @@ public class RunState implements GameState {
     private Player player;
     private int currentBoardSize;
     private final ScoreBoard scoreBoard;
+    private int roundCounter;
 
-    public RunState(RoundBuffer playerBuffer, Consumer<String> output, Board board, ScoreBoard scoreBoard) {
+    public RunState(RoundBuffer playerBuffer, Consumer<String> output, Board board, ScoreBoard scoreBoard,int roundCounter) {
         this.playerBuffer = playerBuffer;
         this.output = output;
         this.board = board;
         currentBoardSize = board.size();
         this.scoreBoard = scoreBoard;
+        this.roundCounter = roundCounter;
     }
 
 
@@ -41,18 +43,18 @@ public class RunState implements GameState {
     public GameState nextState(String input) throws WrongArgumentException {
         if (ResignCheck.check(input)) {
             playerBuffer.swapPlayers();
-            return new PreEndState(playerBuffer,output,board,scoreBoard);
+            return new PreEndState(playerBuffer,output,board,scoreBoard,roundCounter);
         }
         int validCoordinates = CoordinatesValidator.validate(input,board.size(),board);
         board.placeSymbol(Coordinates.apply(validCoordinates),player.showSymbol());
         currentBoardSize--;
         if (VictoryChecker.check(Coordinates.apply(validCoordinates),board,3)){
             board.showBoard();
-            return new PreEndState(playerBuffer,output,board,scoreBoard);
+            return new PreEndState(playerBuffer,output,board,scoreBoard,roundCounter);
         }
         if (currentBoardSize == 0) {
             board.showBoard();
-            return new DrawState();
+            return new DrawState(playerBuffer,output,board,scoreBoard,roundCounter);
         }
         playerBuffer.swapPlayers();
         return this;

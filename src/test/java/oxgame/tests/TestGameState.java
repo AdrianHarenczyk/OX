@@ -27,7 +27,7 @@ public class TestGameState {
 
         ScoreBoard scoreBoard = new ScoreBoard(playerList,System.out::println);
         Consumer<String> output = System.out::println;
-        gameState = new RunState(playerList,output,Board.newBoard(3,3),scoreBoard);
+        gameState = new RunState(playerList,output,Board.newBoard(3,3),scoreBoard,0);
         gameState.showState();
     }
     @Test(expectedExceptions = WrongArgumentException.class)
