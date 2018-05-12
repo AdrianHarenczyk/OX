@@ -42,14 +42,11 @@ public class Player {
     private static Symbol getSymbolFromInput(Supplier<String> input, Consumer<String> output) {
         output.accept("Now please choose symbol: X or O.");
         while (true) {
-            validateSymbol: {
                 try {
                     return SymbolValidator.validateSymbol(input);
                 } catch (WrongArgumentException e) {
                     output.accept(e.getMessage());
-                    break validateSymbol;
                 }
-            }
         }
     }
 
@@ -60,7 +57,7 @@ public class Player {
 
     @Override
     public String toString() {
-        return ConsoleColor.GREEN + name + " with symbol " + symbol + ConsoleColor.RESET;
+        return name + " with symbol " + symbol;
     }
 
 }

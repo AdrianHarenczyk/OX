@@ -23,9 +23,9 @@ public class ScoreBoard {
         playerPointsMap.forEach((player,points) -> System.out.println(player + " points: " + points));
         System.out.println();
     }
-    public void showTheWinner() {
+/*    public void showTheWinner() {
         if (playerPointsMap.get())
-    }
+    }*/
     public int getPointOfPlayer(Player player) {
         return playerPointsMap.get(player);
     }

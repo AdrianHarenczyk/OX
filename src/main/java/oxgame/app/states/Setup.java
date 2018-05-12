@@ -25,13 +25,15 @@ public class Setup {
         playerBuffer.addPlayers(firstPlayer,secondPlayer);
         Board board = Board.newBoard(5,5);
 
-        currentState = new GameInProgress(playerBuffer,output,board);
+        currentState = new RunState(playerBuffer,output,board);
         instructions();
         applicationLoop();
     }
 
     private void applicationLoop() {
         while (true) {
+            if (currentState.getClass().equals(EndState.class))
+                return;
             this.currentState.showState();
             startTurn();
         }

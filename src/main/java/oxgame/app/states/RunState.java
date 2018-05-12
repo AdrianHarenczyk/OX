@@ -9,9 +9,10 @@ import oxgame.app.utility.RoundBuffer;
 import oxgame.app.utility.VictoryChecker;
 import oxgame.app.validators.CoordinatesValidator;
 
+import java.io.IOException;
 import java.util.function.Consumer;
 
-public class GameInProgress implements GameState {
+public class RunState implements GameState {
 
     private final RoundBuffer playerBuffer;
     private final Consumer<String> output;
@@ -19,7 +20,7 @@ public class GameInProgress implements GameState {
     private Player player;
     private int currentBoardSize;
 
-    public GameInProgress(RoundBuffer playerBuffer, Consumer<String> output, Board board) {
+    public RunState(RoundBuffer playerBuffer, Consumer<String> output, Board board) {
         this.playerBuffer = playerBuffer;
         this.output = output;
         this.board = board;

@@ -10,16 +10,16 @@ import java.util.function.Consumer;
 public class PreEndState implements GameState {
 
     private Board board;
-    private RoundBuffer playerBuffer;
+    private final RoundBuffer playerBuffer;
     private Player winningPlayer;
-    private Consumer<String> output;
+    private final Consumer<String> output;
     private static ScoreBoard scoreBoard = new ScoreBoard();
     private static final Integer POINTS_FOR_WIN = 3;
     private static final Integer POINTS_FOR_LOST = 0;
     private static final int NUMBER_OF_ROUNDS = 3;
     private static int roundCounter = 0;
 
-    PreEndState(Player winningPlayer, RoundBuffer playerBuffer, Consumer<String> output,Board board) {
+    PreEndState(Player winningPlayer, RoundBuffer playerBuffer, Consumer<String> output, Board board) {
         this.playerBuffer = playerBuffer;
         this.winningPlayer = winningPlayer;
         this.output = output;
@@ -42,7 +42,7 @@ public class PreEndState implements GameState {
     @Override
     public GameState nextState(String input) {
         if (roundCounter == NUMBER_OF_ROUNDS) {
-            return new EndState(scoreBoard,playerBuffer);
+            return new SummaryState(scoreBoard,playerBuffer);
         }
         else {
             int height = board.getHeight();
@@ -50,7 +50,7 @@ public class PreEndState implements GameState {
 
             board = Board.newBoard(width,height);
 
-            return new GameInProgress(playerBuffer,output,board);
+            return new RunState(playerBuffer,output,board);
         }
     }
 }

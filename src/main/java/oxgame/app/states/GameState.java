@@ -4,6 +4,8 @@ import oxgame.app.game.Board;
 import oxgame.app.game.Player;
 import oxgame.app.exceptions.WrongArgumentException;
 
+import java.io.IOException;
+
 public interface GameState {
     /**
      * Shows the state of current game run. For example prints

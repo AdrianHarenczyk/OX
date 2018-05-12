@@ -10,6 +10,11 @@ public class Board {
     private int width;
     private int size;
     private int height;
+    private static final String OS_NAME;
+    static {
+        String[] array = System.getProperty("os.name").split(" ");
+        OS_NAME = array[0].toLowerCase();
+    }
 
     public static Board newBoard(int width, int height) {
         Board board = new Board(width,height);
@@ -23,12 +28,12 @@ public class Board {
         this.width = width;
         this.height = height;
         this.size = width * height;
+
     }
 
     public void placeSymbol(Coordinates coordinates, Symbol symbol) {
         coordinatesSymbolMap.put(coordinates,symbol);
     }
-
     public void placeSymbol(int coordinates, Symbol symbol) {
         placeSymbol(Coordinates.apply(coordinates),symbol);
     }
@@ -48,10 +53,17 @@ public class Board {
     }
 
     private void changePrintMode(Symbol receivedSymbol, int iterator) {
+        if (OS_NAME.equalsIgnoreCase("windows")) {
+            windowsPrintMode(receivedSymbol,iterator);
+        } else {
+            linuxPrintMode(receivedSymbol,iterator);
+        }
+    }
+    private void linuxPrintMode(Symbol receivedSymbol, int iterator) {
         String consoleColor;
         if (receivedSymbol == null) {
             System.out.printf(RED+"["+ GRAY +"%1$-"+String.valueOf(size).length()+"s"+RED+"]"+RESET,iterator);
-            return;
+            consoleColor = GRAY.toString();
         } else if (receivedSymbol.equals(Symbol.X)) {
             consoleColor = BLUE.toString();
         } else {
@@ -59,6 +71,14 @@ public class Board {
         }
         System.out.printf(RED+"["+consoleColor+"%1$-"+String.valueOf(size).length()+"s"+RED+"]"+RESET,receivedSymbol);
     }
+    private void windowsPrintMode(Symbol receivedSymbol, int iterator) {
+        if (receivedSymbol == null) {
+            System.out.printf("[%1$-"+String.valueOf(size).length()+"s]",iterator);
+        } else {
+            System.out.printf("[%1$-" + String.valueOf(size).length() + "s]", receivedSymbol);
+        }
+    }
+
     public int size() {
         return size;
     }
@@ -73,9 +93,5 @@ public class Board {
     }
     public int getHeight() {
         return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
     }
 }
