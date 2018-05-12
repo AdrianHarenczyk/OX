@@ -5,10 +5,12 @@ import org.testng.annotations.Test;
 import ox.app.exceptions.WrongArgumentException;
 import ox.app.game.Board;
 import ox.app.game.Player;
+import ox.app.game.ScoreBoard;
 import ox.app.game.Symbol;
 import ox.app.states.GameState;
 import ox.app.states.RunState;
 import ox.app.utility.RoundBuffer;
+
 import java.util.function.Consumer;
 
 /**
@@ -23,8 +25,9 @@ public class TestGameState {
         playerList.addPlayer(new Player("Adam",Symbol.O));
         playerList.addPlayer(new Player("Roman",Symbol.X));
 
+        ScoreBoard scoreBoard = new ScoreBoard(playerList,System.out::println);
         Consumer<String> output = System.out::println;
-        gameState = new RunState(playerList,output,Board.newBoard(3,3));
+        gameState = new RunState(playerList,output,Board.newBoard(3,3),scoreBoard);
         gameState.showState();
     }
     @Test(expectedExceptions = WrongArgumentException.class)

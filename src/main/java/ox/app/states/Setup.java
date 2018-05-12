@@ -1,8 +1,10 @@
 package ox.app.states;
+
 import ox.app.exceptions.WrongArgumentException;
-import ox.app.game.Player;
-import ox.app.utility.RoundBuffer;
 import ox.app.game.Board;
+import ox.app.game.Player;
+import ox.app.game.ScoreBoard;
+import ox.app.utility.RoundBuffer;
 
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -23,9 +25,9 @@ public class Setup {
 
         final RoundBuffer playerBuffer = new RoundBuffer();
         playerBuffer.addPlayers(firstPlayer,secondPlayer);
-        Board board = Board.newBoard(5,5);
-
-        currentState = new RunState(playerBuffer,output,board);
+        Board board = Board.newBoard(3,3);
+        ScoreBoard scoreBoard = new ScoreBoard(playerBuffer,output);
+        currentState = new RunState(playerBuffer,output,board,scoreBoard);
         instructions();
         applicationLoop();
     }

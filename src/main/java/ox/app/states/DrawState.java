@@ -8,7 +8,7 @@ public class DrawState implements GameState {
 
     @Override
     public GameState nextState(String input) {
-        return null;
+        return new EndState();
     }
 
 }

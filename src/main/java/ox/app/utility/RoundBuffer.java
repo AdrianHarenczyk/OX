@@ -32,4 +32,7 @@ public class RoundBuffer {
         players[0] = secondPlayer;
         players[1] = firstPlayer;
     }
+    public Player[] getPlayers() {
+        return players;
+    }
 }
