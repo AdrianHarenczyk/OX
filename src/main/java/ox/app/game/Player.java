@@ -1,6 +1,7 @@
 package ox.app.game;
 
 import ox.app.exceptions.WrongArgumentException;
+import ox.app.validators.NameValidator;
 import ox.app.validators.SymbolValidator;
 
 import java.util.function.Consumer;
@@ -35,7 +36,7 @@ public class Player {
     private static String getNameFromInput(Supplier<String> input, Consumer<String> output) {
         output.accept("Please provide " + playerCounter + " player name.");
         playerCounter++;
-        return input.get();
+        return NameValidator.isNotEmpty(input,output);
     }
 
     private static Symbol getSymbolFromInput(Supplier<String> input, Consumer<String> output) {

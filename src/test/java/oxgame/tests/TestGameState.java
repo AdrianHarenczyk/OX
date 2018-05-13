@@ -27,9 +27,8 @@ public class TestGameState {
         playerList.addPlayer(new Player("Roman",Symbol.X));
 
         ScoreBoard scoreBoard = new ScoreBoard(playerList,System.out::println);
-        Consumer<String> output = System.out::println;
+        Consumer<String> output = s -> {};
         gameState = new RunState(playerList,output,Board.newBoard(3,3),scoreBoard,0,WINNING_STROKE);
-        gameState.showState();
     }
     @Test(expectedExceptions = WrongArgumentException.class)
     public static void whenWrongInputNextStateThrowsIAException() throws WrongArgumentException {

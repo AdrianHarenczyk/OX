@@ -20,7 +20,7 @@ import java.util.function.Consumer;
 public class TestPreEndState {
     private static Board board;
     private static RoundBuffer playerBuffer;
-    private static final Consumer<String> output = System.out::println;
+    private static final Consumer<String> output = s -> {};
     private static ScoreBoard scoreBoard;
     private static int currentBoardSize;
     private static final int WINNING_STROKE = 3;

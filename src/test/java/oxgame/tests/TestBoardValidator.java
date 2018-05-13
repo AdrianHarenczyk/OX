@@ -14,7 +14,7 @@ public class TestBoardValidator {
     private static Board board;
     private static int width;
     private static int height;
-    private static final Consumer<String> output = System.out::println;
+    private static final Consumer<String> output = s -> {};
 
     @BeforeMethod
     private static void init() {

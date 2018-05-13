@@ -13,7 +13,7 @@ public class SymbolValidator {
     private SymbolValidator(){}
 
     public static Symbol validateSymbol(Supplier<String> input) throws WrongArgumentException {
-        String potentialSymbol = input.get().toUpperCase();
+        String potentialSymbol = input.get().toUpperCase().trim();
         switch (potentialSymbol) {
             case X_SYMBOL:
             case O_SYMBOL:

@@ -117,7 +117,6 @@ public class TestWinningCondition {
         // When
         placeMultipleSymbols(first,second);
         board.placeSymbol(third,Symbol.X);
-        board.showBoard();
         boolean result = VictoryChecker.check(Coordinates.apply(third),board,3);
         // Then
         Assert.assertFalse(result);
@@ -140,7 +139,6 @@ public class TestWinningCondition {
         // When
         placeMultipleSymbols(first,second);
         board.placeSymbol(third,Symbol.X);
-        board.showBoard();
         boolean result = VictoryChecker.check(Coordinates.apply(third),board,3);
         // Then
         Assert.assertFalse(result);
@@ -151,7 +149,6 @@ public class TestWinningCondition {
         // When
         placeMultipleSymbols(first,second,third,fourth);
         board.placeSymbol(fifth,Symbol.X);
-        board.showBoard();
         boolean result = VictoryChecker.check(Coordinates.apply(fifth),board,3);
         // Then
         Assert.assertFalse(result);
