@@ -30,7 +30,7 @@ public class PreEndState implements GameState {
     public PreEndState(RoundBuffer playerBuffer, Consumer<String> output, Board board, ScoreBoard scoreBoard, int roundCounter, int currentBoardSize,int winningStroke) {
         this.playerBuffer = playerBuffer;
         this.winningPlayer = playerBuffer.takePlayer();
-        winnerMessage = winningPlayer + " wins the round!";
+        this.winnerMessage = winningPlayer + " wins the round!";
         this.output = output;
         this.board = board;
         this.scoreBoard = scoreBoard;
