@@ -6,6 +6,7 @@ import ox.app.game.Player;
 import ox.app.game.ScoreBoard;
 import ox.app.utility.RoundBuffer;
 import ox.app.validators.BoardValidator;
+import ox.app.validators.WinningStrokeValidator;
 
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -29,12 +30,13 @@ public class Setup {
 
         int width = BoardValidator.validateWidth(input,output);
         int height = BoardValidator.validateHeight(input,output);
-
         Board board = Board.newBoard(width,height);
 
         ScoreBoard scoreBoard = new ScoreBoard(playerBuffer,output);
 
-        currentState = new RunState(playerBuffer,output,board,scoreBoard,1);
+        int winningStroke = WinningStrokeValidator.validate(board,input,output);
+
+        currentState = new RunState(playerBuffer,output,board,scoreBoard,1,winningStroke);
         instructions();
         applicationLoop();
     }

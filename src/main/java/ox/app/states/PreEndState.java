@@ -26,7 +26,7 @@ public class PreEndState implements GameState {
 
     private int roundCounter;
 
-    PreEndState(RoundBuffer playerBuffer, Consumer<String> output, Board board, ScoreBoard scoreBoard, int roundCounter, int currentBoardSize) {
+    public PreEndState(RoundBuffer playerBuffer, Consumer<String> output, Board board, ScoreBoard scoreBoard, int roundCounter, int currentBoardSize) {
         this.playerBuffer = playerBuffer;
         this.winningPlayer = playerBuffer.takePlayer();
         winnerMessage = winningPlayer + " wins the round!";

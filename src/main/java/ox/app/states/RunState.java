@@ -21,14 +21,16 @@ public class RunState implements GameState {
     private int currentBoardSize;
     private final ScoreBoard scoreBoard;
     private final int roundCounter;
+    private final int winningStroke;
 
-    public RunState(RoundBuffer playerBuffer, Consumer<String> output, Board board, ScoreBoard scoreBoard,int roundCounter) {
+    public RunState(RoundBuffer playerBuffer, Consumer<String> output, Board board, ScoreBoard scoreBoard,int roundCounter, int winningStroke) {
         this.playerBuffer = playerBuffer;
         this.output = output;
         this.board = board;
         currentBoardSize = board.size();
         this.scoreBoard = scoreBoard;
         this.roundCounter = roundCounter;
+        this.winningStroke = winningStroke;
     }
 
 
@@ -56,7 +58,7 @@ public class RunState implements GameState {
         return this;
     }
     private boolean checkIfDrawOrWin(int validCoordinates) {
-        return VictoryChecker.check(Coordinates.apply(validCoordinates),board,3)
+        return VictoryChecker.check(Coordinates.apply(validCoordinates),board,winningStroke)
                 || currentBoardSize == 0;
     }
 }
