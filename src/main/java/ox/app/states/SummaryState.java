@@ -16,7 +16,7 @@ public class SummaryState implements GameState {
 
     @Override
     public void showState() {
-        scoreBoard.showTheWinner();
+        scoreBoard.showTheWinner(output);
         printEndingCommand();
     }
 

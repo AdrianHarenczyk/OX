@@ -64,7 +64,7 @@ public class Setup {
         RoundBuffer playerBuffer = playerInitializer();
         Board board = boardInitializer();
         int winningStroke = WinningStrokeValidator.validate(board,input,output);
-        ScoreBoard scoreBoard = new ScoreBoard(playerBuffer,output);
+        ScoreBoard scoreBoard = new ScoreBoard(playerBuffer);
         currentState = new RunState(playerBuffer,output,board,scoreBoard,INITIAL_ROUND_COUNTER,winningStroke);
     }
     private RoundBuffer playerInitializer() throws WrongArgumentException{
@@ -83,7 +83,7 @@ public class Setup {
     private void defaultSetup() throws WrongArgumentException{
         RoundBuffer playerBuffer = defaultPlayers();
         Board board = defaultBoard();
-        ScoreBoard scoreBoard = new ScoreBoard(playerBuffer,output);
+        ScoreBoard scoreBoard = new ScoreBoard(playerBuffer);
         currentState = new RunState(playerBuffer,output,board,scoreBoard,INITIAL_ROUND_COUNTER,DEFAULT_WINNING_STROKE);
     }
     private RoundBuffer defaultPlayers() throws WrongArgumentException{

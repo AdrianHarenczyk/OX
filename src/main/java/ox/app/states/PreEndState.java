@@ -75,13 +75,13 @@ public class PreEndState implements GameState {
         scoreBoard.addPoint(winningPlayer, POINTS_FOR_WIN);
         playerBuffer.swapPlayers();
         scoreBoard.addPoint(playerBuffer.takePlayer(),POINTS_FOR_LOST);
-        scoreBoard.showScoreBoard();
+        scoreBoard.showScoreBoard(output);
     }
     private void drawPoints() {
         scoreBoard.addPoint(playerBuffer.takePlayer(), POINTS_FOR_DRAW);
         playerBuffer.swapPlayers();
         scoreBoard.addPoint(playerBuffer.takePlayer(),POINTS_FOR_DRAW);
-        scoreBoard.showScoreBoard();
+        scoreBoard.showScoreBoard(output);
     }
 
     private void printRoundMessage(String message) {

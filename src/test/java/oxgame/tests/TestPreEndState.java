@@ -36,7 +36,7 @@ public class TestPreEndState {
         } catch (WrongArgumentException e) {
             output.accept(e.getMessage());
         }
-        scoreBoard = new ScoreBoard(playerBuffer,output);
+        scoreBoard = new ScoreBoard(playerBuffer);
         currentBoardSize = board.size();
 
     }

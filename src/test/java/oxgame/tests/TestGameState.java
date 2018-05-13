@@ -26,7 +26,7 @@ public class TestGameState {
         playerList.addPlayer(new Player("Adam",Symbol.O));
         playerList.addPlayer(new Player("Roman",Symbol.X));
 
-        ScoreBoard scoreBoard = new ScoreBoard(playerList,System.out::println);
+        ScoreBoard scoreBoard = new ScoreBoard(playerList);
         Consumer<String> output = s -> {};
         gameState = new RunState(playerList,output,Board.newBoard(3,3),scoreBoard,0,WINNING_STROKE);
     }
