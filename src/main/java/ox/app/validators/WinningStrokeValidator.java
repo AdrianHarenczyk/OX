@@ -11,14 +11,14 @@ public class WinningStrokeValidator {
     private static final String EXCEEDS_WIDTH = "This number exceeds width of the board,\nor is less than 2.\nPlease pass correct number.";
     private static final String EXCEEDS_HEIGHT = "This number exceeds height of the board,\nor is less than 2.\nPlease pass correct number.";
     private static final String IS_NOT_A_NUMBER = "Passed text is not an integer.\nTry again.";
+    private static final int MINIMUM_STROKE_VALUE = 2;
 
     public static int validate(Board board, Supplier<String> input, Consumer<String> output) {
         output.accept(USER_INSTRUCTIONS);
-        String userProvidedStroke = input.get();
         int validInteger;
         while (true) {
             try {
-                validInteger = ifNumberAssign(userProvidedStroke);
+                validInteger = ifNumberAssign(input.get());
                 if (checkWithBoth(board,validInteger)) {
                     return validInteger;
                 }
@@ -28,7 +28,7 @@ public class WinningStrokeValidator {
         }
     }
     private static boolean checkOneDimension(int dimension, int checkedStroke, String message) throws WrongArgumentException{
-        boolean checkedCondition = dimension >= checkedStroke;
+        boolean checkedCondition = dimension >= checkedStroke && checkedStroke >= MINIMUM_STROKE_VALUE;
         if (!checkedCondition) {
             throw new WrongArgumentException(message);
         } else {
