@@ -23,6 +23,7 @@ public class TestPreEndState {
     private static final Consumer<String> output = System.out::println;
     private static ScoreBoard scoreBoard;
     private static int currentBoardSize;
+    private static final int WINNING_STROKE = 3;
 
     @BeforeMethod
     private static void init() {
@@ -37,12 +38,13 @@ public class TestPreEndState {
         }
         scoreBoard = new ScoreBoard(playerBuffer,output);
         currentBoardSize = board.size();
+
     }
     @Test
     public static void currentStateReturnsSummaryStateWhenRoundCounterIsGreaterThanThree() {
         // Given
         int roundCounterGreaterThanMaxRounds = 5;
-        PreEndState preEndState = new PreEndState(playerBuffer, output, board, scoreBoard, roundCounterGreaterThanMaxRounds, currentBoardSize);
+        PreEndState preEndState = new PreEndState(playerBuffer, output, board, scoreBoard, roundCounterGreaterThanMaxRounds, currentBoardSize, WINNING_STROKE);
         // When
         GameState returnedState = preEndState.nextState("Something");
         // Then
@@ -52,7 +54,7 @@ public class TestPreEndState {
     public static void currentStateReturnsRunStateWhenRoundCounterIsLessThanThree() {
         // Given
         int roundCounterLessThanMaxRounds = 2;
-        PreEndState preEndState = new PreEndState(playerBuffer, output, board, scoreBoard, roundCounterLessThanMaxRounds, currentBoardSize);
+        PreEndState preEndState = new PreEndState(playerBuffer, output, board, scoreBoard, roundCounterLessThanMaxRounds, currentBoardSize,WINNING_STROKE);
         // When
         GameState returnedState = preEndState.nextState("Something");
         // Then

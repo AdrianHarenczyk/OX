@@ -18,6 +18,7 @@ import java.util.function.Consumer;
  */
 public class TestGameState {
     private static GameState gameState;
+    private static final int WINNING_STROKE = 3;
 
     @BeforeTest
     private static void initializeTests() throws WrongArgumentException{
@@ -27,7 +28,7 @@ public class TestGameState {
 
         ScoreBoard scoreBoard = new ScoreBoard(playerList,System.out::println);
         Consumer<String> output = System.out::println;
-        gameState = new RunState(playerList,output,Board.newBoard(3,3),scoreBoard,0);
+        gameState = new RunState(playerList,output,Board.newBoard(3,3),scoreBoard,0,WINNING_STROKE);
         gameState.showState();
     }
     @Test(expectedExceptions = WrongArgumentException.class)

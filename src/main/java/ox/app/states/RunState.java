@@ -45,14 +45,14 @@ public class RunState implements GameState {
     public GameState nextState(String input) throws WrongArgumentException {
         if (ResignCheck.check(input)) {
             playerBuffer.swapPlayers();
-            return new PreEndState(playerBuffer,output,board,scoreBoard,roundCounter,currentBoardSize);
+            return new PreEndState(playerBuffer,output,board,scoreBoard,roundCounter,currentBoardSize,winningStroke);
         }
         int validCoordinates = CoordinatesValidator.validate(input,board.size(),board);
         board.placeSymbol(Coordinates.apply(validCoordinates),player.showSymbol());
         currentBoardSize--;
         if (checkIfDrawOrWin(validCoordinates)) {
             board.showBoard();
-            return new PreEndState(playerBuffer,output,board,scoreBoard,roundCounter,currentBoardSize);
+            return new PreEndState(playerBuffer,output,board,scoreBoard,roundCounter,currentBoardSize,winningStroke);
         }
         playerBuffer.swapPlayers();
         return this;
