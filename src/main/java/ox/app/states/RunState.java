@@ -28,7 +28,7 @@ public class RunState implements GameState {
         this.playerBuffer = playerBuffer;
         this.output = output;
         this.board = board;
-        currentBoardSize = board.size();
+        this.currentBoardSize = board.size();
         this.scoreBoard = scoreBoard;
         this.roundCounter = roundCounter;
         this.winningStroke = winningStroke;
