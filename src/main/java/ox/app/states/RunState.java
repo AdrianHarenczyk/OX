@@ -43,20 +43,20 @@ public class RunState implements GameState {
     public GameState nextState(String input) throws WrongArgumentException {
         if (ResignCheck.check(input)) {
             playerBuffer.swapPlayers();
-            return new PreEndState(playerBuffer,output,board,scoreBoard,roundCounter);
+            return new PreEndState(playerBuffer,output,board,scoreBoard,roundCounter,currentBoardSize);
         }
         int validCoordinates = CoordinatesValidator.validate(input,board.size(),board);
         board.placeSymbol(Coordinates.apply(validCoordinates),player.showSymbol());
         currentBoardSize--;
-        if (VictoryChecker.check(Coordinates.apply(validCoordinates),board,3)){
+        if (checkIfDrawOrWin(validCoordinates)) {
             board.showBoard();
-            return new PreEndState(playerBuffer,output,board,scoreBoard,roundCounter);
-        }
-        if (currentBoardSize == 0) {
-            board.showBoard();
-            return new DrawState(playerBuffer,output,board,scoreBoard,roundCounter);
+            return new PreEndState(playerBuffer,output,board,scoreBoard,roundCounter,currentBoardSize);
         }
         playerBuffer.swapPlayers();
         return this;
+    }
+    private boolean checkIfDrawOrWin(int validCoordinates) {
+        return VictoryChecker.check(Coordinates.apply(validCoordinates),board,3)
+                || currentBoardSize == 0;
     }
 }
