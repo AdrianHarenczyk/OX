@@ -60,16 +60,19 @@ public class Board {
         }
     }
     private void linuxPrintMode(Symbol receivedSymbol, int iterator) {
-        String consoleColor;
+        String symbolColor;
         if (receivedSymbol == null) {
             System.out.printf(ConsoleColor.RED+"["+ ConsoleColor.GRAY +"%1$-"+String.valueOf(size).length()+"s"+ ConsoleColor.RED+"]"+ ConsoleColor.RESET,iterator);
-            consoleColor = ConsoleColor.GRAY.toString();
         } else if (receivedSymbol.equals(Symbol.X)) {
-            consoleColor = ConsoleColor.BLUE.toString();
+            symbolColor = ConsoleColor.BLUE.toString();
+            System.out.printf(linuxMessageForSymbol(symbolColor),receivedSymbol);
         } else {
-            consoleColor = ConsoleColor.PURPLE.toString();
+            symbolColor = ConsoleColor.PURPLE.toString();
+            System.out.printf(linuxMessageForSymbol(symbolColor),receivedSymbol);
         }
-        System.out.printf(ConsoleColor.RED+"["+consoleColor+"%1$-"+String.valueOf(size).length()+"s"+ ConsoleColor.RED+"]"+ ConsoleColor.RESET,receivedSymbol);
+    }
+    private String linuxMessageForSymbol(String symbolColor) {
+        return ConsoleColor.RED+"["+symbolColor+"%1$-"+String.valueOf(size).length()+"s"+ ConsoleColor.RED+"]"+ ConsoleColor.RESET;
     }
     private void windowsPrintMode(Symbol receivedSymbol, int iterator) {
         if (receivedSymbol == null) {

@@ -44,7 +44,7 @@ public class PreEndState implements GameState {
 
     @Override
     public GameState nextState(String input) {
-        if (roundCounter == NUMBER_OF_ROUNDS) {
+        if (roundCounter > NUMBER_OF_ROUNDS) {
             return new SummaryState(scoreBoard,playerBuffer);
         }
         else {
@@ -85,6 +85,7 @@ public class PreEndState implements GameState {
     private void printRoundMessage(String message) {
         printResultOfRound(message);
         printInfoToStartNewRound();
+        printInfoToSeeResults();
     }
     private void printResultOfRound(String message) {
         if (roundCounter <= NUMBER_OF_ROUNDS) {
@@ -94,6 +95,11 @@ public class PreEndState implements GameState {
     private void printInfoToStartNewRound() {
         if (roundCounter != NUMBER_OF_ROUNDS) {
             output.accept("Press enter to start round " + (roundCounter+1));
+        }
+    }
+    private void printInfoToSeeResults() {
+        if (roundCounter == NUMBER_OF_ROUNDS) {
+            output.accept("The game has ended. Press enter to see the results.");
         }
     }
 }

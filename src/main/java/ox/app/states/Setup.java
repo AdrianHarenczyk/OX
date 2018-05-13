@@ -26,7 +26,7 @@ public class Setup {
         playerBuffer.addPlayers(firstPlayer,secondPlayer);
         Board board = Board.newBoard(3,3);
         ScoreBoard scoreBoard = new ScoreBoard(playerBuffer,output);
-        currentState = new RunState(playerBuffer,output,board,scoreBoard,0);
+        currentState = new RunState(playerBuffer,output,board,scoreBoard,1);
         instructions();
         applicationLoop();
     }
