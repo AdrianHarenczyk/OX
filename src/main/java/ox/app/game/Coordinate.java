@@ -2,21 +2,21 @@ package ox.app.game;
 
 import java.util.Objects;
 
-public class Coordinates implements Comparable<Coordinates>{
+public class Coordinate implements Comparable<Coordinate>{
     private final int value;
-    private Coordinates(int value) {
+    private Coordinate(int value) {
         this.value = value;
     }
 
-    public static Coordinates apply(int value) {
-        return new Coordinates(value);
+    public static Coordinate apply(int value) {
+        return new Coordinate(value);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Coordinates that = (Coordinates) o;
+        Coordinate that = (Coordinate) o;
         return value == that.value;
     }
 
@@ -26,7 +26,7 @@ public class Coordinates implements Comparable<Coordinates>{
     }
 
     @Override
-    public int compareTo(Coordinates o) {
+    public int compareTo(Coordinate o) {
         Integer comparableValue = this.value;
         Integer valueToCompareTo = o.value;
         return comparableValue.compareTo(valueToCompareTo);
@@ -37,6 +37,6 @@ public class Coordinates implements Comparable<Coordinates>{
     }
     @Override
     public String toString() {
-        return "Coordinates: " + value;
+        return "Coordinate: " + value;
     }
 }

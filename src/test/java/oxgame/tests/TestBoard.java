@@ -4,7 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import ox.app.game.Board;
-import ox.app.game.Coordinates;
+import ox.app.game.Coordinate;
 
 public class TestBoard {
     private static Board board;
@@ -27,9 +27,9 @@ public class TestBoard {
     @Test
     public static void methodReturnsNullWhenGetSymbolWithNoSymbolInside() {
         // Given
-        Coordinates coordinates = Coordinates.apply(1);
+        Coordinate coordinate = Coordinate.apply(1);
         // When
         // Then
-        Assert.assertNull(board.getSymbol(coordinates));
+        Assert.assertNull(board.getSymbol(coordinate));
     }
 }

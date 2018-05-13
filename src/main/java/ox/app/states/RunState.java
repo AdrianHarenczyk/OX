@@ -2,13 +2,13 @@ package ox.app.states;
 
 import ox.app.exceptions.WrongArgumentException;
 import ox.app.game.Board;
-import ox.app.game.Coordinates;
+import ox.app.game.Coordinate;
 import ox.app.game.Player;
 import ox.app.game.ScoreBoard;
 import ox.app.utility.ResignCheck;
 import ox.app.utility.RoundBuffer;
 import ox.app.utility.VictoryChecker;
-import ox.app.validators.CoordinatesValidator;
+import ox.app.validators.CoordinateValidator;
 
 import java.util.function.Consumer;
 
@@ -57,12 +57,12 @@ public class RunState implements GameState {
         return this;
     }
     private boolean checkIfDrawOrWin(int validCoordinates) {
-        return VictoryChecker.check(Coordinates.apply(validCoordinates),board,winningStroke)
+        return VictoryChecker.check(Coordinate.apply(validCoordinates),board,winningStroke)
                 || currentBoardSize == 0;
     }
     private int validateCoordinateAndPlaceSymbol(String input) throws WrongArgumentException{
-        int validCoordinates = CoordinatesValidator.validate(input,board.size(),board);
-        board.placeSymbol(Coordinates.apply(validCoordinates),player.showSymbol());
+        int validCoordinates = CoordinateValidator.validate(input,board.size(),board);
+        board.placeSymbol(Coordinate.apply(validCoordinates),player.showSymbol());
         currentBoardSize--;
         return validCoordinates;
     }

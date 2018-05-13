@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Board {
-    private Map<Coordinates,Symbol> coordinatesSymbolMap;
+    private Map<Coordinate,Symbol> coordinatesSymbolMap;
     private int width;
     private int size;
     private int height;
@@ -19,7 +19,7 @@ public class Board {
     public static Board newBoard(int width, int height) {
         Board board = new Board(width,height);
         for (int i = 1; i <= board.size; i++) {
-            board.coordinatesSymbolMap.put(Coordinates.apply(i), null);
+            board.coordinatesSymbolMap.put(Coordinate.apply(i), null);
         }
         return board;
     }
@@ -31,11 +31,11 @@ public class Board {
 
     }
 
-    public void placeSymbol(Coordinates coordinates, Symbol symbol) {
-        coordinatesSymbolMap.put(coordinates,symbol);
+    public void placeSymbol(Coordinate coordinate, Symbol symbol) {
+        coordinatesSymbolMap.put(coordinate,symbol);
     }
     public void placeSymbol(int coordinates, Symbol symbol) {
-        placeSymbol(Coordinates.apply(coordinates),symbol);
+        placeSymbol(Coordinate.apply(coordinates),symbol);
     }
 
     public void showBoard() {
@@ -45,7 +45,7 @@ public class Board {
                 System.out.println();
                 columnCounter = 0;
             }
-            Symbol receivedSymbol = coordinatesSymbolMap.get(Coordinates.apply(i));
+            Symbol receivedSymbol = coordinatesSymbolMap.get(Coordinate.apply(i));
             changePrintMode(receivedSymbol,i);
             columnCounter++;
         }
@@ -85,11 +85,11 @@ public class Board {
     public int size() {
         return size;
     }
-    public Symbol getSymbol(Coordinates coordinates) {
-        return coordinatesSymbolMap.get(coordinates);
+    public Symbol getSymbol(Coordinate coordinate) {
+        return coordinatesSymbolMap.get(coordinate);
     }
     public Symbol getSymbol(int number) {
-        return getSymbol(Coordinates.apply(number));
+        return getSymbol(Coordinate.apply(number));
     }
     public int getWidth() {
         return width;

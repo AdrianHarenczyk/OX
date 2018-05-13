@@ -2,12 +2,16 @@ package ox.app.states;
 
 import ox.app.game.ScoreBoard;
 
+import java.util.function.Consumer;
+
 public class SummaryState implements GameState {
     private final ScoreBoard scoreBoard;
     private static final String ENDING_MESSAGE = "\nTo exit application, press enter.";
+    private final Consumer<String> output;
 
-    SummaryState(ScoreBoard scoreBoard) {
+    SummaryState(ScoreBoard scoreBoard, Consumer<String> output) {
         this.scoreBoard = scoreBoard;
+        this.output = output;
     }
 
     @Override
@@ -22,6 +26,6 @@ public class SummaryState implements GameState {
     }
 
     private void printEndingCommand() {
-        System.out.println(ENDING_MESSAGE);
+        output.accept(ENDING_MESSAGE);
     }
 }

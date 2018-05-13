@@ -10,6 +10,9 @@ public class ScoreBoard {
     private final Map<Player,Integer> playerPointsMap;
     private final RoundBuffer playerBuffer;
     private final Consumer<String> output;
+    private static final String EMPTY_LINE ="";
+    private static final String DRAW_MESSAGE = "It's a draw!";
+    private static final String THE_WINNER_MESSAGE = "The winner is ";
 
     public ScoreBoard(RoundBuffer playerBuffer, Consumer<String> output) {
         this.playerBuffer = playerBuffer;
@@ -25,16 +28,16 @@ public class ScoreBoard {
         playerPointsMap.put(player,points);
     }
     public void showScoreBoard() {
-        System.out.println();
-        playerPointsMap.forEach((player,points) -> System.out.println(player + " points: " + points));
-        System.out.println();
+        output.accept(EMPTY_LINE);
+        playerPointsMap.forEach((player,points) -> output.accept(player + " points: " + points));
+        output.accept(EMPTY_LINE);
     }
     public void showTheWinner() {
         Player theWinner;
         if ((theWinner = getTheWinner() ) != null) {
-            output.accept("The winner is "+ theWinner);
+            output.accept(THE_WINNER_MESSAGE + theWinner);
         } else {
-            output.accept("It's a draw!");
+            output.accept(DRAW_MESSAGE);
         }
     }
     private Player getTheWinner() {

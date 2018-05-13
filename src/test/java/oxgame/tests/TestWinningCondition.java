@@ -5,7 +5,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ox.app.game.Board;
-import ox.app.game.Coordinates;
+import ox.app.game.Coordinate;
 import ox.app.game.Symbol;
 import ox.app.utility.VictoryChecker;
 
@@ -106,7 +106,7 @@ public class TestWinningCondition {
         // When
         placeMultipleSymbols(first,second);
         board.placeSymbol(third,Symbol.X);
-        boolean result = VictoryChecker.check(Coordinates.apply(third),board,3);
+        boolean result = VictoryChecker.check(Coordinate.apply(third),board,3);
 
         // Then
         Assert.assertTrue(result);
@@ -117,7 +117,7 @@ public class TestWinningCondition {
         // When
         placeMultipleSymbols(first,second);
         board.placeSymbol(third,Symbol.X);
-        boolean result = VictoryChecker.check(Coordinates.apply(third),board,3);
+        boolean result = VictoryChecker.check(Coordinate.apply(third),board,3);
         // Then
         Assert.assertFalse(result);
     }
@@ -128,7 +128,7 @@ public class TestWinningCondition {
         // When
         placeMultipleSymbols(first,second);
         board.placeSymbol(third,Symbol.X);
-        boolean result = VictoryChecker.check(Coordinates.apply(third),board,3);
+        boolean result = VictoryChecker.check(Coordinate.apply(third),board,3);
 
         // Then
         Assert.assertTrue(result);
@@ -139,7 +139,7 @@ public class TestWinningCondition {
         // When
         placeMultipleSymbols(first,second);
         board.placeSymbol(third,Symbol.X);
-        boolean result = VictoryChecker.check(Coordinates.apply(third),board,3);
+        boolean result = VictoryChecker.check(Coordinate.apply(third),board,3);
         // Then
         Assert.assertFalse(result);
     }
@@ -149,7 +149,7 @@ public class TestWinningCondition {
         // When
         placeMultipleSymbols(first,second,third,fourth);
         board.placeSymbol(fifth,Symbol.X);
-        boolean result = VictoryChecker.check(Coordinates.apply(fifth),board,3);
+        boolean result = VictoryChecker.check(Coordinate.apply(fifth),board,3);
         // Then
         Assert.assertFalse(result);
     }
