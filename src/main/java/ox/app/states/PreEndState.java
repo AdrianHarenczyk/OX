@@ -45,7 +45,7 @@ public class PreEndState implements GameState {
     @Override
     public GameState nextState(String input) {
         if (roundCounter > NUMBER_OF_ROUNDS) {
-            return new SummaryState(scoreBoard,playerBuffer);
+            return new SummaryState(scoreBoard);
         }
         else {
             return new RunState(playerBuffer,output,createNewBoard(),scoreBoard,roundCounter);

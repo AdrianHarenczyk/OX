@@ -8,7 +8,7 @@ public class CoordinatesValidator {
 
     public static int validate(String value, int maxBoardNumber, Board board) throws WrongArgumentException {
         int numericValue;
-        if (value.trim().equals("") || !InputValidator.isNumber(value)) {
+        if (value.trim().equals("") || !InputIsNumberValidator.isNumber(value)) {
             throw new WrongArgumentException("Wrong coordinate. Pick the number from the board.\n");
         } else {
             numericValue = Integer.parseInt(value);

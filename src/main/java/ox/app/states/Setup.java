@@ -5,6 +5,7 @@ import ox.app.game.Board;
 import ox.app.game.Player;
 import ox.app.game.ScoreBoard;
 import ox.app.utility.RoundBuffer;
+import ox.app.validators.BoardValidator;
 
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -22,10 +23,17 @@ public class Setup {
     public void initializeAGame() throws WrongArgumentException {
         Player firstPlayer = Player.playerCreator(input,output);
         Player secondPlayer = Player.playerCreator(input,output,firstPlayer);
+
         final RoundBuffer playerBuffer = new RoundBuffer();
         playerBuffer.addPlayers(firstPlayer,secondPlayer);
-        Board board = Board.newBoard(3,3);
+
+        int width = BoardValidator.validateWidth(input,output);
+        int height = BoardValidator.validateHeight(input,output);
+
+        Board board = Board.newBoard(width,height);
+
         ScoreBoard scoreBoard = new ScoreBoard(playerBuffer,output);
+
         currentState = new RunState(playerBuffer,output,board,scoreBoard,1);
         instructions();
         applicationLoop();

@@ -20,7 +20,7 @@ public class RunState implements GameState {
     private Player player;
     private int currentBoardSize;
     private final ScoreBoard scoreBoard;
-    private int roundCounter;
+    private final int roundCounter;
 
     public RunState(RoundBuffer playerBuffer, Consumer<String> output, Board board, ScoreBoard scoreBoard,int roundCounter) {
         this.playerBuffer = playerBuffer;

@@ -1,6 +1,6 @@
 package ox.app.validators;
 
-class InputValidator {
+class InputIsNumberValidator {
 
     static boolean isNumber(String possibleNumber) {
         try {
@@ -11,6 +11,6 @@ class InputValidator {
         }
         return true;
     }
-    private InputValidator() {
+    private InputIsNumberValidator() {
     }
 }

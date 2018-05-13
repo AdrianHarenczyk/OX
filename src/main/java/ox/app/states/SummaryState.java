@@ -1,15 +1,12 @@
 package ox.app.states;
 
 import ox.app.game.ScoreBoard;
-import ox.app.utility.RoundBuffer;
 
 public class SummaryState implements GameState {
     private final ScoreBoard scoreBoard;
-    private final RoundBuffer players;
 
-    SummaryState(ScoreBoard scoreBoard, RoundBuffer players) {
+    SummaryState(ScoreBoard scoreBoard) {
         this.scoreBoard = scoreBoard;
-        this.players = players;
     }
 
     @Override
