@@ -17,7 +17,8 @@ public class Setup {
     private GameState currentState;
     private final Supplier<String> input;
     private final Consumer<String> output;
-    private static final String HELLO_MESSAGE = "Game has started.\nPass number of field to place your symbol.\nTo resign pass resign as a command.\n";
+    private static final String HELLO_MESSAGE = "Game has started.\nPass number of field to place your symbol." +
+            "\nTo resign from round pass resign as a command.\nWhen you want to resign of all rounds, pass resign all.";
     private static final String STARTING_MESSAGE = "Welcome in OX Game!\nUse default command to start with 3x3 Board and generic user names," +
             "\nor pass custom to specify names of the players, their symbols,\nand set board to play.";
     private static final int INITIAL_ROUND_COUNTER = 1;
