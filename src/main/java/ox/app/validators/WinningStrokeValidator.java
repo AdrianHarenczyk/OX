@@ -28,8 +28,8 @@ public class WinningStrokeValidator {
         }
     }
     private static boolean checkOneDimension(int dimension, int checkedStroke, String message) throws WrongArgumentException{
-        boolean checkedCondition = dimension >= checkedStroke && checkedStroke >= MINIMUM_STROKE_VALUE;
-        if (!checkedCondition) {
+        boolean isCheckStrokeValueCorrect = dimension >= checkedStroke && checkedStroke >= MINIMUM_STROKE_VALUE;
+        if (!isCheckStrokeValueCorrect) {
             throw new WrongArgumentException(message);
         } else {
             return true;
