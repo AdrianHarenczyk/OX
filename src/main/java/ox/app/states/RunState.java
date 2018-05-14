@@ -5,6 +5,7 @@ import ox.app.game.Board;
 import ox.app.game.Coordinate;
 import ox.app.game.Player;
 import ox.app.game.ScoreBoard;
+import ox.app.utility.BoardDrawer;
 import ox.app.utility.ResignCheck;
 import ox.app.utility.RoundBuffer;
 import ox.app.utility.VictoryChecker;
@@ -39,7 +40,7 @@ public class RunState implements GameState {
     public void showState() {
         player = playerBuffer.takePlayer();
         output.accept(player.toString());
-        board.showBoard();
+        BoardDrawer.showBoard(board);
     }
 
     @Override
@@ -50,7 +51,7 @@ public class RunState implements GameState {
         }
         int validCoordinates = validateCoordinateAndPlaceSymbol(input);
         if (checkIfDrawOrWin(validCoordinates)) {
-            board.showBoard();
+            BoardDrawer.showBoard(board);
             return new PreEndState(playerBuffer,output,board,scoreBoard,roundCounter,currentBoardSize,winningStroke);
         }
         playerBuffer.swapPlayers();
