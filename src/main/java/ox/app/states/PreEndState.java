@@ -13,6 +13,7 @@ public class PreEndState implements GameState {
     private final RoundBuffer playerBuffer;
     private final Player winningPlayer;
     private final Consumer<String> output;
+    private final Consumer<String> boardOutput;
     private final ScoreBoard scoreBoard;
     private final int currentBoardSize;
     private final int winningStroke;
@@ -27,7 +28,7 @@ public class PreEndState implements GameState {
 
     private int roundCounter;
 
-    public PreEndState(RoundBuffer playerBuffer, Consumer<String> output, Board board, ScoreBoard scoreBoard, int roundCounter, int currentBoardSize,int winningStroke) {
+    public PreEndState(RoundBuffer playerBuffer, Consumer<String> output, Board board, ScoreBoard scoreBoard, int roundCounter, int currentBoardSize,int winningStroke, Consumer<String> boardOutput) {
         this.playerBuffer = playerBuffer;
         this.winningPlayer = playerBuffer.takePlayer();
         this.winnerMessage = winningPlayer + " wins the round!";
@@ -37,6 +38,7 @@ public class PreEndState implements GameState {
         this.roundCounter = roundCounter;
         this.currentBoardSize = currentBoardSize;
         this.winningStroke = winningStroke;
+        this.boardOutput = boardOutput;
     }
 
     @Override
@@ -50,7 +52,7 @@ public class PreEndState implements GameState {
             return new SummaryState(scoreBoard,output);
         }
         else {
-            return new RunState(playerBuffer,output,createNewBoard(),scoreBoard,roundCounter,winningStroke);
+            return new RunState(playerBuffer,output,createNewBoard(),scoreBoard,roundCounter,winningStroke,boardOutput);
         }
     }
 

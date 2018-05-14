@@ -17,6 +17,8 @@ public class Setup {
     private GameState currentState;
     private final Supplier<String> input;
     private final Consumer<String> output;
+    private final Consumer<String> boardOutput;
+
     private static final String HELLO_MESSAGE = "Game has started.\nPass number of field to place your symbol." +
             "\nTo resign from round pass resign as a command.\nWhen you want to resign of all rounds, pass resign all.";
     private static final String STARTING_MESSAGE = "Welcome in OX Game!\nUse default command to start with 3x3 Board and generic user names," +
@@ -26,9 +28,10 @@ public class Setup {
     private static final int DEFAULT_BOARD_WIDTH = 3;
     private static final int DEFAULT_BOARD_HEIGHT = 3;
 
-    public Setup(Supplier<String> input, Consumer<String> output) {
+    public Setup(Supplier<String> input, Consumer<String> output, Consumer<String> boardOutput) {
         this.input = input;
         this.output = output;
+        this.boardOutput = boardOutput;
     }
 
     public void initializeAGame() throws WrongArgumentException {
@@ -65,7 +68,7 @@ public class Setup {
         Board board = boardInitializer();
         int winningStroke = WinningStrokeValidator.validate(board,input,output);
         ScoreBoard scoreBoard = new ScoreBoard(playerBuffer);
-        currentState = new RunState(playerBuffer,output,board,scoreBoard,INITIAL_ROUND_COUNTER,winningStroke);
+        currentState = new RunState(playerBuffer,output,board,scoreBoard,INITIAL_ROUND_COUNTER,winningStroke,boardOutput);
     }
     private RoundBuffer playerInitializer() throws WrongArgumentException{
         RoundBuffer playerBuffer = new RoundBuffer();
@@ -84,7 +87,7 @@ public class Setup {
         RoundBuffer playerBuffer = defaultPlayers();
         Board board = defaultBoard();
         ScoreBoard scoreBoard = new ScoreBoard(playerBuffer);
-        currentState = new RunState(playerBuffer,output,board,scoreBoard,INITIAL_ROUND_COUNTER,DEFAULT_WINNING_STROKE);
+        currentState = new RunState(playerBuffer,output,board,scoreBoard,INITIAL_ROUND_COUNTER,DEFAULT_WINNING_STROKE,boardOutput);
     }
     private RoundBuffer defaultPlayers() throws WrongArgumentException{
         RoundBuffer playerBuffer = new RoundBuffer();

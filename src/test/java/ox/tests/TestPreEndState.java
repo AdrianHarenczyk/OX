@@ -1,4 +1,4 @@
-package oxgame.tests;
+package ox.tests;
 
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -21,6 +21,7 @@ public class TestPreEndState {
     private static Board board;
     private static RoundBuffer playerBuffer;
     private static final Consumer<String> output = s -> {};
+    private static final Consumer<String> boardOutput = s -> {};
     private static ScoreBoard scoreBoard;
     private static int currentBoardSize;
     private static final int WINNING_STROKE = 3;
@@ -44,7 +45,7 @@ public class TestPreEndState {
     public static void currentStateReturnsSummaryStateWhenRoundCounterIsGreaterThanThree() {
         // Given
         int roundCounterGreaterThanMaxRounds = 5;
-        PreEndState preEndState = new PreEndState(playerBuffer, output, board, scoreBoard, roundCounterGreaterThanMaxRounds, currentBoardSize, WINNING_STROKE);
+        PreEndState preEndState = new PreEndState(playerBuffer, output, board, scoreBoard, roundCounterGreaterThanMaxRounds, currentBoardSize, WINNING_STROKE,boardOutput);
         // When
         GameState returnedState = preEndState.nextState("Something");
         // Then
@@ -54,7 +55,7 @@ public class TestPreEndState {
     public static void currentStateReturnsRunStateWhenRoundCounterIsLessThanThree() {
         // Given
         int roundCounterLessThanMaxRounds = 2;
-        PreEndState preEndState = new PreEndState(playerBuffer, output, board, scoreBoard, roundCounterLessThanMaxRounds, currentBoardSize,WINNING_STROKE);
+        PreEndState preEndState = new PreEndState(playerBuffer, output, board, scoreBoard, roundCounterLessThanMaxRounds, currentBoardSize,WINNING_STROKE,boardOutput);
         // When
         GameState returnedState = preEndState.nextState("Something");
         // Then

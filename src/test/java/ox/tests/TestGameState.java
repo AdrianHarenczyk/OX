@@ -1,4 +1,4 @@
-package oxgame.tests;
+package ox.tests;
 
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -28,7 +28,8 @@ public class TestGameState {
 
         ScoreBoard scoreBoard = new ScoreBoard(playerList);
         Consumer<String> output = s -> {};
-        gameState = new RunState(playerList,output,Board.newBoard(3,3),scoreBoard,0,WINNING_STROKE);
+        Consumer<String> boardOutput = s -> {};
+        gameState = new RunState(playerList,output,Board.newBoard(3,3),scoreBoard,0,WINNING_STROKE,boardOutput);
     }
     @Test(expectedExceptions = WrongArgumentException.class)
     public static void whenWrongInputNextStateThrowsIAException() throws WrongArgumentException {

@@ -17,6 +17,7 @@ public class RunState implements GameState {
 
     private final RoundBuffer playerBuffer;
     private final Consumer<String> output;
+    private final Consumer<String> boardOutput;
     private final Board board;
     private Player player;
     private int currentBoardSize;
@@ -25,7 +26,7 @@ public class RunState implements GameState {
     private final int winningStroke;
     private static final int ENDING_ROUND = 3;
 
-    public RunState(RoundBuffer playerBuffer, Consumer<String> output, Board board, ScoreBoard scoreBoard,int roundCounter, int winningStroke) {
+    public RunState(RoundBuffer playerBuffer, Consumer<String> output, Board board, ScoreBoard scoreBoard,int roundCounter, int winningStroke, Consumer<String> boardOutput) {
         this.playerBuffer = playerBuffer;
         this.output = output;
         this.board = board;
@@ -33,6 +34,7 @@ public class RunState implements GameState {
         this.scoreBoard = scoreBoard;
         this.roundCounter = roundCounter;
         this.winningStroke = winningStroke;
+        this.boardOutput = boardOutput;
     }
 
 
@@ -40,7 +42,7 @@ public class RunState implements GameState {
     public void showState() {
         player = playerBuffer.takePlayer();
         output.accept(player.toString());
-        BoardDrawer.showBoard(board);
+        BoardDrawer.showBoard(board,boardOutput);
     }
 
     @Override
@@ -51,8 +53,8 @@ public class RunState implements GameState {
         }
         int validCoordinates = validateCoordinateAndPlaceSymbol(input);
         if (checkIfDrawOrWin(validCoordinates)) {
-            BoardDrawer.showBoard(board);
-            return new PreEndState(playerBuffer,output,board,scoreBoard,roundCounter,currentBoardSize,winningStroke);
+            BoardDrawer.showBoard(board,boardOutput);
+            return new PreEndState(playerBuffer,output,board,scoreBoard,roundCounter,currentBoardSize,winningStroke,boardOutput);
         }
         playerBuffer.swapPlayers();
         return this;
@@ -70,10 +72,10 @@ public class RunState implements GameState {
     private PreEndState checkResign(String input) {
         if (ResignCheck.checkAll(input)) {
             playerBuffer.swapPlayers();
-            return new PreEndState(playerBuffer,output,board,scoreBoard,ENDING_ROUND,currentBoardSize,winningStroke);
+            return new PreEndState(playerBuffer,output,board,scoreBoard,ENDING_ROUND,currentBoardSize,winningStroke,boardOutput);
         } else if (ResignCheck.check(input)) {
             playerBuffer.swapPlayers();
-            return new PreEndState(playerBuffer,output,board,scoreBoard,roundCounter,currentBoardSize,winningStroke);
+            return new PreEndState(playerBuffer,output,board,scoreBoard,roundCounter,currentBoardSize,winningStroke,boardOutput);
         } else return null;
     }
 }

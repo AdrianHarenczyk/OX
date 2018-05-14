@@ -1,4 +1,4 @@
-package oxgame.tests;
+package ox.tests;
 
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
