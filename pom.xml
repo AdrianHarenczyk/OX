@@ -5,15 +5,19 @@
     <modelVersion>4.0.0</modelVersion>
 
 
-    <groupId>ox-game-group</groupId>
-    <artifactId>ox-game-project</artifactId>
-    <version>1.0</version>
+    <groupId>com.adrian_harenczyk</groupId>
+    <artifactId>ox-game</artifactId>
+    <version>0.9</version>
+    <name>OX Game</name>
+    <description>Game of noughts and crosses</description>
 
 
     <properties>
         <testng.version>6.14.3</testng.version>
         <java.version>8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.version>3.7.0</maven.compiler.version>
+        <maven.jar.plugin.version>2.4</maven.jar.plugin.version>
     </properties>
 
 
@@ -22,7 +26,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.7.0</version>
+                <version>${maven.compiler.version}</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
@@ -32,11 +36,11 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>2.4</version>
+                <version>${maven.jar.plugin.version}</version>
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>oxgame.app.Main</mainClass>
+                            <mainClass>ox.app.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
