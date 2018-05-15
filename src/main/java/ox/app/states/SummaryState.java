@@ -1,17 +1,19 @@
 package ox.app.states;
 
 import ox.app.game.ScoreBoard;
+import ox.app.languages.InstructionDriver;
 
 import java.util.function.Consumer;
 
-public class SummaryState implements GameState {
+class SummaryState implements GameState {
     private final ScoreBoard scoreBoard;
-    private static final String ENDING_MESSAGE = "\nTo exit application, press enter.";
     private final Consumer<String> output;
+    private final InstructionDriver instructionDriver;
 
-    SummaryState(ScoreBoard scoreBoard, Consumer<String> output) {
+    SummaryState(ScoreBoard scoreBoard, Consumer<String> output, InstructionDriver instructionDriver) {
         this.scoreBoard = scoreBoard;
         this.output = output;
+        this.instructionDriver = instructionDriver;
     }
 
     @Override
@@ -26,6 +28,6 @@ public class SummaryState implements GameState {
     }
 
     private void printEndingCommand() {
-        output.accept(ENDING_MESSAGE);
+        output.accept(instructionDriver.exitAppMessage());
     }
 }

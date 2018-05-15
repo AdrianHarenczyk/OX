@@ -5,6 +5,7 @@ import ox.app.game.Board;
 import ox.app.game.Coordinate;
 import ox.app.game.Player;
 import ox.app.game.ScoreBoard;
+import ox.app.languages.InstructionDriver;
 import ox.app.utility.BoardDrawer;
 import ox.app.utility.ResignCheck;
 import ox.app.utility.RoundBuffer;
@@ -13,7 +14,7 @@ import ox.app.validators.CoordinateValidator;
 
 import java.util.function.Consumer;
 
-public class RunState implements GameState {
+class RunState implements GameState {
 
     private final RoundBuffer playerBuffer;
     private final Consumer<String> output;
@@ -24,9 +25,12 @@ public class RunState implements GameState {
     private final ScoreBoard scoreBoard;
     private final int roundCounter;
     private final int winningStroke;
+    private final InstructionDriver instructionDriver;
     private static final int ENDING_ROUND = 3;
 
-    public RunState(RoundBuffer playerBuffer, Consumer<String> output, Board board, ScoreBoard scoreBoard,int roundCounter, int winningStroke, Consumer<String> boardOutput) {
+    public RunState(RoundBuffer playerBuffer, Consumer<String> output, Board board,
+                    ScoreBoard scoreBoard, int roundCounter, int winningStroke,
+                    Consumer<String> boardOutput, InstructionDriver instructionDriver) {
         this.playerBuffer = playerBuffer;
         this.output = output;
         this.board = board;
@@ -35,6 +39,7 @@ public class RunState implements GameState {
         this.roundCounter = roundCounter;
         this.winningStroke = winningStroke;
         this.boardOutput = boardOutput;
+        this.instructionDriver = instructionDriver;
     }
 
 
@@ -54,7 +59,9 @@ public class RunState implements GameState {
         int validCoordinates = validateCoordinateAndPlaceSymbol(input);
         if (checkIfDrawOrWin(validCoordinates)) {
             BoardDrawer.showBoard(board,boardOutput);
-            return new PreEndState(playerBuffer,output,board,scoreBoard,roundCounter,currentBoardSize,winningStroke,boardOutput);
+            return new PreEndState(playerBuffer,output,board,
+                    scoreBoard, roundCounter,currentBoardSize,
+                    winningStroke,boardOutput, instructionDriver);
         }
         playerBuffer.swapPlayers();
         return this;
@@ -72,10 +79,14 @@ public class RunState implements GameState {
     private PreEndState checkResign(String input) {
         if (ResignCheck.checkAll(input)) {
             playerBuffer.swapPlayers();
-            return new PreEndState(playerBuffer,output,board,scoreBoard,ENDING_ROUND,currentBoardSize,winningStroke,boardOutput);
+            return new PreEndState(playerBuffer, output, board,
+                    scoreBoard, ENDING_ROUND, currentBoardSize,
+                    winningStroke, boardOutput, instructionDriver);
         } else if (ResignCheck.check(input)) {
             playerBuffer.swapPlayers();
-            return new PreEndState(playerBuffer,output,board,scoreBoard,roundCounter,currentBoardSize,winningStroke,boardOutput);
+            return new PreEndState(playerBuffer, output, board,
+                    scoreBoard, roundCounter, currentBoardSize,
+                    winningStroke, boardOutput, instructionDriver);
         } else return null;
     }
 }

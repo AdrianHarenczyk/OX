@@ -1,6 +1,6 @@
 package ox.app.states;
 
-public class EndState implements GameState {
+class EndState implements GameState {
 
     @Override
     public void showState() {

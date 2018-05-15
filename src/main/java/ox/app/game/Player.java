@@ -1,6 +1,7 @@
 package ox.app.game;
 
 import ox.app.exceptions.WrongArgumentException;
+import ox.app.languages.InstructionDriver;
 import ox.app.validators.NameValidator;
 import ox.app.validators.SymbolValidator;
 
@@ -17,13 +18,13 @@ public class Player {
         this.symbol = symbol;
     }
 
-    public static Player playerCreator(Supplier<String> input, Consumer<String> output) {
-        String name = getNameFromInput(input,output);
-        Symbol symbol = getSymbolFromInput(input,output);
+    public static Player playerCreator(Supplier<String> input, Consumer<String> output, InstructionDriver instructionDriver) {
+        String name = getNameFromInput(input,output,instructionDriver);
+        Symbol symbol = getSymbolFromInput(input,output,instructionDriver);
         return new Player(name,symbol);
     }
-    public static Player playerCreator(Supplier<String> input, Consumer<String> output, Player player) {
-        String name = getNameFromInput(input,output);
+    public static Player playerCreator(Supplier<String> input, Consumer<String> output, Player player, InstructionDriver instructionDriver) {
+        String name = getNameFromInput(input,output,instructionDriver);
         Symbol symbol = returnOtherSymbol(player);
         return new Player(name,symbol);
     }
@@ -33,14 +34,14 @@ public class Player {
     }
 
 
-    private static String getNameFromInput(Supplier<String> input, Consumer<String> output) {
+    private static String getNameFromInput(Supplier<String> input, Consumer<String> output,InstructionDriver instructionDriver) {
         output.accept("Please provide " + playerCounter + " player name.");
         playerCounter++;
         return NameValidator.isNotEmpty(input,output);
     }
 
-    private static Symbol getSymbolFromInput(Supplier<String> input, Consumer<String> output) {
-        output.accept("Now please choose symbol: X or O.");
+    private static Symbol getSymbolFromInput(Supplier<String> input, Consumer<String> output, InstructionDriver instructionDriver) {
+        output.accept(instructionDriver.pleaseChooseSymbolInstruction());
         while (true) {
                 try {
                     return SymbolValidator.validateSymbol(input);
@@ -57,7 +58,7 @@ public class Player {
 
     @Override
     public String toString() {
-        return name + " with symbol " + symbol;
+        return name + " : " + symbol;
     }
 
 }
