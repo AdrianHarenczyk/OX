@@ -1,1 +1,1 @@
-start java -jar target\ox-game-project-1.0.jar
+start java -jar target\ox-game-1.0.jar
