@@ -5,7 +5,7 @@ import ox.app.languages.InstructionDriver;
 
 import java.util.function.Consumer;
 
-class SummaryState implements GameState {
+public class SummaryState implements GameState {
     private final ScoreBoard scoreBoard;
     private final Consumer<String> output;
     private final InstructionDriver instructionDriver;

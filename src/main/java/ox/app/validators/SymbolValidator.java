@@ -2,6 +2,7 @@ package ox.app.validators;
 
 import ox.app.game.Symbol;
 import ox.app.exceptions.WrongArgumentException;
+import ox.app.languages.InstructionDriver;
 
 import java.util.function.Supplier;
 
@@ -12,7 +13,7 @@ public class SymbolValidator {
 
     private SymbolValidator(){}
 
-    public static Symbol validateSymbol(Supplier<String> input) throws WrongArgumentException {
+    public static Symbol validateSymbol(Supplier<String> input, InstructionDriver instructionDriver) throws WrongArgumentException {
         String potentialSymbol = input.get().toUpperCase().trim();
         switch (potentialSymbol) {
             case X_SYMBOL:
@@ -21,7 +22,7 @@ public class SymbolValidator {
             case ZERO_DIGIT:
                 return Symbol.O;
             default:
-                throw new WrongArgumentException("This symbol is not supported. Use X or O instead.");
+                throw new WrongArgumentException(instructionDriver.symbolNotSupportedError());
         }
     }
 }

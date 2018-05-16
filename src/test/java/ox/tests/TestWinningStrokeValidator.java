@@ -5,12 +5,14 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ox.app.game.Board;
+import ox.app.languages.InstructionDriver;
+import ox.app.languages.Language;
 import ox.app.validators.WinningStrokeValidator;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class TestWinningStrokeValidator {
-
+    private static final InstructionDriver instructionDriver = new InstructionDriver(Language.EN);
     private static final Board board = Board.newBoard(50,50);
 
     @BeforeMethod
@@ -41,7 +43,7 @@ public class TestWinningStrokeValidator {
         Supplier<String> input = () -> winningStrokeSupplier;
         Consumer<String> output = s -> {};
         // When
-        int returnedValidWinningStroke = WinningStrokeValidator.validate(board, input, output);
+        int returnedValidWinningStroke = WinningStrokeValidator.validate(board, input, output,instructionDriver);
         int providedWinningStroke = Integer.parseInt(input.get());
         // Then
         Assert.assertEquals(providedWinningStroke,returnedValidWinningStroke);

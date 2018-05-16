@@ -8,7 +8,7 @@ import ox.app.utility.RoundBuffer;
 
 import java.util.function.Consumer;
 
-class PreEndState implements GameState {
+public class PreEndState implements GameState {
 
     private final Board board;
     private final RoundBuffer playerBuffer;
@@ -75,7 +75,7 @@ class PreEndState implements GameState {
             printRoundMessage(winnerMessage);
         } else {
             drawPoints();
-            printRoundMessage(instructionDriver.draw());
+            printRoundMessage(instructionDriver.drawMessage());
         }
         roundCounter++;
     }
@@ -105,7 +105,7 @@ class PreEndState implements GameState {
     }
     private void printInfoToStartNewRound() {
         if (roundCounter != NUMBER_OF_ROUNDS) {
-            output.accept(instructionDriver.pressEnter() + (roundCounter+1));
+            output.accept(instructionDriver.pressEnterMessage() + (roundCounter+1));
         }
     }
     private void printInfoToSeeResults() {

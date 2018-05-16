@@ -14,7 +14,7 @@ import ox.app.validators.CoordinateValidator;
 
 import java.util.function.Consumer;
 
-class RunState implements GameState {
+public class RunState implements GameState {
 
     private final RoundBuffer playerBuffer;
     private final Consumer<String> output;
@@ -71,7 +71,7 @@ class RunState implements GameState {
                 || currentBoardSize == 0;
     }
     private int validateCoordinateAndPlaceSymbol(String input) throws WrongArgumentException{
-        int validCoordinates = CoordinateValidator.validate(input,board.size(),board);
+        int validCoordinates = CoordinateValidator.validate(input,board.size(),board, instructionDriver);
         board.placeSymbol(Coordinate.apply(validCoordinates),player.showSymbol());
         currentBoardSize--;
         return validCoordinates;

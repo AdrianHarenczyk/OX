@@ -35,16 +35,16 @@ public class Player {
 
 
     private static String getNameFromInput(Supplier<String> input, Consumer<String> output,InstructionDriver instructionDriver) {
-        output.accept("Please provide " + playerCounter + " player name.");
+        output.accept(instructionDriver.pleaseProvideInstruction() + playerCounter + instructionDriver.playerNameMessage());
         playerCounter++;
-        return NameValidator.isNotEmpty(input,output);
+        return NameValidator.isNotEmpty(input,output, instructionDriver);
     }
 
     private static Symbol getSymbolFromInput(Supplier<String> input, Consumer<String> output, InstructionDriver instructionDriver) {
         output.accept(instructionDriver.pleaseChooseSymbolInstruction());
         while (true) {
                 try {
-                    return SymbolValidator.validateSymbol(input);
+                    return SymbolValidator.validateSymbol(input, instructionDriver);
                 } catch (WrongArgumentException e) {
                     output.accept(e.getMessage());
                 }

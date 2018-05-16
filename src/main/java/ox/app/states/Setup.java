@@ -36,7 +36,7 @@ public class Setup {
 
     public void initializeAGame() throws WrongArgumentException {
         startupInstructions();
-        if (SetupChooser.check(input, output)) {
+        if (SetupChooser.check(input, output, instructionDriver)) {
             customSetup();
         } else {
             defaultSetup();
@@ -66,8 +66,8 @@ public class Setup {
     private void customSetup() throws WrongArgumentException{
         RoundBuffer playerBuffer = playerInitializer();
         Board board = boardInitializer();
-        int winningStroke = WinningStrokeValidator.validate(board,input,output);
-        ScoreBoard scoreBoard = new ScoreBoard(playerBuffer);
+        int winningStroke = WinningStrokeValidator.validate(board,input,output, instructionDriver);
+        ScoreBoard scoreBoard = new ScoreBoard(playerBuffer, instructionDriver);
         currentState = new RunState(playerBuffer, output, board,
                 scoreBoard, INITIAL_ROUND_COUNTER, winningStroke,
                 boardOutput, instructionDriver);
@@ -80,23 +80,23 @@ public class Setup {
         return playerBuffer;
     }
     private Board boardInitializer() {
-        int width = BoardValidator.validateWidth(input, output);
-        int height = BoardValidator.validateHeight(input, output);
+        int width = BoardValidator.validateWidth(input, output, instructionDriver);
+        int height = BoardValidator.validateHeight(input, output, instructionDriver);
         return Board.newBoard(width,height);
     }
 
     private void defaultSetup() throws WrongArgumentException{
         RoundBuffer playerBuffer = defaultPlayers();
         Board board = defaultBoard();
-        ScoreBoard scoreBoard = new ScoreBoard(playerBuffer);
+        ScoreBoard scoreBoard = new ScoreBoard(playerBuffer, instructionDriver);
         currentState = new RunState(playerBuffer, output, board,
                 scoreBoard, INITIAL_ROUND_COUNTER, DEFAULT_WINNING_STROKE,
                 boardOutput, instructionDriver);
     }
     private RoundBuffer defaultPlayers() throws WrongArgumentException{
         RoundBuffer playerBuffer = new RoundBuffer();
-        Player firstPlayer = new Player("Cheesecake",Symbol.X);
-        Player secondPlayer = new Player("Blueberry",Symbol.O);
+        Player firstPlayer = new Player(instructionDriver.defaultFirstPlayerName(),Symbol.X);
+        Player secondPlayer = new Player(instructionDriver.defaultSecondPlayerName(),Symbol.O);
         playerBuffer.addPlayers(firstPlayer, secondPlayer);
         return playerBuffer;
     }
@@ -105,10 +105,10 @@ public class Setup {
     }
 
     private void afterSettingsInstructions() {
-        output.accept(instructionDriver.startRound());
+        output.accept(instructionDriver.startRoundMessage());
     }
     private void startupInstructions() {
-        output.accept(instructionDriver.welcome());
+        output.accept(instructionDriver.welcomeMessage());
     }
 
 }

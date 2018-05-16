@@ -8,8 +8,23 @@ import java.util.Scanner;
 
 class Main {
     public static void main(String[] args) {
+        String languageCommand = "default";
+        if (args.length > 0 && args[0] != null) {
+            languageCommand = args[0].toLowerCase();
+        }
+        Language language;
         try {
-            new Setup(new Scanner(System.in)::nextLine, System.out::println, System.out::printf, new InstructionDriver(Language.EN)).initializeAGame();
+            switch (languageCommand) {
+                case "pl":
+                    language = Language.PL;
+                    break;
+                case "en":
+                    language = Language.EN;
+                    break;
+                default:
+                    language = Language.EN;
+            }
+            new Setup(new Scanner(System.in)::nextLine, System.out::println, System.out::printf, new InstructionDriver(language)).initializeAGame();
         } catch (WrongArgumentException e) {
             System.out.println(e.getCause() + e.getMessage());
         }
