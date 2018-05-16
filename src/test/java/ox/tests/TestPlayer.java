@@ -21,20 +21,22 @@ public class TestPlayer {
 
     @BeforeMethod
     public static void initialize() {
-        output = s -> {};
+        output = s -> {
+        };
     }
 
     @DataProvider(name = "playerNames")
     Object[][] playerNames() {
-        return new Object[][] {
+        return new Object[][]{
                 {"Roman\nX\n", Symbol.X},
                 {"Adam\nO\n", Symbol.O}
         };
     }
+
     @DataProvider(name = "playerNamesSwitchSymbol")
     Object[][] playerNamesSwitchSymbol() {
-        return new Object[][] {
-                {"Roman\nX\n","Adam\n", Symbol.O},
+        return new Object[][]{
+                {"Roman\nX\n", "Adam\n", Symbol.O},
                 {"Adam\nO\n", "Roman\n", Symbol.X}
         };
     }
@@ -44,21 +46,22 @@ public class TestPlayer {
         // Given
         System.setIn(new ByteArrayInputStream(playerNames.getBytes()));
         input = new Scanner(System.in)::nextLine;
-        Player player = Player.playerCreator(input,output,instructionDriver);
+        Player player = Player.playerCreator(input, output, instructionDriver);
         // When
         Symbol playerSymbol = player.showSymbol();
         // Then
         Assert.assertEquals(symbol, playerSymbol);
     }
+
     @Test(dataProvider = "playerNamesSwitchSymbol")
     public static void ifWhenCreatingPlayerBasedUponAnotherPlayerReturnsPlayerWithOppositeSymbol(String firstPlayerInput, String secondPlayerInput, Symbol symbol) {
         // Given
         System.setIn(new ByteArrayInputStream(firstPlayerInput.getBytes()));
         input = new Scanner(System.in)::nextLine;
-        Player firstPlayer = Player.playerCreator(input,output,instructionDriver);
+        Player firstPlayer = Player.playerCreator(input, output, instructionDriver);
         System.setIn(new ByteArrayInputStream(secondPlayerInput.getBytes()));
         input = new Scanner(System.in)::nextLine;
-        Player secondPlayer =Player.playerCreator(input,output,firstPlayer,instructionDriver);
+        Player secondPlayer = Player.playerCreator(input, output, firstPlayer, instructionDriver);
         // When
         Symbol secondPlayerSymbol = secondPlayer.showSymbol();
         // Then

@@ -41,6 +41,7 @@ public class RunState implements GameState {
         this.boardOutput = boardOutput;
         this.instructionDriver = instructionDriver;
     }
+
     RunState(PreEndState preEndState) {
         this(preEndState.playerBuffer, preEndState.output, preEndState.board,
                 preEndState.scoreBoard, preEndState.roundCounter, preEndState.winningStroke,
@@ -51,13 +52,13 @@ public class RunState implements GameState {
     public void showState() {
         player = playerBuffer.takePlayer();
         output.accept(player.toString());
-        BoardDrawer.showBoard(board,boardOutput);
+        BoardDrawer.showBoard(board, boardOutput);
     }
 
     @Override
     public GameState nextState(String input) throws WrongArgumentException {
         PreEndState resignState;
-        if ((resignState = checkResign(input))!=null) {
+        if ((resignState = checkResign(input)) != null) {
             return resignState;
         }
         int validCoordinates = validateCoordinateAndPlaceSymbol(input);
@@ -72,20 +73,24 @@ public class RunState implements GameState {
         playerBuffer.swapPlayers();
         return this;
     }
+
     private boolean checkIfWinOrDraw(int validCoordinates) {
-        return VictoryChecker.check(Coordinate.apply(validCoordinates),board,winningStroke)
+        return VictoryChecker.check(Coordinate.apply(validCoordinates), board, winningStroke)
                 || currentBoardSize == 0;
     }
+
     private boolean checkIfWinAndDraw(int validCoordinates) {
-        return VictoryChecker.check(Coordinate.apply(validCoordinates),board,winningStroke)
+        return VictoryChecker.check(Coordinate.apply(validCoordinates), board, winningStroke)
                 && currentBoardSize == 0;
     }
-    private int validateCoordinateAndPlaceSymbol(String input) throws WrongArgumentException{
-        int validCoordinates = CoordinateValidator.validate(input,board.size(),board, instructionDriver);
-        board.placeSymbol(Coordinate.apply(validCoordinates),player.showSymbol());
+
+    private int validateCoordinateAndPlaceSymbol(String input) throws WrongArgumentException {
+        int validCoordinates = CoordinateValidator.validate(input, board.size(), board, instructionDriver);
+        board.placeSymbol(Coordinate.apply(validCoordinates), player.showSymbol());
         currentBoardSize--;
         return validCoordinates;
     }
+
     private PreEndState checkResign(String input) {
         if (ResignCheck.checkAll(input)) {
             playerBuffer.swapPlayers();

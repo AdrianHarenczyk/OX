@@ -45,6 +45,7 @@ public class PreEndState implements GameState {
         this.boardOutput = boardOutput;
         this.instructionDriver = instructionDriver;
     }
+
     PreEndState(RunState runState) {
         this(runState.playerBuffer, runState.output, runState.board,
                 runState.scoreBoard, runState.roundCounter, runState.currentBoardSize,
@@ -59,9 +60,8 @@ public class PreEndState implements GameState {
     @Override
     public GameState nextState(String input) {
         if (roundCounter > NUMBER_OF_ROUNDS) {
-            return new SummaryState(scoreBoard,output,instructionDriver);
-        }
-        else {
+            return new SummaryState(scoreBoard, output, instructionDriver);
+        } else {
             this.board = createNewBoard();
             return new RunState(this);
         }
@@ -70,11 +70,11 @@ public class PreEndState implements GameState {
     private Board createNewBoard() {
         int height = board.getHeight();
         int width = board.getWidth();
-        return Board.newBoard(width,height);
+        return Board.newBoard(width, height);
     }
 
     private void pointsDisposer() {
-        if (currentBoardSize>0) {
+        if (currentBoardSize > 0) {
             winningPoints();
             printRoundMessage(winnerMessage);
         } else {
@@ -87,13 +87,14 @@ public class PreEndState implements GameState {
     private void winningPoints() {
         scoreBoard.addPoint(winningPlayer, POINTS_FOR_WIN);
         playerBuffer.swapPlayers();
-        scoreBoard.addPoint(playerBuffer.takePlayer(),POINTS_FOR_LOST);
+        scoreBoard.addPoint(playerBuffer.takePlayer(), POINTS_FOR_LOST);
         scoreBoard.showScoreBoard(output);
     }
+
     private void drawPoints() {
         scoreBoard.addPoint(playerBuffer.takePlayer(), POINTS_FOR_DRAW);
         playerBuffer.swapPlayers();
-        scoreBoard.addPoint(playerBuffer.takePlayer(),POINTS_FOR_DRAW);
+        scoreBoard.addPoint(playerBuffer.takePlayer(), POINTS_FOR_DRAW);
         scoreBoard.showScoreBoard(output);
     }
 
@@ -102,16 +103,19 @@ public class PreEndState implements GameState {
         printInfoToStartNewRound();
         printInfoToSeeResults();
     }
+
     private void printResultOfRound(String message) {
         if (roundCounter <= NUMBER_OF_ROUNDS) {
             output.accept(message);
         }
     }
+
     private void printInfoToStartNewRound() {
         if (roundCounter != NUMBER_OF_ROUNDS) {
-            output.accept(instructionDriver.pressEnterMessage() + (roundCounter+1));
+            output.accept(instructionDriver.pressEnterMessage() + (roundCounter + 1));
         }
     }
+
     private void printInfoToSeeResults() {
         if (roundCounter == NUMBER_OF_ROUNDS) {
             output.accept(instructionDriver.endGameMessage());

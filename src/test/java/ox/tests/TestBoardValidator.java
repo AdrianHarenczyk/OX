@@ -16,7 +16,8 @@ public class TestBoardValidator {
     private static Board board;
     private static int width;
     private static int height;
-    private static final Consumer<String> output = s -> {};
+    private static final Consumer<String> output = s -> {
+    };
     private static final InstructionDriver instructionDriver = new InstructionDriver(Language.EN);
 
     @BeforeMethod
@@ -28,16 +29,16 @@ public class TestBoardValidator {
 
     @DataProvider(name = "validNumbers")
     Object[][] validNumbers() {
-        return new Object[][] {
-                {"3","3"},
-                {"3","5"},
-                {"55","22"},
-                {"33","11"},
-                {"5","7"},
-                {"77","6"},
-                {"75","52"},
-                {"9","3"},
-                {"3","11"},
+        return new Object[][]{
+                {"3", "3"},
+                {"3", "5"},
+                {"55", "22"},
+                {"33", "11"},
+                {"5", "7"},
+                {"77", "6"},
+                {"75", "52"},
+                {"9", "3"},
+                {"3", "11"},
         };
     }
 
@@ -45,12 +46,12 @@ public class TestBoardValidator {
     public static void whenUserProvidesValidDataForBoard_WidthWhichUserProvided_IsBoardActualWidth(String widthString, String heightString) {
         // Given
         Supplier<String> input = () -> widthString;
-        width = BoardValidator.validateWidth(input,output,instructionDriver);
+        width = BoardValidator.validateWidth(input, output, instructionDriver);
         input = () -> heightString;
-        height = BoardValidator.validateHeight(input,output,instructionDriver);
+        height = BoardValidator.validateHeight(input, output, instructionDriver);
         // When
-        board = Board.newBoard(width,height);
+        board = Board.newBoard(width, height);
         // Then
-        Assert.assertEquals(width,board.getWidth());
+        Assert.assertEquals(width, board.getWidth());
     }
 }

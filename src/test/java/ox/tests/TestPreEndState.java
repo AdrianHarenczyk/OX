@@ -22,8 +22,10 @@ import java.util.function.Consumer;
 public class TestPreEndState {
     private static Board board;
     private static RoundBuffer playerBuffer;
-    private static final Consumer<String> output = s -> {};
-    private static final Consumer<String> boardOutput = s -> {};
+    private static final Consumer<String> output = s -> {
+    };
+    private static final Consumer<String> boardOutput = s -> {
+    };
     private static ScoreBoard scoreBoard;
     private static int currentBoardSize;
     private static final int WINNING_STROKE = 3;
@@ -31,20 +33,21 @@ public class TestPreEndState {
 
     @BeforeMethod
     private static void init() {
-        board = Board.newBoard(5,5);
+        board = Board.newBoard(5, 5);
         playerBuffer = new RoundBuffer();
-        Player playerOne = new Player("Adam",Symbol.X);
-        Player playerTwo = new Player("Roman",Symbol.O);
+        Player playerOne = new Player("Adam", Symbol.X);
+        Player playerTwo = new Player("Roman", Symbol.O);
 
         try {
-            playerBuffer.addPlayers(playerOne,playerTwo);
+            playerBuffer.addPlayers(playerOne, playerTwo);
         } catch (WrongArgumentException e) {
             output.accept(e.getMessage());
         }
-        scoreBoard = new ScoreBoard(playerBuffer,instructionDriver);
+        scoreBoard = new ScoreBoard(playerBuffer, instructionDriver);
         currentBoardSize = board.size();
 
     }
+
     @Test
     public static void currentStateReturnsSummaryStateWhenRoundCounterIsGreaterThanThree() {
         // Given
@@ -55,8 +58,9 @@ public class TestPreEndState {
         // When
         GameState returnedState = preEndState.nextState("Something");
         // Then
-        Assert.assertEquals(SummaryState.class,returnedState.getClass());
+        Assert.assertEquals(SummaryState.class, returnedState.getClass());
     }
+
     @Test
     public static void currentStateReturnsRunStateWhenRoundCounterIsLessThanThree() {
         // Given
@@ -67,7 +71,7 @@ public class TestPreEndState {
         // When
         GameState returnedState = preEndState.nextState("Something");
         // Then
-        Assert.assertEquals(RunState.class,returnedState.getClass());
+        Assert.assertEquals(RunState.class, returnedState.getClass());
     }
 
 }

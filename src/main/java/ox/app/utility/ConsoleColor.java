@@ -8,6 +8,7 @@ public enum ConsoleColor {
     GRAY("\u001b[37m");
 
     private final String value;
+
     ConsoleColor(String value) {
         this.value = value;
     }

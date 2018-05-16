@@ -11,7 +11,8 @@ public class SymbolValidator {
     private static final String O_SYMBOL = "O";
     private static final String ZERO_DIGIT = "0";
 
-    private SymbolValidator(){}
+    private SymbolValidator() {
+    }
 
     public static Symbol validateSymbol(Supplier<String> input, InstructionDriver instructionDriver) throws WrongArgumentException {
         String potentialSymbol = input.get().toUpperCase().trim();

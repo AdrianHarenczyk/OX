@@ -19,14 +19,15 @@ public class Player {
     }
 
     public static Player playerCreator(Supplier<String> input, Consumer<String> output, InstructionDriver instructionDriver) {
-        String name = getNameFromInput(input,output,instructionDriver);
-        Symbol symbol = getSymbolFromInput(input,output,instructionDriver);
-        return new Player(name,symbol);
+        String name = getNameFromInput(input, output, instructionDriver);
+        Symbol symbol = getSymbolFromInput(input, output, instructionDriver);
+        return new Player(name, symbol);
     }
+
     public static Player playerCreator(Supplier<String> input, Consumer<String> output, Player player, InstructionDriver instructionDriver) {
-        String name = getNameFromInput(input,output,instructionDriver);
+        String name = getNameFromInput(input, output, instructionDriver);
         Symbol symbol = returnOtherSymbol(player);
-        return new Player(name,symbol);
+        return new Player(name, symbol);
     }
 
     public Symbol showSymbol() {
@@ -34,20 +35,20 @@ public class Player {
     }
 
 
-    private static String getNameFromInput(Supplier<String> input, Consumer<String> output,InstructionDriver instructionDriver) {
+    private static String getNameFromInput(Supplier<String> input, Consumer<String> output, InstructionDriver instructionDriver) {
         output.accept(instructionDriver.pleaseProvideInstruction() + playerCounter + instructionDriver.playerNameMessage());
         playerCounter++;
-        return NameValidator.isNotEmpty(input,output, instructionDriver);
+        return NameValidator.isNotEmpty(input, output, instructionDriver);
     }
 
     private static Symbol getSymbolFromInput(Supplier<String> input, Consumer<String> output, InstructionDriver instructionDriver) {
         output.accept(instructionDriver.pleaseChooseSymbolInstruction());
         while (true) {
-                try {
-                    return SymbolValidator.validateSymbol(input, instructionDriver);
-                } catch (WrongArgumentException e) {
-                    output.accept(e.getMessage());
-                }
+            try {
+                return SymbolValidator.validateSymbol(input, instructionDriver);
+            } catch (WrongArgumentException e) {
+                output.accept(e.getMessage());
+            }
         }
     }
 

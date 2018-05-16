@@ -13,23 +13,25 @@ public class TestPlayerCreation {
 
     @Test(expectedExceptions = WrongArgumentException.class)
     public static void whenPassingOtherCharThanCorrespondingToSymbolMethodThrowsIAException() throws WrongArgumentException {
-        SymbolValidator.validateSymbol(() -> "h",instructionDriver);
+        SymbolValidator.validateSymbol(() -> "h", instructionDriver);
     }
+
     @Test
     public static void symbolValidatorReturnsXWhenPassedSuchString() throws WrongArgumentException {
         // Given
         // When
-        Symbol symbol = SymbolValidator.validateSymbol(()-> "x",instructionDriver);
+        Symbol symbol = SymbolValidator.validateSymbol(() -> "x", instructionDriver);
         // Then
-        Assert.assertEquals(symbol,Symbol.X);
+        Assert.assertEquals(symbol, Symbol.X);
     }
+
     @Test
     public static void symbolValidatorReturnsOEvenWhenPassedZero() throws WrongArgumentException {
         // Given
         // When
-        Symbol symbol = SymbolValidator.validateSymbol(()-> "0",instructionDriver);
+        Symbol symbol = SymbolValidator.validateSymbol(() -> "0", instructionDriver);
         // Then
-        Assert.assertEquals(symbol,Symbol.O);
+        Assert.assertEquals(symbol, Symbol.O);
     }
 
 

@@ -2,8 +2,9 @@ package ox.app.game;
 
 import java.util.Objects;
 
-public class Coordinate implements Comparable<Coordinate>{
+public class Coordinate implements Comparable<Coordinate> {
     private final int value;
+
     private Coordinate(int value) {
         this.value = value;
     }

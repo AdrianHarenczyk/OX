@@ -14,8 +14,8 @@ public class TestRoundBuffer {
     @BeforeTest
     private static void initialize() throws WrongArgumentException {
         buffer = new RoundBuffer();
-        buffer.addPlayer(new Player("Adam",Symbol.X));
-        buffer.addPlayer(new Player("Eve",Symbol.O));
+        buffer.addPlayer(new Player("Adam", Symbol.X));
+        buffer.addPlayer(new Player("Eve", Symbol.O));
     }
 
     @Test
@@ -25,8 +25,9 @@ public class TestRoundBuffer {
         buffer.swapPlayers();
         Player supposedToBeNotAdam = buffer.takePlayer();
         // Then
-        Assert.assertNotEquals(adam,supposedToBeNotAdam);
+        Assert.assertNotEquals(adam, supposedToBeNotAdam);
     }
+
     @Test
     public static void checkIfMultipleTimesTakeChangesPlayersProperly() {
         // When
@@ -34,7 +35,7 @@ public class TestRoundBuffer {
         Player eva = buffer.takePlayer();
         Player shouldBeAdamAgain = buffer.takePlayer();
         // Then
-        Assert.assertEquals(adam,shouldBeAdamAgain);
+        Assert.assertEquals(adam, shouldBeAdamAgain);
 
     }
 

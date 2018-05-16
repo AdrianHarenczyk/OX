@@ -17,9 +17,11 @@ public class InputOutput {
     public String getInput() {
         return input.get();
     }
+
     public void acceptMessageOut(String message) {
         output.accept(message);
     }
+
     public void acceptBoardOut(String instruction) {
         boardOutput.accept(instruction);
     }

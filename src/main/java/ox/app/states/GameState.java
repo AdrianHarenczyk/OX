@@ -9,6 +9,7 @@ public interface GameState {
      * board to console, or informs about victory.
      */
     void showState();
+
     /**
      * @return next state of the game, for example
      * could return new turn, for opposite player.

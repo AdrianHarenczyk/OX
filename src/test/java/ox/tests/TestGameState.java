@@ -14,6 +14,7 @@ import ox.app.states.RunState;
 import ox.app.utility.RoundBuffer;
 
 import java.util.function.Consumer;
+
 /**
  * this test class is about testing GameState flow.
  */
@@ -23,27 +24,28 @@ public class TestGameState {
     private static InstructionDriver instructionDriver = new InstructionDriver(Language.EN);
 
     @BeforeTest
-    private static void initializeTests() throws WrongArgumentException{
+    private static void initializeTests() throws WrongArgumentException {
         RoundBuffer playerList = new RoundBuffer();
-        playerList.addPlayer(new Player("Adam",Symbol.O));
-        playerList.addPlayer(new Player("Roman",Symbol.X));
+        playerList.addPlayer(new Player("Adam", Symbol.O));
+        playerList.addPlayer(new Player("Roman", Symbol.X));
 
-        ScoreBoard scoreBoard = new ScoreBoard(playerList,instructionDriver);
-        Consumer<String> output = s -> {};
-        Consumer<String> boardOutput = s -> {};
+        ScoreBoard scoreBoard = new ScoreBoard(playerList, instructionDriver);
+        Consumer<String> output = s -> {
+        };
+        Consumer<String> boardOutput = s -> {
+        };
         InstructionDriver instructionDriver = new InstructionDriver(Language.EN);
-        gameState = new RunState(playerList, output, Board.newBoard(3,3),
-                scoreBoard,0, WINNING_STROKE, 
+        gameState = new RunState(playerList, output, Board.newBoard(3, 3),
+                scoreBoard, 0, WINNING_STROKE,
                 boardOutput, instructionDriver);
     }
+
     @Test(expectedExceptions = WrongArgumentException.class)
     public static void whenWrongInputNextStateThrowsIAException() throws WrongArgumentException {
         // Given
         // When
         gameState = gameState.nextState("x");
     }
-
-
 
 
 }

@@ -17,14 +17,15 @@ public class CoordinateValidator {
         if (numericValue > maxBoardNumber || numericValue < 1) {
             throw new WrongArgumentException(instructionDriver.numberExceedsTheBoardError());
         } else if (
-            (board.getSymbol(Coordinate.apply(Integer.parseInt(value))))
-            !=
-            null) {
+                (board.getSymbol(Coordinate.apply(Integer.parseInt(value))))
+                        !=
+                        null) {
             throw new WrongArgumentException(instructionDriver.positionAlreadyTakenError());
         } else {
             return numericValue;
         }
     }
+
     private CoordinateValidator() {
     }
 }

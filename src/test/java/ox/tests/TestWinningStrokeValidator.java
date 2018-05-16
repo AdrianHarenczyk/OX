@@ -8,12 +8,13 @@ import ox.app.game.Board;
 import ox.app.languages.InstructionDriver;
 import ox.app.languages.Language;
 import ox.app.validators.WinningStrokeValidator;
+
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class TestWinningStrokeValidator {
     private static final InstructionDriver instructionDriver = new InstructionDriver(Language.EN);
-    private static final Board board = Board.newBoard(50,50);
+    private static final Board board = Board.newBoard(50, 50);
 
     @BeforeMethod
     private static void init() {
@@ -22,7 +23,7 @@ public class TestWinningStrokeValidator {
 
     @DataProvider(name = "validStrokeValues")
     Object[][] validStrokeValues() {
-        return new Object[][] {
+        return new Object[][]{
                 {"6"},
                 {"9"},
                 {"3"},
@@ -37,15 +38,17 @@ public class TestWinningStrokeValidator {
                 {"17"}
         };
     }
+
     @Test(dataProvider = "validStrokeValues")
     public static void whenLessThanBoardDimensionsAndMoreThanTwoWinningStrokeIsValid(String winningStrokeSupplier) {
         // Given
         Supplier<String> input = () -> winningStrokeSupplier;
-        Consumer<String> output = s -> {};
+        Consumer<String> output = s -> {
+        };
         // When
-        int returnedValidWinningStroke = WinningStrokeValidator.validate(board, input, output,instructionDriver);
+        int returnedValidWinningStroke = WinningStrokeValidator.validate(board, input, output, instructionDriver);
         int providedWinningStroke = Integer.parseInt(input.get());
         // Then
-        Assert.assertEquals(providedWinningStroke,returnedValidWinningStroke);
+        Assert.assertEquals(providedWinningStroke, returnedValidWinningStroke);
     }
 }
