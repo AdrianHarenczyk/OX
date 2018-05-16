@@ -2,5 +2,5 @@
 mvn clean install
 reset
 cd target
-zmienna=`ls | grep .jar`
-java -jar $zmienna
+var=`ls | grep .jar`
+java -jar ${var} PL

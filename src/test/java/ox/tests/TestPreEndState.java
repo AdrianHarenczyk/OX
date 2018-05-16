@@ -8,6 +8,8 @@ import ox.app.game.Board;
 import ox.app.game.Player;
 import ox.app.game.ScoreBoard;
 import ox.app.game.Symbol;
+import ox.app.languages.InstructionDriver;
+import ox.app.languages.Language;
 import ox.app.states.GameState;
 import ox.app.states.PreEndState;
 import ox.app.states.RunState;
@@ -25,6 +27,7 @@ public class TestPreEndState {
     private static ScoreBoard scoreBoard;
     private static int currentBoardSize;
     private static final int WINNING_STROKE = 3;
+    private static final InstructionDriver instructionDriver = new InstructionDriver(Language.EN);
 
     @BeforeMethod
     private static void init() {
@@ -32,12 +35,13 @@ public class TestPreEndState {
         playerBuffer = new RoundBuffer();
         Player playerOne = new Player("Adam",Symbol.X);
         Player playerTwo = new Player("Roman",Symbol.O);
+
         try {
             playerBuffer.addPlayers(playerOne,playerTwo);
         } catch (WrongArgumentException e) {
             output.accept(e.getMessage());
         }
-        scoreBoard = new ScoreBoard(playerBuffer);
+        scoreBoard = new ScoreBoard(playerBuffer,instructionDriver);
         currentBoardSize = board.size();
 
     }
@@ -45,7 +49,9 @@ public class TestPreEndState {
     public static void currentStateReturnsSummaryStateWhenRoundCounterIsGreaterThanThree() {
         // Given
         int roundCounterGreaterThanMaxRounds = 5;
-        PreEndState preEndState = new PreEndState(playerBuffer, output, board, scoreBoard, roundCounterGreaterThanMaxRounds, currentBoardSize, WINNING_STROKE,boardOutput);
+        PreEndState preEndState = new PreEndState(playerBuffer, output, board,
+                scoreBoard, roundCounterGreaterThanMaxRounds, currentBoardSize,
+                WINNING_STROKE, boardOutput, instructionDriver);
         // When
         GameState returnedState = preEndState.nextState("Something");
         // Then
@@ -55,7 +61,9 @@ public class TestPreEndState {
     public static void currentStateReturnsRunStateWhenRoundCounterIsLessThanThree() {
         // Given
         int roundCounterLessThanMaxRounds = 2;
-        PreEndState preEndState = new PreEndState(playerBuffer, output, board, scoreBoard, roundCounterLessThanMaxRounds, currentBoardSize,WINNING_STROKE,boardOutput);
+        PreEndState preEndState = new PreEndState(playerBuffer, output, board,
+                scoreBoard, roundCounterLessThanMaxRounds, currentBoardSize,
+                WINNING_STROKE, boardOutput, instructionDriver);
         // When
         GameState returnedState = preEndState.nextState("Something");
         // Then

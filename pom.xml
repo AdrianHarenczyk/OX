@@ -7,7 +7,7 @@
 
     <groupId>com.adrian_harenczyk</groupId>
     <artifactId>ox-game</artifactId>
-    <version>0.9</version>
+    <version>1.0</version>
     <name>OX Game</name>
     <description>Game of noughts and crosses</description>
 
