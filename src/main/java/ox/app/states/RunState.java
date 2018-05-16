@@ -16,16 +16,16 @@ import java.util.function.Consumer;
 
 public class RunState implements GameState {
 
-    private final RoundBuffer playerBuffer;
-    private final Consumer<String> output;
-    private final Consumer<String> boardOutput;
-    private final Board board;
+    final RoundBuffer playerBuffer;
+    final Consumer<String> output;
+    final Consumer<String> boardOutput;
+    final Board board;
     private Player player;
-    private int currentBoardSize;
-    private final ScoreBoard scoreBoard;
-    private final int roundCounter;
-    private final int winningStroke;
-    private final InstructionDriver instructionDriver;
+    int currentBoardSize;
+    final ScoreBoard scoreBoard;
+    int roundCounter;
+    final int winningStroke;
+    final InstructionDriver instructionDriver;
     private static final int ENDING_ROUND = 3;
 
     public RunState(RoundBuffer playerBuffer, Consumer<String> output, Board board,
@@ -41,7 +41,11 @@ public class RunState implements GameState {
         this.boardOutput = boardOutput;
         this.instructionDriver = instructionDriver;
     }
-
+    RunState(PreEndState preEndState) {
+        this(preEndState.playerBuffer, preEndState.output, preEndState.board,
+                preEndState.scoreBoard, preEndState.roundCounter, preEndState.winningStroke,
+                preEndState.boardOutput, preEndState.instructionDriver);
+    }
 
     @Override
     public void showState() {
@@ -57,18 +61,24 @@ public class RunState implements GameState {
             return resignState;
         }
         int validCoordinates = validateCoordinateAndPlaceSymbol(input);
-        if (checkIfDrawOrWin(validCoordinates)) {
-            BoardDrawer.showBoard(board,boardOutput);
-            return new PreEndState(playerBuffer,output,board,
-                    scoreBoard, roundCounter,currentBoardSize,
-                    winningStroke,boardOutput, instructionDriver);
+        if (checkIfWinAndDraw(validCoordinates)) {
+            BoardDrawer.showBoard(board, boardOutput);
+            currentBoardSize++;
+            return new PreEndState(this);
+        } else if (checkIfWinOrDraw(validCoordinates)) {
+            BoardDrawer.showBoard(board, boardOutput);
+            return new PreEndState(this);
         }
         playerBuffer.swapPlayers();
         return this;
     }
-    private boolean checkIfDrawOrWin(int validCoordinates) {
+    private boolean checkIfWinOrDraw(int validCoordinates) {
         return VictoryChecker.check(Coordinate.apply(validCoordinates),board,winningStroke)
                 || currentBoardSize == 0;
+    }
+    private boolean checkIfWinAndDraw(int validCoordinates) {
+        return VictoryChecker.check(Coordinate.apply(validCoordinates),board,winningStroke)
+                && currentBoardSize == 0;
     }
     private int validateCoordinateAndPlaceSymbol(String input) throws WrongArgumentException{
         int validCoordinates = CoordinateValidator.validate(input,board.size(),board, instructionDriver);
@@ -79,14 +89,11 @@ public class RunState implements GameState {
     private PreEndState checkResign(String input) {
         if (ResignCheck.checkAll(input)) {
             playerBuffer.swapPlayers();
-            return new PreEndState(playerBuffer, output, board,
-                    scoreBoard, ENDING_ROUND, currentBoardSize,
-                    winningStroke, boardOutput, instructionDriver);
+            roundCounter = ENDING_ROUND;
+            return new PreEndState(this);
         } else if (ResignCheck.check(input)) {
             playerBuffer.swapPlayers();
-            return new PreEndState(playerBuffer, output, board,
-                    scoreBoard, roundCounter, currentBoardSize,
-                    winningStroke, boardOutput, instructionDriver);
+            return new PreEndState(this);
         } else return null;
     }
 }

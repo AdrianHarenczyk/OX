@@ -10,15 +10,15 @@ import java.util.function.Consumer;
 
 public class PreEndState implements GameState {
 
-    private final Board board;
-    private final RoundBuffer playerBuffer;
+    Board board;
+    final RoundBuffer playerBuffer;
     private final Player winningPlayer;
-    private final Consumer<String> output;
-    private final Consumer<String> boardOutput;
-    private final ScoreBoard scoreBoard;
+    final Consumer<String> output;
+    final Consumer<String> boardOutput;
+    final ScoreBoard scoreBoard;
     private final int currentBoardSize;
-    private final int winningStroke;
-    private final InstructionDriver instructionDriver;
+    final int winningStroke;
+    final InstructionDriver instructionDriver;
 
     private static final int POINTS_FOR_WIN = 3;
     private static final int POINTS_FOR_DRAW = 1;
@@ -27,7 +27,7 @@ public class PreEndState implements GameState {
 
     private final String winnerMessage;
 
-    private int roundCounter;
+    int roundCounter;
 
     public PreEndState(RoundBuffer playerBuffer, Consumer<String> output, Board board,
                        ScoreBoard scoreBoard, int roundCounter, int currentBoardSize,
@@ -45,6 +45,11 @@ public class PreEndState implements GameState {
         this.boardOutput = boardOutput;
         this.instructionDriver = instructionDriver;
     }
+    PreEndState(RunState runState) {
+        this(runState.playerBuffer, runState.output, runState.board,
+                runState.scoreBoard, runState.roundCounter, runState.currentBoardSize,
+                runState.winningStroke, runState.boardOutput, runState.instructionDriver);
+    }
 
     @Override
     public void showState() {
@@ -57,9 +62,8 @@ public class PreEndState implements GameState {
             return new SummaryState(scoreBoard,output,instructionDriver);
         }
         else {
-            return new RunState(playerBuffer, output, createNewBoard(),
-                    scoreBoard, roundCounter, winningStroke,
-                    boardOutput, instructionDriver);
+            this.board = createNewBoard();
+            return new RunState(this);
         }
     }
 
