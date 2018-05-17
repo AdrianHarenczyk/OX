@@ -5,7 +5,7 @@ import ox.app.game.Board;
 import ox.app.game.Player;
 import ox.app.game.ScoreBoard;
 import ox.app.game.Symbol;
-import ox.app.languages.InstructionDriver;
+import ox.app.languages.Messenger;
 import ox.app.utility.RoundBuffer;
 import ox.app.utility.SetupChooser;
 import ox.app.validators.BoardValidator;
@@ -15,28 +15,27 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class Setup {
-    private GameState currentState;
-    private final Supplier<String> input;
-    private final Consumer<String> output;
-    private final Consumer<String> boardOutput;
-    private final InstructionDriver instructionDriver;
-
     private static final int INITIAL_ROUND_COUNTER = 1;
     private static final int DEFAULT_WINNING_STROKE = 3;
     private static final int DEFAULT_BOARD_WIDTH = 3;
     private static final int DEFAULT_BOARD_HEIGHT = 3;
+    private final Supplier<String> input;
+    private final Consumer<String> output;
+    private final Consumer<String> boardOutput;
+    private final Messenger messenger;
+    private GameState currentState;
 
     public Setup(Supplier<String> input, Consumer<String> output, Consumer<String> boardOutput,
-                 InstructionDriver instructionDriver) {
+                 Messenger messenger) {
         this.input = input;
         this.output = output;
         this.boardOutput = boardOutput;
-        this.instructionDriver = instructionDriver;
+        this.messenger = messenger;
     }
 
     public void initializeAGame() throws WrongArgumentException {
         startupInstructions();
-        if (SetupChooser.check(input, output, instructionDriver)) {
+        if (SetupChooser.check(input, output, messenger)) {
             customSetup();
         } else {
             defaultSetup();
@@ -66,40 +65,40 @@ public class Setup {
     private void customSetup() throws WrongArgumentException {
         RoundBuffer playerBuffer = playerInitializer();
         Board board = boardInitializer();
-        int winningStroke = WinningStrokeValidator.validate(board, input, output, instructionDriver);
-        ScoreBoard scoreBoard = new ScoreBoard(playerBuffer, instructionDriver);
+        int winningStroke = WinningStrokeValidator.validate(board, input, output, messenger);
+        ScoreBoard scoreBoard = new ScoreBoard(playerBuffer, messenger);
         currentState = new RunState(playerBuffer, output, board,
                 scoreBoard, INITIAL_ROUND_COUNTER, winningStroke,
-                boardOutput, instructionDriver);
+                boardOutput, messenger);
     }
 
     private RoundBuffer playerInitializer() throws WrongArgumentException {
         RoundBuffer playerBuffer = new RoundBuffer();
-        Player firstPlayer = Player.playerCreator(input, output, instructionDriver);
-        Player secondPlayer = Player.playerCreator(input, output, firstPlayer, instructionDriver);
+        Player firstPlayer = Player.playerCreator(input, output, messenger);
+        Player secondPlayer = Player.playerCreator(input, output, firstPlayer, messenger);
         playerBuffer.addPlayers(firstPlayer, secondPlayer);
         return playerBuffer;
     }
 
     private Board boardInitializer() {
-        int width = BoardValidator.validateWidth(input, output, instructionDriver);
-        int height = BoardValidator.validateHeight(input, output, instructionDriver);
+        int width = BoardValidator.validateWidth(input, output, messenger);
+        int height = BoardValidator.validateHeight(input, output, messenger);
         return Board.newBoard(width, height);
     }
 
     private void defaultSetup() throws WrongArgumentException {
         RoundBuffer playerBuffer = defaultPlayers();
         Board board = defaultBoard();
-        ScoreBoard scoreBoard = new ScoreBoard(playerBuffer, instructionDriver);
+        ScoreBoard scoreBoard = new ScoreBoard(playerBuffer, messenger);
         currentState = new RunState(playerBuffer, output, board,
                 scoreBoard, INITIAL_ROUND_COUNTER, DEFAULT_WINNING_STROKE,
-                boardOutput, instructionDriver);
+                boardOutput, messenger);
     }
 
     private RoundBuffer defaultPlayers() throws WrongArgumentException {
         RoundBuffer playerBuffer = new RoundBuffer();
-        Player firstPlayer = new Player(instructionDriver.defaultFirstPlayerName(), Symbol.X);
-        Player secondPlayer = new Player(instructionDriver.defaultSecondPlayerName(), Symbol.O);
+        Player firstPlayer = new Player(messenger.defaultFirstPlayerName(), Symbol.X);
+        Player secondPlayer = new Player(messenger.defaultSecondPlayerName(), Symbol.O);
         playerBuffer.addPlayers(firstPlayer, secondPlayer);
         return playerBuffer;
     }
@@ -109,11 +108,11 @@ public class Setup {
     }
 
     private void afterSettingsInstructions() {
-        output.accept(instructionDriver.startRoundMessage());
+        output.accept(messenger.startRoundMessage());
     }
 
     private void startupInstructions() {
-        output.accept(instructionDriver.welcomeMessage());
+        output.accept(messenger.welcomeMessage());
     }
 
 }

@@ -14,15 +14,15 @@ public class InputOutput {
         this.boardOutput = boardOutput;
     }
 
-    public String getInput() {
+    public String input() {
         return input.get();
     }
 
-    public void acceptMessageOut(String message) {
+    public void messageOut(String message) {
         output.accept(message);
     }
 
-    public void acceptBoardOut(String instruction) {
+    public void boardOut(String instruction) {
         boardOutput.accept(instruction);
     }
 }

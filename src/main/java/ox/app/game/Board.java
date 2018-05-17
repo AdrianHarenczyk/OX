@@ -11,20 +11,20 @@ public class Board {
     private int height;
 
 
-    public static Board newBoard(int width, int height) {
-        Board board = new Board(width, height);
-        for (int i = 1; i <= board.size; i++) {
-            board.coordinatesSymbolMap.put(Coordinate.apply(i), null);
-        }
-        return board;
-    }
-
     private Board(int width, int height) {
         this.coordinatesSymbolMap = new HashMap<>();
         this.width = width;
         this.height = height;
         this.size = width * height;
 
+    }
+
+    public static Board newBoard(int width, int height) {
+        Board board = new Board(width, height);
+        for (int i = 1; i <= board.size; i++) {
+            board.coordinatesSymbolMap.put(Coordinate.apply(i), null);
+        }
+        return board;
     }
 
     public void placeSymbol(Coordinate coordinate, Symbol symbol) {

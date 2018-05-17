@@ -1,41 +1,38 @@
 package ox.app.states;
 
-import ox.app.game.ScoreBoard;
 import ox.app.game.Board;
 import ox.app.game.Player;
-import ox.app.languages.InstructionDriver;
+import ox.app.game.ScoreBoard;
+import ox.app.languages.Messenger;
 import ox.app.utility.RoundBuffer;
 
 import java.util.function.Consumer;
 
 public class PreEndState implements GameState {
 
-    Board board;
-    final RoundBuffer playerBuffer;
-    private final Player winningPlayer;
-    final Consumer<String> output;
-    final Consumer<String> boardOutput;
-    final ScoreBoard scoreBoard;
-    private final int currentBoardSize;
-    final int winningStroke;
-    final InstructionDriver instructionDriver;
-
     private static final int POINTS_FOR_WIN = 3;
     private static final int POINTS_FOR_DRAW = 1;
     private static final int POINTS_FOR_LOST = 0;
     private static final int NUMBER_OF_ROUNDS = 3;
-
+    final RoundBuffer playerBuffer;
+    final Consumer<String> output;
+    final Consumer<String> boardOutput;
+    final ScoreBoard scoreBoard;
+    final int winningStroke;
+    final Messenger messenger;
+    private final Player winningPlayer;
+    private final int currentBoardSize;
     private final String winnerMessage;
-
+    Board board;
     int roundCounter;
 
     public PreEndState(RoundBuffer playerBuffer, Consumer<String> output, Board board,
                        ScoreBoard scoreBoard, int roundCounter, int currentBoardSize,
-                       int winningStroke, Consumer<String> boardOutput, InstructionDriver instructionDriver) {
+                       int winningStroke, Consumer<String> boardOutput, Messenger messenger) {
 
         this.playerBuffer = playerBuffer;
         this.winningPlayer = playerBuffer.takePlayer();
-        this.winnerMessage = winningPlayer + instructionDriver.winsTheRoundMessage();
+        this.winnerMessage = winningPlayer + messenger.winsTheRoundMessage();
         this.output = output;
         this.board = board;
         this.scoreBoard = scoreBoard;
@@ -43,13 +40,13 @@ public class PreEndState implements GameState {
         this.currentBoardSize = currentBoardSize;
         this.winningStroke = winningStroke;
         this.boardOutput = boardOutput;
-        this.instructionDriver = instructionDriver;
+        this.messenger = messenger;
     }
 
     PreEndState(RunState runState) {
         this(runState.playerBuffer, runState.output, runState.board,
                 runState.scoreBoard, runState.roundCounter, runState.currentBoardSize,
-                runState.winningStroke, runState.boardOutput, runState.instructionDriver);
+                runState.winningStroke, runState.boardOutput, runState.messenger);
     }
 
     @Override
@@ -60,7 +57,7 @@ public class PreEndState implements GameState {
     @Override
     public GameState nextState(String input) {
         if (roundCounter > NUMBER_OF_ROUNDS) {
-            return new SummaryState(scoreBoard, output, instructionDriver);
+            return new SummaryState(scoreBoard, output, messenger);
         } else {
             this.board = createNewBoard();
             return new RunState(this);
@@ -79,7 +76,7 @@ public class PreEndState implements GameState {
             printRoundMessage(winnerMessage);
         } else {
             drawPoints();
-            printRoundMessage(instructionDriver.drawMessage());
+            printRoundMessage(messenger.drawMessage());
         }
         roundCounter++;
     }
@@ -112,13 +109,13 @@ public class PreEndState implements GameState {
 
     private void printInfoToStartNewRound() {
         if (roundCounter != NUMBER_OF_ROUNDS) {
-            output.accept(instructionDriver.pressEnterMessage() + (roundCounter + 1));
+            output.accept(messenger.pressEnterMessage() + (roundCounter + 1));
         }
     }
 
     private void printInfoToSeeResults() {
         if (roundCounter == NUMBER_OF_ROUNDS) {
-            output.accept(instructionDriver.endGameMessage());
+            output.accept(messenger.endGameMessage());
         }
     }
 }

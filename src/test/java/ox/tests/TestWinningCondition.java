@@ -23,6 +23,63 @@ public class TestWinningCondition {
         }
     }
 
+    @Test(dataProvider = "slash")
+    public static void whenSlashWithThreeMatchingSymbolsVCReturnsTrue(Integer first, Integer second, Integer third) {
+        // Given
+        // When
+        placeMultipleSymbols(first, second);
+        board.placeSymbol(third, Symbol.X);
+        boolean result = VictoryChecker.check(Coordinate.apply(third), board, 3);
+
+        // Then
+        Assert.assertTrue(result);
+    }
+
+    @Test(dataProvider = "slashWrong")
+    public static void whenSlashWithoutWinningStrokeVCReturnsFalse(Integer first, Integer second, Integer third) {
+        // Given
+        // When
+        placeMultipleSymbols(first, second);
+        board.placeSymbol(third, Symbol.X);
+        boolean result = VictoryChecker.check(Coordinate.apply(third), board, 3);
+        // Then
+        Assert.assertFalse(result);
+    }
+
+    @Test(dataProvider = "horizontal")
+    public static void whenHorizontalWithThreeMatchingSymbolsVCReturnsTrue(Integer first, Integer second, Integer third) {
+        // Given
+        // When
+        placeMultipleSymbols(first, second);
+        board.placeSymbol(third, Symbol.X);
+        boolean result = VictoryChecker.check(Coordinate.apply(third), board, 3);
+
+        // Then
+        Assert.assertTrue(result);
+    }
+
+    @Test(dataProvider = "horizontalWrong")
+    public static void whenHorizontalWithoutWinningStrokeVCReturnsFalse(Integer first, Integer second, Integer third) {
+        // Given
+        // When
+        placeMultipleSymbols(first, second);
+        board.placeSymbol(third, Symbol.X);
+        boolean result = VictoryChecker.check(Coordinate.apply(third), board, 3);
+        // Then
+        Assert.assertFalse(result);
+    }
+
+    @Test(dataProvider = "otherPatterns")
+    public static void withPatternsWhichDoNotMatchWinningStreakVCReturnsFalse(Integer first, Integer second, Integer third, Integer fourth, Integer fifth) {
+        // Given
+        // When
+        placeMultipleSymbols(first, second, third, fourth);
+        board.placeSymbol(fifth, Symbol.X);
+        boolean result = VictoryChecker.check(Coordinate.apply(fifth), board, 3);
+        // Then
+        Assert.assertFalse(result);
+    }
+
     @DataProvider(name = "slash")
     Object[][] slash() {
         return new Object[][]{
@@ -96,64 +153,6 @@ public class TestWinningCondition {
                 {16, 17, 1, 7, 25},
                 {2, 3, 11, 14, 15}
         };
-    }
-
-
-    @Test(dataProvider = "slash")
-    public static void whenSlashWithThreeMatchingSymbolsVCReturnsTrue(Integer first, Integer second, Integer third) {
-        // Given
-        // When
-        placeMultipleSymbols(first, second);
-        board.placeSymbol(third, Symbol.X);
-        boolean result = VictoryChecker.check(Coordinate.apply(third), board, 3);
-
-        // Then
-        Assert.assertTrue(result);
-    }
-
-    @Test(dataProvider = "slashWrong")
-    public static void whenSlashWithoutWinningStrokeVCReturnsFalse(Integer first, Integer second, Integer third) {
-        // Given
-        // When
-        placeMultipleSymbols(first, second);
-        board.placeSymbol(third, Symbol.X);
-        boolean result = VictoryChecker.check(Coordinate.apply(third), board, 3);
-        // Then
-        Assert.assertFalse(result);
-    }
-
-    @Test(dataProvider = "horizontal")
-    public static void whenHorizontalWithThreeMatchingSymbolsVCReturnsTrue(Integer first, Integer second, Integer third) {
-        // Given
-        // When
-        placeMultipleSymbols(first, second);
-        board.placeSymbol(third, Symbol.X);
-        boolean result = VictoryChecker.check(Coordinate.apply(third), board, 3);
-
-        // Then
-        Assert.assertTrue(result);
-    }
-
-    @Test(dataProvider = "horizontalWrong")
-    public static void whenHorizontalWithoutWinningStrokeVCReturnsFalse(Integer first, Integer second, Integer third) {
-        // Given
-        // When
-        placeMultipleSymbols(first, second);
-        board.placeSymbol(third, Symbol.X);
-        boolean result = VictoryChecker.check(Coordinate.apply(third), board, 3);
-        // Then
-        Assert.assertFalse(result);
-    }
-
-    @Test(dataProvider = "otherPatterns")
-    public static void withPatternsWhichDoNotMatchWinningStreakVCReturnsFalse(Integer first, Integer second, Integer third, Integer fourth, Integer fifth) {
-        // Given
-        // When
-        placeMultipleSymbols(first, second, third, fourth);
-        board.placeSymbol(fifth, Symbol.X);
-        boolean result = VictoryChecker.check(Coordinate.apply(fifth), board, 3);
-        // Then
-        Assert.assertFalse(result);
     }
 
 

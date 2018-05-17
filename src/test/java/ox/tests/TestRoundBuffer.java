@@ -5,8 +5,8 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import ox.app.exceptions.WrongArgumentException;
 import ox.app.game.Player;
-import ox.app.utility.RoundBuffer;
 import ox.app.game.Symbol;
+import ox.app.utility.RoundBuffer;
 
 public class TestRoundBuffer {
     private static RoundBuffer buffer;

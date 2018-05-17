@@ -5,7 +5,7 @@ import ox.app.game.Board;
 import ox.app.game.Coordinate;
 import ox.app.game.Player;
 import ox.app.game.ScoreBoard;
-import ox.app.languages.InstructionDriver;
+import ox.app.languages.Messenger;
 import ox.app.utility.BoardDrawer;
 import ox.app.utility.ResignCheck;
 import ox.app.utility.RoundBuffer;
@@ -16,21 +16,21 @@ import java.util.function.Consumer;
 
 public class RunState implements GameState {
 
+    private static final int ENDING_ROUND = 3;
     final RoundBuffer playerBuffer;
     final Consumer<String> output;
     final Consumer<String> boardOutput;
     final Board board;
-    private Player player;
-    int currentBoardSize;
     final ScoreBoard scoreBoard;
-    int roundCounter;
     final int winningStroke;
-    final InstructionDriver instructionDriver;
-    private static final int ENDING_ROUND = 3;
+    final Messenger messenger;
+    int currentBoardSize;
+    int roundCounter;
+    private Player player;
 
     public RunState(RoundBuffer playerBuffer, Consumer<String> output, Board board,
                     ScoreBoard scoreBoard, int roundCounter, int winningStroke,
-                    Consumer<String> boardOutput, InstructionDriver instructionDriver) {
+                    Consumer<String> boardOutput, Messenger messenger) {
         this.playerBuffer = playerBuffer;
         this.output = output;
         this.board = board;
@@ -39,13 +39,13 @@ public class RunState implements GameState {
         this.roundCounter = roundCounter;
         this.winningStroke = winningStroke;
         this.boardOutput = boardOutput;
-        this.instructionDriver = instructionDriver;
+        this.messenger = messenger;
     }
 
     RunState(PreEndState preEndState) {
         this(preEndState.playerBuffer, preEndState.output, preEndState.board,
                 preEndState.scoreBoard, preEndState.roundCounter, preEndState.winningStroke,
-                preEndState.boardOutput, preEndState.instructionDriver);
+                preEndState.boardOutput, preEndState.messenger);
     }
 
     @Override
@@ -85,7 +85,7 @@ public class RunState implements GameState {
     }
 
     private int validateCoordinateAndPlaceSymbol(String input) throws WrongArgumentException {
-        int validCoordinates = CoordinateValidator.validate(input, board.size(), board, instructionDriver);
+        int validCoordinates = CoordinateValidator.validate(input, board.size(), board, messenger);
         board.placeSymbol(Coordinate.apply(validCoordinates), player.showSymbol());
         currentBoardSize--;
         return validCoordinates;

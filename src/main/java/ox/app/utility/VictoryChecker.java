@@ -1,8 +1,8 @@
 package ox.app.utility;
 
+import ox.app.game.Board;
 import ox.app.game.Coordinate;
 import ox.app.game.Symbol;
-import ox.app.game.Board;
 
 public class VictoryChecker {
 

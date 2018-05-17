@@ -6,8 +6,8 @@ import org.testng.annotations.Test;
 import ox.app.exceptions.WrongArgumentException;
 import ox.app.game.Board;
 import ox.app.game.ScoreBoard;
-import ox.app.languages.InstructionDriver;
 import ox.app.languages.Language;
+import ox.app.languages.Messenger;
 import ox.app.states.GameState;
 import ox.app.states.PreEndState;
 import ox.app.states.RunState;
@@ -28,15 +28,15 @@ public class TestRunState {
         Consumer<String> boardOutput = s -> {
         };
 
-        InstructionDriver instructionDriver = new InstructionDriver(Language.EN);
+        Messenger messenger = new Messenger(Language.EN);
         RoundBuffer roundBuffer = new RoundBuffer();
-        ScoreBoard scoreBoard = new ScoreBoard(roundBuffer, instructionDriver);
+        ScoreBoard scoreBoard = new ScoreBoard(roundBuffer, messenger);
         Board board = Board.newBoard(5, 5);
 
 
         runState = new RunState(roundBuffer, output, board,
                 scoreBoard, 1, 3, boardOutput,
-                instructionDriver);
+                messenger);
     }
 
     @Test
@@ -44,6 +44,6 @@ public class TestRunState {
         // When
         GameState supposedPreEndState = runState.nextState("resign");
         // Then
-        Assert.assertEquals(supposedPreEndState.getClass(),PreEndState.class);
+        Assert.assertEquals(supposedPreEndState.getClass(), PreEndState.class);
     }
 }

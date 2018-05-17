@@ -1,6 +1,6 @@
 package ox.app.game;
 
-import ox.app.languages.InstructionDriver;
+import ox.app.languages.Messenger;
 import ox.app.utility.RoundBuffer;
 
 import java.util.HashMap;
@@ -8,15 +8,15 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 public class ScoreBoard {
+    private static final String EMPTY_LINE = "";
     private final Map<Player, Integer> playerPointsMap;
     private final RoundBuffer playerBuffer;
-    private final InstructionDriver instructionDriver;
-    private static final String EMPTY_LINE = "";
+    private final Messenger messenger;
 
-    public ScoreBoard(RoundBuffer playerBuffer, InstructionDriver instructionDriver) {
+    public ScoreBoard(RoundBuffer playerBuffer, Messenger messenger) {
         this.playerBuffer = playerBuffer;
         this.playerPointsMap = new HashMap<>();
-        this.instructionDriver = instructionDriver;
+        this.messenger = messenger;
     }
 
     public void addPoint(Player player, Integer points) {
@@ -29,16 +29,16 @@ public class ScoreBoard {
 
     public void showScoreBoard(Consumer<String> output) {
         output.accept(EMPTY_LINE);
-        playerPointsMap.forEach((player, points) -> output.accept(player + instructionDriver.pointsMessage() + points));
+        playerPointsMap.forEach((player, points) -> output.accept(player + messenger.pointsMessage() + points));
         output.accept(EMPTY_LINE);
     }
 
     public void showTheWinner(Consumer<String> output) {
         Player theWinner;
         if ((theWinner = getTheWinner()) != null) {
-            output.accept(instructionDriver.theWinnerIsMessage() + theWinner);
+            output.accept(messenger.theWinnerIsMessage() + theWinner);
         } else {
-            output.accept(instructionDriver.drawMessage());
+            output.accept(messenger.drawMessage());
         }
     }
 

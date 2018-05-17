@@ -1,19 +1,19 @@
 package ox.app.states;
 
 import ox.app.game.ScoreBoard;
-import ox.app.languages.InstructionDriver;
+import ox.app.languages.Messenger;
 
 import java.util.function.Consumer;
 
 public class SummaryState implements GameState {
     private final ScoreBoard scoreBoard;
     private final Consumer<String> output;
-    private final InstructionDriver instructionDriver;
+    private final Messenger messenger;
 
-    SummaryState(ScoreBoard scoreBoard, Consumer<String> output, InstructionDriver instructionDriver) {
+    SummaryState(ScoreBoard scoreBoard, Consumer<String> output, Messenger messenger) {
         this.scoreBoard = scoreBoard;
         this.output = output;
-        this.instructionDriver = instructionDriver;
+        this.messenger = messenger;
     }
 
     @Override
@@ -28,6 +28,6 @@ public class SummaryState implements GameState {
     }
 
     private void printEndingCommand() {
-        output.accept(instructionDriver.exitAppMessage());
+        output.accept(messenger.exitAppMessage());
     }
 }
