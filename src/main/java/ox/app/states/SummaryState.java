@@ -4,11 +4,10 @@ import ox.app.game.ScoreBoard;
 import ox.app.io.InputOutput;
 import ox.app.languages.Messenger;
 
-import java.util.function.Consumer;
-
 public class SummaryState implements GameState {
     private final InputOutput inputOutput;
     private final Messenger messenger;
+
     private final ScoreBoard scoreBoard;
 
     SummaryState(ScoreBoard scoreBoard, InputOutput inputOutput, Messenger messenger) {

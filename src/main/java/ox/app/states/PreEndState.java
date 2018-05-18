@@ -65,12 +65,6 @@ public class PreEndState implements GameState {
         }
     }
 
-    private Board createNewBoard() {
-        int height = board.getHeight();
-        int width = board.getWidth();
-        return Board.newBoard(width, height);
-    }
-
     private void pointsDisposer() {
         if (currentBoardSize > 0) {
             winningPoints();
@@ -118,5 +112,11 @@ public class PreEndState implements GameState {
         if (roundCounter == NUMBER_OF_ROUNDS) {
             inputOutput.message(messenger.endGameMessage());
         }
+    }
+
+    private Board createNewBoard() {
+        int height = board.getHeight();
+        int width = board.getWidth();
+        return Board.newBoard(width, height);
     }
 }

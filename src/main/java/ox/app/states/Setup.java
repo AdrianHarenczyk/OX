@@ -13,12 +13,14 @@ import ox.app.validators.BoardValidator;
 import ox.app.validators.WinningStrokeValidator;
 
 public class Setup {
+    private final InputOutput inputOutput;
+    private final Messenger messenger;
+
     private static final int INITIAL_ROUND_COUNTER = 1;
     private static final int DEFAULT_WINNING_STROKE = 3;
     private static final int DEFAULT_BOARD_WIDTH = 3;
     private static final int DEFAULT_BOARD_HEIGHT = 3;
-    private final InputOutput inputOutput;
-    private final Messenger messenger;
+
     private GameState currentState;
 
     public Setup(InputOutput inputOutput, Messenger messenger) {
@@ -98,12 +100,12 @@ public class Setup {
         return Board.newBoard(DEFAULT_BOARD_WIDTH, DEFAULT_BOARD_HEIGHT);
     }
 
-    private void afterSettingsInstructions() {
-        inputOutput.message(messenger.startRoundMessage());
-    }
-
     private void startupInstructions() {
         inputOutput.message(messenger.welcomeMessage());
+    }
+
+    private void afterSettingsInstructions() {
+        inputOutput.message(messenger.startRoundMessage());
     }
 
 }

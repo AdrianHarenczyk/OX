@@ -15,15 +15,20 @@ import ox.app.validators.CoordinateValidator;
 
 public class RunState implements GameState {
 
-    private static final int ENDING_ROUND = 3;
-    final PlayerBuffer playerBuffer;
     final InputOutput inputOutput;
+    final Messenger messenger;
+
+    final PlayerBuffer playerBuffer;
+
     final Board board;
     final ScoreBoard scoreBoard;
-    final int winningStroke;
-    final Messenger messenger;
-    int currentBoardSize;
+
     int roundCounter;
+    private static final int ENDING_ROUND = 3;
+
+    final int winningStroke;
+    int currentBoardSize;
+
     private Player player;
 
     public RunState(InputOutput inputOutput, Messenger messenger, PlayerBuffer playerBuffer, Board board,
@@ -68,6 +73,7 @@ public class RunState implements GameState {
         playerBuffer.swapPlayers();
         return this;
     }
+
 
     private boolean checkIfWinOrDraw(int validCoordinates) {
         return VictoryChecker.check(Coordinate.apply(validCoordinates), board, winningStroke)
