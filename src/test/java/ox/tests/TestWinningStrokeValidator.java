@@ -22,19 +22,6 @@ public class TestWinningStrokeValidator {
 
     }
 
-    @Test(dataProvider = "validStrokeValues")
-    public static void whenLessThanBoardDimensionsAndMoreThanTwoWinningStrokeIsValid(String winningStrokeSupplier) {
-        // Given
-        Supplier<String> input = () -> winningStrokeSupplier;
-        Consumer<String> output = s -> {
-        };
-        // When
-        int returnedValidWinningStroke = WinningStrokeValidator.validate(board, new InputOutput(input, output,s -> {}), MESSENGER);
-        int providedWinningStroke = Integer.parseInt(input.get());
-        // Then
-        Assert.assertEquals(providedWinningStroke, returnedValidWinningStroke);
-    }
-
     @DataProvider(name = "validStrokeValues")
     Object[][] validStrokeValues() {
         return new Object[][]{
@@ -51,5 +38,18 @@ public class TestWinningStrokeValidator {
                 {"24"},
                 {"17"}
         };
+    }
+
+    @Test(dataProvider = "validStrokeValues")
+    public static void whenLessThanBoardDimensionsAndMoreThanTwoWinningStrokeIsValid(String winningStrokeSupplier) {
+        // Given
+        Supplier<String> input = () -> winningStrokeSupplier;
+        Consumer<String> output = s -> {
+        };
+        // When
+        int returnedValidWinningStroke = WinningStrokeValidator.validate(board, new InputOutput(input, output,s -> {}), MESSENGER);
+        int providedWinningStroke = Integer.parseInt(input.get());
+        // Then
+        Assert.assertEquals(providedWinningStroke, returnedValidWinningStroke);
     }
 }
