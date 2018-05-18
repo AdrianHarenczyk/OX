@@ -3,10 +3,10 @@ package ox.app.utility;
 import ox.app.exceptions.WrongArgumentException;
 import ox.app.game.Player;
 
-public class RoundBuffer {
+public class PlayerBuffer {
     private final Player[] players;
 
-    public RoundBuffer() {
+    public PlayerBuffer() {
         players = new Player[2];
     }
 

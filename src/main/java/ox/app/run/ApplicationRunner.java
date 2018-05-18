@@ -29,7 +29,7 @@ public class ApplicationRunner {
                 default:
                     language = Language.EN;
             }
-            new Setup(input, output, boardOutput, new Messenger(language)).initializeAGame();
+            new Setup(inputOutput, new Messenger(language)).initializeAGame();
         } catch (WrongArgumentException e) {
             System.out.println(e.getCause() + e.getMessage());
         }

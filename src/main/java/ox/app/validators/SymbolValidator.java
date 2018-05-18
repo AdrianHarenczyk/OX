@@ -2,9 +2,8 @@ package ox.app.validators;
 
 import ox.app.exceptions.WrongArgumentException;
 import ox.app.game.Symbol;
+import ox.app.io.InputOutput;
 import ox.app.languages.Messenger;
-
-import java.util.function.Supplier;
 
 public class SymbolValidator {
     private static final String X_SYMBOL = "X";
@@ -14,8 +13,8 @@ public class SymbolValidator {
     private SymbolValidator() {
     }
 
-    public static Symbol validateSymbol(Supplier<String> input, Messenger messenger) throws WrongArgumentException {
-        String potentialSymbol = input.get().toUpperCase().trim();
+    public static Symbol validateSymbol(InputOutput inputOutput, Messenger messenger) throws WrongArgumentException {
+        String potentialSymbol = inputOutput.input().toUpperCase().trim();
         switch (potentialSymbol) {
             case X_SYMBOL:
             case O_SYMBOL:

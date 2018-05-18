@@ -18,11 +18,11 @@ public class InputOutput {
         return input.get();
     }
 
-    public void messageOut(String message) {
+    public void message(String message) {
         output.accept(message);
     }
 
-    public void boardOut(String instruction) {
+    public void board(String instruction) {
         boardOutput.accept(instruction);
     }
 }

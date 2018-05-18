@@ -5,6 +5,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ox.app.game.Board;
+import ox.app.io.InputOutput;
 import ox.app.languages.Language;
 import ox.app.languages.Messenger;
 import ox.app.validators.WinningStrokeValidator;
@@ -28,7 +29,7 @@ public class TestWinningStrokeValidator {
         Consumer<String> output = s -> {
         };
         // When
-        int returnedValidWinningStroke = WinningStrokeValidator.validate(board, input, output, MESSENGER);
+        int returnedValidWinningStroke = WinningStrokeValidator.validate(board, new InputOutput(input, output,s -> {}), MESSENGER);
         int providedWinningStroke = Integer.parseInt(input.get());
         // Then
         Assert.assertEquals(providedWinningStroke, returnedValidWinningStroke);

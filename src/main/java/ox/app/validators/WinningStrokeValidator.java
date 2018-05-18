@@ -2,25 +2,23 @@ package ox.app.validators;
 
 import ox.app.exceptions.WrongArgumentException;
 import ox.app.game.Board;
+import ox.app.io.InputOutput;
 import ox.app.languages.Messenger;
-
-import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 public class WinningStrokeValidator {
     private static final int MINIMUM_STROKE_VALUE = 2;
 
-    public static int validate(Board board, Supplier<String> input, Consumer<String> output, Messenger messenger) {
-        output.accept(messenger.passNumberOfStrokesToWinMessage());
+    public static int validate(Board board, InputOutput inputOutput, Messenger messenger) {
+        inputOutput.message(messenger.passNumberOfStrokesToWinMessage());
         int validInteger;
         while (true) {
             try {
-                validInteger = ifNumberAssign(input.get(), messenger);
+                validInteger = ifNumberAssign(inputOutput.input(), messenger);
                 if (checkWithBoth(board, validInteger, messenger)) {
                     return validInteger;
                 }
             } catch (WrongArgumentException e) {
-                output.accept(e.getMessage());
+                inputOutput.message(e.getMessage());
             }
         }
     }

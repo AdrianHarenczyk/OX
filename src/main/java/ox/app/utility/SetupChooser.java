@@ -1,23 +1,21 @@
 package ox.app.utility;
 
 import ox.app.exceptions.WrongArgumentException;
+import ox.app.io.InputOutput;
 import ox.app.languages.Messenger;
-
-import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 public class SetupChooser {
     private static int retryIterator = 3;
 
-    public static boolean check(Supplier<String> input, Consumer<String> output, Messenger messenger) {
+    public static boolean check(InputOutput inputOutput, Messenger messenger) {
         for (; retryIterator > 0; retryIterator--) {
             try {
-                switch (input.get().toLowerCase()) {
+                switch (inputOutput.input().toLowerCase()) {
                     case "custom":
-                        output.accept(messenger.customSettingsMessage());
+                        inputOutput.message(messenger.customSettingsMessage());
                         return true;
                     case "default":
-                        output.accept(messenger.defaultSettingsMessage());
+                        inputOutput.message(messenger.defaultSettingsMessage());
                         return false;
                     default:
                         if (retryIterator > 1) {
@@ -25,10 +23,10 @@ public class SetupChooser {
                         }
                 }
             } catch (WrongArgumentException e) {
-                output.accept(e.getMessage());
+                inputOutput.message(e.getMessage());
             }
         }
-        output.accept(messenger.defaultSettingsMessage());
+        inputOutput.message(messenger.defaultSettingsMessage());
         return false;
     }
 }

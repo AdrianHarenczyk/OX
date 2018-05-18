@@ -1,12 +1,10 @@
 package ox.app.game;
 
 import ox.app.exceptions.WrongArgumentException;
+import ox.app.io.InputOutput;
 import ox.app.languages.Messenger;
 import ox.app.validators.NameValidator;
 import ox.app.validators.SymbolValidator;
-
-import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 public class Player {
     private static int playerCounter = 1;
@@ -18,31 +16,31 @@ public class Player {
         this.symbol = symbol;
     }
 
-    public static Player playerCreator(Supplier<String> input, Consumer<String> output, Messenger messenger) {
-        String name = getNameFromInput(input, output, messenger);
-        Symbol symbol = getSymbolFromInput(input, output, messenger);
+    public static Player playerCreator(InputOutput inputOutput, Messenger messenger) {
+        String name = getNameFromInput(inputOutput, messenger);
+        Symbol symbol = getSymbolFromInput(inputOutput, messenger);
         return new Player(name, symbol);
     }
 
-    public static Player playerCreator(Supplier<String> input, Consumer<String> output, Player player, Messenger messenger) {
-        String name = getNameFromInput(input, output, messenger);
+    public static Player playerCreator(InputOutput inputOutput, Player player, Messenger messenger) {
+        String name = getNameFromInput(inputOutput, messenger);
         Symbol symbol = returnOtherSymbol(player);
         return new Player(name, symbol);
     }
 
-    private static String getNameFromInput(Supplier<String> input, Consumer<String> output, Messenger messenger) {
-        output.accept(messenger.pleaseProvideInstruction() + playerCounter + messenger.playerNameMessage());
+    private static String getNameFromInput(InputOutput inputOutput, Messenger messenger) {
+        inputOutput.message(messenger.pleaseProvideInstruction() + playerCounter + messenger.playerNameMessage());
         playerCounter++;
-        return NameValidator.isNotEmpty(input, output, messenger);
+        return NameValidator.isNotEmpty(inputOutput, messenger);
     }
 
-    private static Symbol getSymbolFromInput(Supplier<String> input, Consumer<String> output, Messenger messenger) {
-        output.accept(messenger.pleaseChooseSymbolInstruction());
+    private static Symbol getSymbolFromInput(InputOutput inputOutput, Messenger messenger) {
+        inputOutput.message(messenger.pleaseChooseSymbolInstruction());
         while (true) {
             try {
-                return SymbolValidator.validateSymbol(input, messenger);
+                return SymbolValidator.validateSymbol(inputOutput, messenger);
             } catch (WrongArgumentException e) {
-                output.accept(e.getMessage());
+                inputOutput.message(e.getMessage());
             }
         }
     }

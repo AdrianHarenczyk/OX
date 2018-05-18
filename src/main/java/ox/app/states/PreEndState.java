@@ -3,50 +3,51 @@ package ox.app.states;
 import ox.app.game.Board;
 import ox.app.game.Player;
 import ox.app.game.ScoreBoard;
+import ox.app.io.InputOutput;
 import ox.app.languages.Messenger;
-import ox.app.utility.RoundBuffer;
-
-import java.util.function.Consumer;
+import ox.app.utility.PlayerBuffer;
 
 public class PreEndState implements GameState {
+
+    final InputOutput inputOutput;
+    final Messenger messenger;
+
+    final PlayerBuffer playerBuffer;
+    Board board;
+
+    final ScoreBoard scoreBoard;
+
+    int roundCounter;
+    final int winningStroke;
+    private final int currentBoardSize;
+
+    private final Player winningPlayer;
+    private final String winnerMessage;
 
     private static final int POINTS_FOR_WIN = 3;
     private static final int POINTS_FOR_DRAW = 1;
     private static final int POINTS_FOR_LOST = 0;
     private static final int NUMBER_OF_ROUNDS = 3;
-    final RoundBuffer playerBuffer;
-    final Consumer<String> output;
-    final Consumer<String> boardOutput;
-    final ScoreBoard scoreBoard;
-    final int winningStroke;
-    final Messenger messenger;
-    private final Player winningPlayer;
-    private final int currentBoardSize;
-    private final String winnerMessage;
-    Board board;
-    int roundCounter;
 
-    public PreEndState(RoundBuffer playerBuffer, Consumer<String> output, Board board,
-                       ScoreBoard scoreBoard, int roundCounter, int currentBoardSize,
-                       int winningStroke, Consumer<String> boardOutput, Messenger messenger) {
+    public PreEndState(InputOutput inputOutput, Messenger messenger, PlayerBuffer playerBuffer,
+                       Board board, ScoreBoard scoreBoard, int roundCounter, int winningStroke, int currentBoardSize) {
 
+        this.inputOutput = inputOutput;
+        this.messenger = messenger;
         this.playerBuffer = playerBuffer;
-        this.winningPlayer = playerBuffer.takePlayer();
-        this.winnerMessage = winningPlayer + messenger.winsTheRoundMessage();
-        this.output = output;
         this.board = board;
         this.scoreBoard = scoreBoard;
         this.roundCounter = roundCounter;
-        this.currentBoardSize = currentBoardSize;
         this.winningStroke = winningStroke;
-        this.boardOutput = boardOutput;
-        this.messenger = messenger;
+        this.winningPlayer = playerBuffer.takePlayer();
+        this.currentBoardSize = currentBoardSize;
+        this.winnerMessage = winningPlayer + messenger.winsTheRoundMessage();
     }
 
     PreEndState(RunState runState) {
-        this(runState.playerBuffer, runState.output, runState.board,
-                runState.scoreBoard, runState.roundCounter, runState.currentBoardSize,
-                runState.winningStroke, runState.boardOutput, runState.messenger);
+        this(runState.inputOutput, runState.messenger, runState.playerBuffer,
+                runState.board, runState.scoreBoard, runState.roundCounter,
+                runState.winningStroke, runState.currentBoardSize);
     }
 
     @Override
@@ -57,7 +58,7 @@ public class PreEndState implements GameState {
     @Override
     public GameState nextState(String input) {
         if (roundCounter > NUMBER_OF_ROUNDS) {
-            return new SummaryState(scoreBoard, output, messenger);
+            return new SummaryState(scoreBoard, inputOutput, messenger);
         } else {
             this.board = createNewBoard();
             return new RunState(this);
@@ -85,14 +86,14 @@ public class PreEndState implements GameState {
         scoreBoard.addPoint(winningPlayer, POINTS_FOR_WIN);
         playerBuffer.swapPlayers();
         scoreBoard.addPoint(playerBuffer.takePlayer(), POINTS_FOR_LOST);
-        scoreBoard.showScoreBoard(output);
+        scoreBoard.showScoreBoard(inputOutput);
     }
 
     private void drawPoints() {
         scoreBoard.addPoint(playerBuffer.takePlayer(), POINTS_FOR_DRAW);
         playerBuffer.swapPlayers();
         scoreBoard.addPoint(playerBuffer.takePlayer(), POINTS_FOR_DRAW);
-        scoreBoard.showScoreBoard(output);
+        scoreBoard.showScoreBoard(inputOutput);
     }
 
     private void printRoundMessage(String message) {
@@ -103,19 +104,19 @@ public class PreEndState implements GameState {
 
     private void printResultOfRound(String message) {
         if (roundCounter <= NUMBER_OF_ROUNDS) {
-            output.accept(message);
+            inputOutput.message(message);
         }
     }
 
     private void printInfoToStartNewRound() {
         if (roundCounter != NUMBER_OF_ROUNDS) {
-            output.accept(messenger.pressEnterMessage() + (roundCounter + 1));
+            inputOutput.message(messenger.pressEnterMessage() + (roundCounter + 1));
         }
     }
 
     private void printInfoToSeeResults() {
         if (roundCounter == NUMBER_OF_ROUNDS) {
-            output.accept(messenger.endGameMessage());
+            inputOutput.message(messenger.endGameMessage());
         }
     }
 }

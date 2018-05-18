@@ -5,21 +5,19 @@ import ox.app.game.Board;
 import ox.app.game.Coordinate;
 import ox.app.game.Player;
 import ox.app.game.ScoreBoard;
+import ox.app.io.InputOutput;
 import ox.app.languages.Messenger;
 import ox.app.utility.BoardDrawer;
+import ox.app.utility.PlayerBuffer;
 import ox.app.utility.ResignCheck;
-import ox.app.utility.RoundBuffer;
 import ox.app.utility.VictoryChecker;
 import ox.app.validators.CoordinateValidator;
-
-import java.util.function.Consumer;
 
 public class RunState implements GameState {
 
     private static final int ENDING_ROUND = 3;
-    final RoundBuffer playerBuffer;
-    final Consumer<String> output;
-    final Consumer<String> boardOutput;
+    final PlayerBuffer playerBuffer;
+    final InputOutput inputOutput;
     final Board board;
     final ScoreBoard scoreBoard;
     final int winningStroke;
@@ -28,31 +26,28 @@ public class RunState implements GameState {
     int roundCounter;
     private Player player;
 
-    public RunState(RoundBuffer playerBuffer, Consumer<String> output, Board board,
-                    ScoreBoard scoreBoard, int roundCounter, int winningStroke,
-                    Consumer<String> boardOutput, Messenger messenger) {
+    public RunState(InputOutput inputOutput, Messenger messenger, PlayerBuffer playerBuffer, Board board,
+                    ScoreBoard scoreBoard, int roundCounter, int winningStroke) {
+        this.inputOutput = inputOutput;
+        this.messenger = messenger;
         this.playerBuffer = playerBuffer;
-        this.output = output;
         this.board = board;
-        this.currentBoardSize = board.size();
         this.scoreBoard = scoreBoard;
         this.roundCounter = roundCounter;
         this.winningStroke = winningStroke;
-        this.boardOutput = boardOutput;
-        this.messenger = messenger;
+        this.currentBoardSize = board.size();
     }
 
     RunState(PreEndState preEndState) {
-        this(preEndState.playerBuffer, preEndState.output, preEndState.board,
-                preEndState.scoreBoard, preEndState.roundCounter, preEndState.winningStroke,
-                preEndState.boardOutput, preEndState.messenger);
+        this(preEndState.inputOutput, preEndState.messenger, preEndState.playerBuffer, preEndState.board,
+                preEndState.scoreBoard, preEndState.roundCounter, preEndState.winningStroke);
     }
 
     @Override
     public void showState() {
         player = playerBuffer.takePlayer();
-        output.accept(player.toString());
-        BoardDrawer.showBoard(board, boardOutput);
+        inputOutput.message(player.toString());
+        BoardDrawer.showBoard(board, inputOutput);
     }
 
     @Override
@@ -63,11 +58,11 @@ public class RunState implements GameState {
         }
         int validCoordinates = validateCoordinateAndPlaceSymbol(input);
         if (checkIfWinAndDraw(validCoordinates)) {
-            BoardDrawer.showBoard(board, boardOutput);
+            BoardDrawer.showBoard(board, inputOutput);
             currentBoardSize++;
             return new PreEndState(this);
         } else if (checkIfWinOrDraw(validCoordinates)) {
-            BoardDrawer.showBoard(board, boardOutput);
+            BoardDrawer.showBoard(board, inputOutput);
             return new PreEndState(this);
         }
         playerBuffer.swapPlayers();

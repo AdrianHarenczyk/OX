@@ -6,14 +6,14 @@ import org.testng.annotations.Test;
 import ox.app.exceptions.WrongArgumentException;
 import ox.app.game.Player;
 import ox.app.game.Symbol;
-import ox.app.utility.RoundBuffer;
+import ox.app.utility.PlayerBuffer;
 
-public class TestRoundBuffer {
-    private static RoundBuffer buffer;
+public class TestPlayerBuffer {
+    private static PlayerBuffer buffer;
 
     @BeforeTest
     private static void initialize() throws WrongArgumentException {
-        buffer = new RoundBuffer();
+        buffer = new PlayerBuffer();
         buffer.addPlayer(new Player("Adam", Symbol.X));
         buffer.addPlayer(new Player("Eve", Symbol.O));
     }

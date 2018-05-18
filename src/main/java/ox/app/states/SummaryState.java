@@ -1,24 +1,25 @@
 package ox.app.states;
 
 import ox.app.game.ScoreBoard;
+import ox.app.io.InputOutput;
 import ox.app.languages.Messenger;
 
 import java.util.function.Consumer;
 
 public class SummaryState implements GameState {
-    private final ScoreBoard scoreBoard;
-    private final Consumer<String> output;
+    private final InputOutput inputOutput;
     private final Messenger messenger;
+    private final ScoreBoard scoreBoard;
 
-    SummaryState(ScoreBoard scoreBoard, Consumer<String> output, Messenger messenger) {
-        this.scoreBoard = scoreBoard;
-        this.output = output;
+    SummaryState(ScoreBoard scoreBoard, InputOutput inputOutput, Messenger messenger) {
+        this.inputOutput = inputOutput;
         this.messenger = messenger;
+        this.scoreBoard = scoreBoard;
     }
 
     @Override
     public void showState() {
-        scoreBoard.showTheWinner(output);
+        scoreBoard.showTheWinner(inputOutput);
         printEndingCommand();
     }
 
@@ -28,6 +29,6 @@ public class SummaryState implements GameState {
     }
 
     private void printEndingCommand() {
-        output.accept(messenger.exitAppMessage());
+        inputOutput.message(messenger.exitAppMessage());
     }
 }
