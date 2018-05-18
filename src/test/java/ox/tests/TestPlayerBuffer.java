@@ -5,17 +5,17 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import ox.app.exceptions.WrongArgumentException;
 import ox.app.game.Player;
-import ox.app.utility.RoundBuffer;
 import ox.app.game.Symbol;
+import ox.app.utility.PlayerBuffer;
 
-public class TestRoundBuffer {
-    private static RoundBuffer buffer;
+public class TestPlayerBuffer {
+    private static PlayerBuffer buffer;
 
     @BeforeTest
     private static void initialize() throws WrongArgumentException {
-        buffer = new RoundBuffer();
-        buffer.addPlayer(new Player("Adam",Symbol.X));
-        buffer.addPlayer(new Player("Eve",Symbol.O));
+        buffer = new PlayerBuffer();
+        buffer.addPlayer(new Player("Adam", Symbol.X));
+        buffer.addPlayer(new Player("Eve", Symbol.O));
     }
 
     @Test
@@ -25,8 +25,9 @@ public class TestRoundBuffer {
         buffer.swapPlayers();
         Player supposedToBeNotAdam = buffer.takePlayer();
         // Then
-        Assert.assertNotEquals(adam,supposedToBeNotAdam);
+        Assert.assertNotEquals(adam, supposedToBeNotAdam);
     }
+
     @Test
     public static void checkIfMultipleTimesTakeChangesPlayersProperly() {
         // When
@@ -34,7 +35,7 @@ public class TestRoundBuffer {
         Player eva = buffer.takePlayer();
         Player shouldBeAdamAgain = buffer.takePlayer();
         // Then
-        Assert.assertEquals(adam,shouldBeAdamAgain);
+        Assert.assertEquals(adam, shouldBeAdamAgain);
 
     }
 

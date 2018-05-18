@@ -1,44 +1,47 @@
 package ox.app.game;
 
-import ox.app.languages.InstructionDriver;
-import ox.app.utility.RoundBuffer;
+import ox.app.io.InputOutput;
+import ox.app.languages.Messenger;
+import ox.app.utility.PlayerBuffer;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Consumer;
 
 public class ScoreBoard {
-    private final Map<Player,Integer> playerPointsMap;
-    private final RoundBuffer playerBuffer;
-    private final InstructionDriver instructionDriver;
-    private static final String EMPTY_LINE ="";
+    private static final String EMPTY_LINE = "";
+    private final Map<Player, Integer> playerPointsMap;
+    private final PlayerBuffer playerBuffer;
+    private final Messenger messenger;
 
-    public ScoreBoard(RoundBuffer playerBuffer, InstructionDriver instructionDriver) {
+    public ScoreBoard(PlayerBuffer playerBuffer, Messenger messenger) {
         this.playerBuffer = playerBuffer;
         this.playerPointsMap = new HashMap<>();
-        this.instructionDriver = instructionDriver;
+        this.messenger = messenger;
     }
 
     public void addPoint(Player player, Integer points) {
         Integer pointsForPlayerBefore;
         if ((pointsForPlayerBefore = playerPointsMap.get(player)) != null) {
-            points +=pointsForPlayerBefore;
+            points += pointsForPlayerBefore;
         }
-        playerPointsMap.put(player,points);
+        playerPointsMap.put(player, points);
     }
-    public void showScoreBoard(Consumer<String> output) {
-        output.accept(EMPTY_LINE);
-        playerPointsMap.forEach((player,points) -> output.accept(player + instructionDriver.pointsMessage() + points));
-        output.accept(EMPTY_LINE);
+
+    public void showScoreBoard(InputOutput inputOutput) {
+        inputOutput.message(EMPTY_LINE);
+        playerPointsMap.forEach((player, points) -> inputOutput.message(player + messenger.pointsMessage() + points));
+        inputOutput.message(EMPTY_LINE);
     }
-    public void showTheWinner(Consumer<String> output) {
+
+    public void showTheWinner(InputOutput inputOutput) {
         Player theWinner;
-        if ((theWinner = getTheWinner() ) != null) {
-            output.accept(instructionDriver.theWinnerIsMessage() + theWinner);
+        if ((theWinner = getTheWinner()) != null) {
+            inputOutput.message(messenger.theWinnerIsMessage() + theWinner);
         } else {
-            output.accept(instructionDriver.drawMessage());
+            inputOutput.message(messenger.drawMessage());
         }
     }
+
     private Player getTheWinner() {
         Player[] players = playerBuffer.getPlayers();
         int playerOnePoints = playerPointsMap.get(players[0]);

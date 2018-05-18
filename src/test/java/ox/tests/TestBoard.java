@@ -12,7 +12,7 @@ public class TestBoard {
 
     @BeforeTest
     private static void initialize() {
-        board = Board.newBoard(3,3);
+        board = Board.newBoard(3, 3);
         size = board.size();
     }
 
@@ -22,8 +22,9 @@ public class TestBoard {
         // When
         int nine = 9;
         // Then
-        Assert.assertEquals(nine,size);
+        Assert.assertEquals(nine, size);
     }
+
     @Test
     public static void methodReturnsNullWhenGetSymbolWithNoSymbolInside() {
         // Given

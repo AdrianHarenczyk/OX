@@ -3,10 +3,10 @@ package ox.app.utility;
 import ox.app.exceptions.WrongArgumentException;
 import ox.app.game.Player;
 
-public class RoundBuffer {
+public class PlayerBuffer {
     private final Player[] players;
 
-    public RoundBuffer() {
+    public PlayerBuffer() {
         players = new Player[2];
     }
 
@@ -17,6 +17,7 @@ public class RoundBuffer {
             players[1] = player;
         } else throw new WrongArgumentException("You cannot add more than two players.");
     }
+
     public void addPlayers(Player first, Player second) throws WrongArgumentException {
         addPlayer(first);
         addPlayer(second);
@@ -25,6 +26,7 @@ public class RoundBuffer {
     public Player takePlayer() {
         return players[0];
     }
+
     public void swapPlayers() {
         Player firstPlayer = players[0];
         Player secondPlayer = players[1];
@@ -32,6 +34,7 @@ public class RoundBuffer {
         players[0] = secondPlayer;
         players[1] = firstPlayer;
     }
+
     public Player[] getPlayers() {
         return players;
     }
