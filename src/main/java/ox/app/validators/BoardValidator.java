@@ -30,6 +30,7 @@ public class BoardValidator {
     }
 
     private static int ifNumberAssign(String possibleNumber, Messenger messenger) throws WrongArgumentException {
+        possibleNumber = possibleNumber.trim();
         int actualNumber;
         if (InputIsNumberValidator.isNumber(possibleNumber) &&
                 (actualNumber = Integer.parseInt(possibleNumber)) <= MAX_BOARD_SIZE &&

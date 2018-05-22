@@ -12,7 +12,8 @@ public class CoordinateValidator {
 
     public static int validate(String value, int maxBoardNumber, Board board, Messenger messenger) throws WrongArgumentException {
         int numericValue;
-        if (value.trim().equals("") || !InputIsNumberValidator.isNumber(value)) {
+        value = value.trim();
+        if (value.equals("") || !InputIsNumberValidator.isNumber(value)) {
             throw new WrongArgumentException(messenger.wrongCoordinateError());
         } else {
             numericValue = Integer.parseInt(value);

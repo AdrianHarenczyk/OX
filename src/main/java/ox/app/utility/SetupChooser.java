@@ -10,7 +10,7 @@ public class SetupChooser {
     public static boolean check(InputOutput inputOutput, Messenger messenger) {
         for (; retryIterator > 0; retryIterator--) {
             try {
-                switch (inputOutput.input().toLowerCase()) {
+                switch (prepareInput(inputOutput)) {
                     case "custom":
                         inputOutput.message(messenger.customSettingsMessage());
                         return true;
@@ -28,5 +28,9 @@ public class SetupChooser {
         }
         inputOutput.message(messenger.defaultSettingsMessage());
         return false;
+    }
+
+    private static String prepareInput(InputOutput inputOutput) {
+        return inputOutput.input().toLowerCase().trim();
     }
 }

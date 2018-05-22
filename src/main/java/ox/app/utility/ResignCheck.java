@@ -6,11 +6,11 @@ public class ResignCheck {
     }
 
     public static boolean check(String input) {
-        return input.toLowerCase().equals("resign");
+        return input.toLowerCase().trim().equals("resign");
     }
 
     public static boolean checkAll(String input) {
-        return input.toLowerCase().equals("resign all") ||
-                input.toLowerCase().equals("resignall");
+        return input.toLowerCase().trim().equals("resign all") ||
+                input.toLowerCase().trim().equals("resignall");
     }
 }
