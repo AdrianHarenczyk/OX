@@ -33,6 +33,7 @@ public class WinningStrokeValidator {
     }
 
     private static int ifNumberAssign(String possibleNumber, Messenger messenger) throws WrongArgumentException {
+        possibleNumber = possibleNumber.trim();
         if (InputIsNumberValidator.isNumber(possibleNumber)) {
             return Integer.parseInt(possibleNumber);
         } else {
